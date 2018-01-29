@@ -17,7 +17,7 @@ namespace Irydae.Services
 
         private static JournalService instance;
 
-        private static void Initialize()
+        public static void Initialize()
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Irydae");
             if (instance == null)
@@ -32,7 +32,10 @@ namespace Irydae.Services
             string filePath = Path.Combine(instance.DataPath, "data.json");
             if (!File.Exists(filePath))
             {
-                File.Create(filePath);
+                using (FileStream fs = File.Create(filePath))
+                {
+
+                }
             }
         }
 

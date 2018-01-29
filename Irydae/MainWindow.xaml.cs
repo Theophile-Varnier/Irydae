@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Irydae.Services;
 using Irydae.ViewModels;
 
 namespace Irydae
@@ -15,12 +14,9 @@ namespace Irydae
             set { DataContext = value; }
         }
 
-        private readonly JournalService journalService;
-
-        public MainWindow(JournalService service)
+        public MainWindow()
         {
             InitializeComponent();
-            journalService = service;
         }
     }
 }

@@ -59,10 +59,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ressources\BaseConverter.cs" />
+    <Compile Include="Ressources\NullToBoolConverter.cs" />
+    <Compile Include="Ressources\NullToVisibilityConverter.cs" />
     <Compile Include="Services\JournalService.cs" />
     <Compile Include="ViewModels\AbstractPropertyChanged.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PersonnageInfoViewModel.cs" />
+    <Compile Include="Views\AddPartenaireDialog.xaml.cs">
+      <DependentUpon>AddPartenaireDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddPeriodeDialog.xaml.cs">
+      <DependentUpon>AddPeriodeDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddRpDialog.xaml.cs">
+      <DependentUpon>AddRpDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PeriodeUserControl.xaml.cs">
+      <DependentUpon>PeriodeUserControl.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -75,6 +90,26 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Ressources\StyleDictionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPartenaireDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddPeriodeDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddRpDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PeriodeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Partenaire.cs" />

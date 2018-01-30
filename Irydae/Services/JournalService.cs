@@ -69,7 +69,7 @@ namespace Irydae.Services
 
         public void UpdateDatas(string nomPersonnage, IEnumerable<Periode> datas)
         {
-            string filePath = Path.Combine(DataPath, nomPersonnage);
+            string filePath = Path.Combine(DataPath, nomPersonnage + ".json");
             File.WriteAllText(filePath, JsonConvert.SerializeObject(datas, Formatting.Indented));
         }
     }

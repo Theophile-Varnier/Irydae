@@ -7,9 +7,14 @@ namespace Irydae.Model
     [JsonObject]
     public class Rp : AbstractPropertyChanged
     {
+        public Rp()
+        {
+            Partenaires = new ObservableCollection<Partenaire>();
+        }
         [JsonProperty] 
         private string url;
 
+        [JsonIgnore]
         public string Url
         {
             get { return url; }
@@ -23,6 +28,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private string titre;
 
+        [JsonIgnore]
         public string Titre
         {
             get

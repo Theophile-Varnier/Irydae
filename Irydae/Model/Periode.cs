@@ -8,9 +8,16 @@ namespace Irydae.Model
     [JsonObject]
     public class Periode : AbstractPropertyChanged
     {
+
+        public Periode()
+        {
+            Rps = new ObservableCollection<Rp>();
+        }
+
         [JsonProperty] 
         private string lieu;
 
+        [JsonIgnore]
         public string Lieu
         {
             get { return lieu; }
@@ -24,6 +31,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private DateTime debut;
 
+        [JsonIgnore]
         public DateTime DateDebut
         {
             get
@@ -40,6 +48,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private DateTime? fin;
 
+        [JsonIgnore]
         public DateTime? DateFin
         {
             get { return fin; }

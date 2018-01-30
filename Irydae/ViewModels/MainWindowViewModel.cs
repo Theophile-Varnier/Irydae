@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Irydae.Model;
@@ -47,6 +46,11 @@ namespace Irydae.ViewModels
                     }
                     break;
             }
+        }
+
+        public void SaveDatas()
+        {
+            journalService.UpdateDatas(CurrentProfile, PersonnageInfo.Periodes);
         }
     }
 }

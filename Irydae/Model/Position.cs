@@ -9,6 +9,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private int x;
 
+        [JsonIgnore]
         public int X
         {
             get { return x; }
@@ -22,6 +23,7 @@ namespace Irydae.Model
         [JsonProperty]
         private int y;
 
+        [JsonIgnore]
         public int Y
         {
             get

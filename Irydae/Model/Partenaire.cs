@@ -9,6 +9,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private string nom;
 
+        [JsonIgnore]
         public string Nom
         {
             get { return nom; }
@@ -22,6 +23,7 @@ namespace Irydae.Model
         [JsonProperty] 
         private string groupe;
 
+        [JsonIgnore]
         public string Groupe
         {
             get { return groupe; }

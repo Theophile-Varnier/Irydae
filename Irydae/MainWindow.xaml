@@ -1,18 +1,40 @@
 ﻿<Window x:Class="Irydae.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Irydaë" Height="350" Width="525" WindowState="Maximized">
+        xmlns:ressources="clr-namespace:Irydae.Ressources"
+        xmlns:views="clr-namespace:Irydae.Views"
+        Title="Irydaë" Height="350" Width="525" WindowState="Maximized"
+        KeyDown="MainWindow_OnKeyDown">
+
+    <Window.Resources>
+        <ResourceDictionary Source="pack://application:,,,/Irydae;component/Ressources/StyleDictionary.xaml" />
+    </Window.Resources>
+
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="750"/>
             </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Vertical" Grid.Column="0">
-                <ListBox ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
-                <ListBox ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
-                <ListBox ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PeronnageInfo.SelectedPartenaire}"/>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="48"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0" Orientation="Horizontal">
+                    <Button Margin="5, 0" Click="ShowAddPeriodeDialog">Ajouter une période</Button>
+                    <Button Margin="5, 0" Click="ShowAddRpDialog" IsEnabled="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToBoolConverter}}">Ajouter un rp</Button>
+                    <Button Margin="5, 0" Click="ShowAddPartenaireDialog" IsEnabled="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToBoolConverter}}">Ajouter un partenaire</Button>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Vertical">
+                    <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
+                    <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
+                    <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PeronnageInfo.SelectedPartenaire}"/>
+                    <Grid Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}">
+                        <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}"/>
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

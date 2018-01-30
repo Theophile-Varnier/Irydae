@@ -11,6 +11,7 @@ namespace Irydae
     {
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
+            JournalService.Initialize();
             MainWindowViewModel mainWindowViewModel = new MainWindowViewModel(JournalService.Instance);
             MainWindow mainWindow = new MainWindow
             {

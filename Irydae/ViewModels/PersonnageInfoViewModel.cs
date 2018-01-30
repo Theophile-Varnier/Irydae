@@ -15,5 +15,42 @@ namespace Irydae.ViewModels
             Periodes = new ObservableCollection<Periode>();
             this.service = service;
         }
+
+        private Periode selectedPeriode;
+
+        public Periode SelectedPeriode
+        {
+            get { return selectedPeriode; }
+            set
+            {
+                selectedPeriode = value;
+                OnPropertyChanged("SelectedPeriode");
+            }
+        
+        }
+
+        private Rp selectedRp;
+
+        public Rp SelectedRp
+        {
+            get { return selectedRp; }
+            set
+            {
+                selectedRp = value;
+                OnPropertyChanged("SelectedRp");
+            }
+        }
+
+        private Partenaire selectedPartenaire;
+
+        public Partenaire SelectedPartenaire
+        {
+            get { return selectedPartenaire; }
+            set
+            {
+                selectedPartenaire = value;
+                OnPropertyChanged("SelectedPartenaire");
+            }
+        }
     }
 }

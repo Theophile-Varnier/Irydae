@@ -3,6 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Irydaë" Height="350" Width="525" WindowState="Maximized">
     <Grid>
-        
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="750"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical" Grid.Column="0">
+                <ListBox ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
+                <ListBox ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
+                <ListBox ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PeronnageInfo.SelectedPartenaire}"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

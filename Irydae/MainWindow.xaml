@@ -29,9 +29,15 @@
                 <StackPanel Grid.Row="1" Orientation="Vertical">
                     <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
                     <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
-                    <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PeronnageInfo.SelectedPartenaire}"/>
+                    <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedPartenaire}"/>
                     <Grid Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}">
                         <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}"/>
+                    </Grid>
+                    <Grid Visibility="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToVisibilityConverter}}">
+                        <views:RpUserControl DataContext="{Binding PersonnageInfo.SelectedRp}"/>
+                    </Grid>
+                    <Grid Visibility="{Binding PersonnageInfo.SelectedPartenaire, Converter={ressources:NullToVisibilityConverter}}">
+                        <views:PartenaireUserControl DataContext="{Binding PersonnageInfo.SelectedPartenaire}"/>
                     </Grid>
                 </StackPanel>
             </Grid>

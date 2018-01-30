@@ -57,7 +57,7 @@ namespace Irydae
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            ViewModel.CheckModifications();
+            e.Cancel = !ViewModel.CheckModifications();
         }
     }
 }

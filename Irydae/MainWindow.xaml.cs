@@ -57,13 +57,7 @@ namespace Irydae
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            if (ModificationStatusService.Instance.Dirty)
-            {
-                if (MessageBox.Show("Si tu quittes cette application sans avoir sauvegardé ces épuisantes modifications (Ctrl + S), le monde risque de s'effondrer et les anomalies régneront sans partage sur Irydaë. Et aussi va falloir recommencer.\n Tu es sûr que c'est ce que tu veux ?", "Attention malheureux !", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
+            ViewModel.CheckModifications();
         }
     }
 }

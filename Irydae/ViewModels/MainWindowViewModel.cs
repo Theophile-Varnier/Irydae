@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using Irydae.Model;
 using Irydae.Services;
+using WPFCustomMessageBox;
 
 namespace Irydae.ViewModels
 {
@@ -45,6 +47,18 @@ namespace Irydae.ViewModels
                         PersonnageInfo.Periodes = new ObservableCollection<Periode>(periodes);
                     }
                     break;
+            }
+        }
+
+        public void CheckModifications()
+        {
+            if (ModificationStatusService.Instance.Dirty)
+            {
+                
+                if (CustomMessageBox.ShowOKCancel("Si tu quittes cette application sans avoir sauvegardé ces épuisantes modifications (Ctrl + S), le monde risque de s'effondrer et les anomalies régneront sans partage sur Irydaë. Et aussi va falloir recommencer.\n\nTu veux que je sauvegarde pour toi (ça fera 5€) ?","Attention malheureux !", "C'est fort aimable.", "5 balles ?! Crève.") == MessageBoxResult.OK)
+                {
+                    SaveDatas();
+                }
             }
         }
 

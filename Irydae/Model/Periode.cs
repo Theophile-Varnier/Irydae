@@ -6,7 +6,7 @@ using Newtonsoft.Json;
 namespace Irydae.Model
 {
     [JsonObject]
-    public class Periode : AbstractPropertyChanged
+    public class Periode : CatchedPropertyChanged
     {
 
         public Periode()

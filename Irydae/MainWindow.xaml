@@ -4,7 +4,7 @@
         xmlns:ressources="clr-namespace:Irydae.Ressources"
         xmlns:views="clr-namespace:Irydae.Views"
         Title="Irydaë" Height="350" Width="525" WindowState="Maximized"
-        KeyDown="MainWindow_OnKeyDown">
+        KeyDown="MainWindow_OnKeyDown" Closing="MainWindow_OnClosing">
 
     <Window.Resources>
         <ResourceDictionary Source="pack://application:,,,/Irydae;component/Ressources/StyleDictionary.xaml" />

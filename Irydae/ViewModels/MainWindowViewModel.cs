@@ -51,6 +51,7 @@ namespace Irydae.ViewModels
         public void SaveDatas()
         {
             journalService.UpdateDatas(CurrentProfile, PersonnageInfo.Periodes);
+            ModificationStatusService.Instance.Dirty = false;
         }
     }
 }

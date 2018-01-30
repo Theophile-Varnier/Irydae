@@ -63,7 +63,9 @@
     <Compile Include="Ressources\NullToBoolConverter.cs" />
     <Compile Include="Ressources\NullToVisibilityConverter.cs" />
     <Compile Include="Services\JournalService.cs" />
+    <Compile Include="Services\ModificationStatusService.cs" />
     <Compile Include="ViewModels\AbstractPropertyChanged.cs" />
+    <Compile Include="ViewModels\CatchedPropertyChanged.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PersonnageInfoViewModel.cs" />
     <Compile Include="Views\AddPartenaireDialog.xaml.cs">

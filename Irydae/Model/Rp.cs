@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace Irydae.Model
 {
     [JsonObject]
-    public class Rp : AbstractPropertyChanged
+    public class Rp : CatchedPropertyChanged
     {
         public Rp()
         {

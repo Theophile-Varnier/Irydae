@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 namespace Irydae.Model
 {
     [JsonObject]
-    public class Partenaire : AbstractPropertyChanged
+    public class Partenaire : CatchedPropertyChanged
     {
         [JsonProperty] 
         private string nom;

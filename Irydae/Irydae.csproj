@@ -39,6 +39,9 @@
       <HintPath>..\packages\HtmlAgilityPack.1.6.15\lib\Net45\HtmlAgilityPack.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -80,7 +83,6 @@
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\PersonnageInfoViewModel.cs" />
     <Compile Include="ViewModels\ProfilViewModel.cs" />
-    <Compile Include="ViewModels\ResultViewModel.cs" />
     <Compile Include="Views\AddPartenaireDialog.xaml.cs">
       <DependentUpon>AddPartenaireDialog.xaml</DependentUpon>
     </Compile>
@@ -98,9 +100,6 @@
     </Compile>
     <Compile Include="Views\PeriodeUserControl.xaml.cs">
       <DependentUpon>PeriodeUserControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ResultDisplay.xaml.cs">
-      <DependentUpon>ResultDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RpUserControl.xaml.cs">
       <DependentUpon>RpUserControl.xaml</DependentUpon>
@@ -142,10 +141,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PeriodeUserControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\ResultDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

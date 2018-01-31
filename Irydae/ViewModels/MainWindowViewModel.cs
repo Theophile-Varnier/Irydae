@@ -9,6 +9,7 @@ using Irydae.Model;
 using Irydae.Services;
 using Irydae.Views;
 using WPFCustomMessageBox;
+using System;
 
 namespace Irydae.ViewModels
 {
@@ -27,6 +28,8 @@ namespace Irydae.ViewModels
         public ICommand SaveDataCommand { get; private set; }
 
         public ICommand GenerateHtmlCommand { get; private set; }
+
+        public ICommand DisplayResultCommand { get; private set; }
 
         public ProfilViewModel CurrentProfile
         {
@@ -78,6 +81,7 @@ namespace Irydae.ViewModels
             CreateProfilCommand = new RelayCommand(CreateProfil);
             SaveDataCommand = new RelayCommand(SaveDatas);
             GenerateHtmlCommand = new RelayCommand(GenerateHtml);
+            DisplayResultCommand = new RelayCommand(GenerateHtml);
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -172,11 +176,13 @@ namespace Irydae.ViewModels
             SaveDatas();
             var htmlWriter = new HtmlWriterService();
             var htmlResult = htmlWriter.GenerateHtml(PersonnageInfo.Periodes);
-            ResultDisplay displayer = new ResultDisplay
-            {
-                DataContext = htmlResult
-            };
-            displayer.ShowDialog();
+            OpenBrowser();
+        }
+
+        private void OpenBrowser()
+        {
+            var uri = string.Format(@"file:///{0}{1}", AppDomain.CurrentDomain.BaseDirectory, System.IO.Path.Combine("Web", "result.html"));
+            System.Diagnostics.Process.Start(uri);
         }
 
         public void SaveDatas()

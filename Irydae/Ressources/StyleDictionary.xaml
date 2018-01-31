@@ -19,7 +19,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBox">
-                    <Grid Margin="10">
+                    <Grid Margin="5">
                         <!-- 2 borders pour éviter d'étirer le dégradé quand la listbox s'agrandit -->
                         <Border Style="{StaticResource ListBorder}" CornerRadius="0,0,6,6" BorderThickness="1,1,1,1" Background="White" />
 

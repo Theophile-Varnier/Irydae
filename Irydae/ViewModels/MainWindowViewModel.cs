@@ -24,6 +24,8 @@ namespace Irydae.ViewModels
 
         public ICommand CreateProfilCommand { get; private set; }
 
+        public ICommand SaveProfilCommand { get; private set; }
+
         public ProfilViewModel CurrentProfile
         {
             get { return currentProfile; }
@@ -72,6 +74,7 @@ namespace Irydae.ViewModels
             journalService = service;
             PersonnageInfo = new PersonnageInfoViewModel(service);
             CreateProfilCommand = new RelayCommand(CreateProfil);
+            SaveProfilCommand = new RelayCommand(SaveDatas);
             PropertyChanged += OnPropertyChanged;
         }
 

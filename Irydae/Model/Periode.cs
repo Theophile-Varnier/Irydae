@@ -59,6 +59,20 @@ namespace Irydae.Model
             }
         }
 
+        [JsonProperty] 
+        private Position position;
+
+        [JsonIgnore]
+        public Position Position
+        {
+            get { return position; }
+            set
+            {
+                position = value;
+                OnPropertyChanged("Position");
+            }
+        }
+
         [JsonProperty("rps")]
         public ObservableCollection<Rp> Rps { get; set; }
     }

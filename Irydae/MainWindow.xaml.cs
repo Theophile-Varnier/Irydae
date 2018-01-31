@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using Irydae.Services;
 using Irydae.ViewModels;
 using Irydae.Views;
 
@@ -17,6 +17,9 @@ namespace Irydae
             get { return DataContext as MainWindowViewModel; }
             set { DataContext = value; }
         }
+
+        private bool dragging;
+        private double initX, initY;
 
         public MainWindow()
         {
@@ -57,7 +60,37 @@ namespace Irydae
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)
         {
-            e.Cancel = !ViewModel.CheckModifications();
+            e.Cancel = !ViewModel.CheckModifications(false);
+        }
+
+        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Init();
+        }
+
+        private void Canvas_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            UIElement ellipse = (UIElement) sender;
+            dragging = true;
+            Mouse.Capture(ellipse);
+            initX = Canvas.GetLeft(ellipse);
+            initY = Canvas.GetTop(ellipse);
+        }
+
+        private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Mouse.Capture(null);
+            dragging = false;
+        }
+
+        private void UIElement_OnMouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point position = e.GetPosition(CanvasMap);
+                ViewModel.PersonnageInfo.SelectedPeriode.Position.X = (int)position.X - 11;
+                ViewModel.PersonnageInfo.SelectedPeriode.Position.Y = (int) position.Y - 11;
+            }
         }
     }
 }

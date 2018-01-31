@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Irydae.Model;
 using Newtonsoft.Json;
 
@@ -29,14 +30,11 @@ namespace Irydae.Services
                 Directory.CreateDirectory(path);
             }
             instance.DataPath = path;
-            string filePath = Path.Combine(instance.DataPath, "data.json");
-            if (!File.Exists(filePath))
-            {
-                using (FileStream fs = File.Create(filePath))
-                {
+        }
 
-                }
-            }
+        public IEnumerable<string> GetExistingProfils()
+        {
+            return Directory.GetFiles(DataPath).Select(Path.GetFileNameWithoutExtension);
         }
 
         public static JournalService Instance
@@ -53,7 +51,7 @@ namespace Irydae.Services
 
         public IEnumerable<Periode> ParseDatas(string nomProfile)
         {
-            List<Periode> res = null;
+            List<Periode> res = new List<Periode>();
 
             string filePath = Path.Combine(DataPath, nomProfile + ".json");
             if (File.Exists(filePath))
@@ -63,6 +61,11 @@ namespace Irydae.Services
                     string periodes = sr.ReadToEnd();
                     res = JsonConvert.DeserializeObject<List<Periode>>(periodes);
                 }
+            }
+            else
+            {
+                using (File.Create(filePath))
+                { }
             }
             return res;
         }

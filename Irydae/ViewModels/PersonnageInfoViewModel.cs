@@ -26,7 +26,6 @@ namespace Irydae.ViewModels
                 selectedPeriode = value;
                 OnPropertyChanged("SelectedPeriode");
             }
-        
         }
 
         private Rp selectedRp;

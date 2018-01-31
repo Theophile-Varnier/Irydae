@@ -9,6 +9,7 @@
         <Grid.Resources>
             <Style TargetType="TextBox">
                 <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="150"/>
             </Style>
             <Style TargetType="Button">
                 <Setter Property="Margin" Value="5"/>
@@ -19,37 +20,26 @@
             </Style>
             <Style TargetType="DatePicker">
                 <Setter Property="Margin" Value="5"/>
+                <Setter Property="Width" Value="150"/>
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <StackPanel Orientation="Vertical">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label HorizontalContentAlignment="Right" Content="Lieu : "/>
-                <TextBox Grid.Column="1" Name="LieuInput" Text="{Binding Lieu}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <Label HorizontalContentAlignment="Right" Content="Date de début : "/>
-                <DatePicker Grid.Column="1" Name="StartDatePicker" SelectedDate="{Binding DateDebut}" DisplayDate="{Binding DateDebut}" DisplayDateStart="{Binding DateDebut}"/>
-            </Grid>
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Label HorizontalContentAlignment="Right" Content="Date de fin : "/>
-                <DatePicker Grid.Column="1" Name="EndDatePicker" SelectedDate="{Binding DateFin}" DisplayDate="{Binding DateFin}" DisplayDateStart="{Binding DateFin}"/>
-            </Grid>
+            <Label HorizontalContentAlignment="Right" Content="Lieu : "/>
+            <Label HorizontalContentAlignment="Right" Content="Date de début : "/>
+            <Label HorizontalContentAlignment="Right" Content="Date de fin : "/>
+        </StackPanel>
+        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+            <TextBox Grid.Column="1" Name="LieuInput" Text="{Binding Lieu}"/>
+            <DatePicker Grid.Column="1" Name="StartDatePicker" SelectedDate="{Binding DateDebut}" DisplayDate="{Binding DateDebut}" DisplayDateStart="{Binding DateDebut}"/>
+            <DatePicker Grid.Column="1" Name="EndDatePicker" SelectedDate="{Binding DateFin}" DisplayDate="{Binding DateFin}" DisplayDateStart="{Binding DateFin}"/>
         </StackPanel>
     </Grid>
 </UserControl>

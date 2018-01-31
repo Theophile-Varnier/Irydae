@@ -19,7 +19,14 @@ namespace Irydae.Views
         public AddPeriodeDialog()
         {
             InitializeComponent();
-            Periode = new Periode();
+            Periode = new Periode
+            {
+                Position = new Position
+                {
+                    X = 42,
+                    Y = 42
+                }
+            };
         }
 
         private void Cancel(object sender, RoutedEventArgs e)

@@ -1,0 +1,192 @@
+  .back input{ 
+  visibility: hidden; 
+  position: absolute;
+}
+  .panel-body-wrapper{
+    padding: 15px;
+    height: 120px;
+    overflow-y: auto;
+  }
+  
+  input[type="radio"]:checked ~ div.panel-body {
+    border: 1px solid white;
+    border-top: none;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    transform: scaleY(1);
+    background-color:black;
+    color:white;
+    opacity: 1;
+  }
+
+  input[type="radio"]:checked ~ div.panel-header{
+    border: 1px solid white;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-color:black;
+    color:white;
+    opacity: 1;
+  }
+  
+  .text-center {
+    text-align: center;
+  }
+
+  .full-wrapper{
+    position: relative;
+    overflow: hidden;
+    width: 650px;
+    height: 650px;
+  }
+
+  .full-wrapper img{
+    position: absolute;
+    top: 0;
+    left:0;
+    width: 650px;
+  }
+
+  .tri-head{
+      margin:5px;
+  }
+
+  .graph{
+      position: relative;
+  }
+
+  .graph-wrapper{
+    position:absolute;
+      display:inline-block;
+      transition: transform 0.25s ease;
+      /*transform: translateX(-800px);*/
+      left:0;
+  }
+
+  input[type="radio"]:checked ~ label + div.graph-wrapper{
+      transform: translateX(800px);
+  }
+
+  input[type="radio"]:checked + label + div.graph-wrapper{
+      transform: translateX(0);
+  }
+
+  input[type="radio"] + label:hover{
+    font-weight: bolder;
+    cursor: pointer;
+  }
+
+  input[type="radio"]:checked + label{
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .rp{
+      width:10px;
+      height:10px;
+      border-radius: 50%;
+      border: 2px solid white;
+      position: absolute;
+  }
+  .rp.progress{
+      background-color: orange;
+  }
+
+  .back{
+    padding:15px;
+    border-radius: 30px;
+    border: 1px solid black;
+    width:650px;
+  }
+
+  .rp.finished{
+      background-color: green;
+  }
+
+  .tooltip{
+    color: #EEEEEE;
+    width: 200px;
+    border-radius: 20px;
+    background: rgba(0,0,0,0.7);
+    border: 2px solid #ffd700;
+    z-index: 1000;
+    transform: scaleY(0);
+    transition: transform 0.25s ease;
+    transform-origin: 50% 0;
+    top:20px;
+    left:8px;
+    position: absolute;
+    overflow-y: hidden;
+  }
+
+  .tooltip .titreun{
+    width:auto;
+    height: auto;
+  }
+
+  .tooltip a{
+    color: inherit;
+    text-decoration: none !important;
+  }
+
+  .lieu{
+    padding: 0 5px;
+  }
+
+  .bottom-border{
+    border-bottom: 1px solid white;
+  }
+
+  .panel-title{
+    padding: 5px;
+  }
+
+  .daenar{
+    color: #ccae50;
+  }
+
+  .mytran{
+    color: #4B9C36;
+  }
+
+  .anomalie{
+    color: #757575;
+  }
+
+  .peregrin{
+    color: #7c5193;
+  }
+
+  .regisseur{
+    color: #8f3131;
+  }
+
+  .architecte{
+    color: #fff;
+  }
+
+  .pnj{
+    color: #00ccff; 
+  }
+
+  .rp:hover .tooltip{
+      transform: scaleY(1);
+  }
+
+  circle:hover .tooltip{
+    transform: scaleY(1);
+  }
+
+  .legend{
+    margin-left: 50px;
+    padding: 10px;
+    max-width: 150px;
+    border-radius: 4px;
+    border: 1px solid black;
+    background-color: white;
+  }
+
+  .legend .rp{
+    width: 10px;
+    height: 10px;
+    position: initial;
+  }

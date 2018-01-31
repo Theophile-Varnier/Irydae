@@ -24,6 +24,10 @@ namespace Irydae.ViewModels
 
         public ICommand CreateProfilCommand { get; private set; }
 
+        public ICommand SaveDataCommand { get; private set; }
+
+        public ICommand GenerateHtmlCommand { get; private set; }
+
         public ProfilViewModel CurrentProfile
         {
             get { return currentProfile; }
@@ -72,6 +76,8 @@ namespace Irydae.ViewModels
             journalService = service;
             PersonnageInfo = new PersonnageInfoViewModel(service);
             CreateProfilCommand = new RelayCommand(CreateProfil);
+            SaveDataCommand = new RelayCommand(SaveDatas);
+            GenerateHtmlCommand = new RelayCommand(GenerateHtml);
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -159,6 +165,18 @@ namespace Irydae.ViewModels
                 }
             }
             return true;
+        }
+
+        public void GenerateHtml()
+        {
+            SaveDatas();
+            var htmlWriter = new HtmlWriterService();
+            var htmlResult = htmlWriter.GenerateHtml(PersonnageInfo.Periodes);
+            ResultDisplay displayer = new ResultDisplay
+            {
+                DataContext = htmlResult
+            };
+            displayer.ShowDialog();
         }
 
         public void SaveDatas()

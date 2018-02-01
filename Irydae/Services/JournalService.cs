@@ -14,7 +14,7 @@ namespace Irydae.Services
             
         }
 
-        public string DataPath { get; private set; }
+        public static string DataPath { get; private set; }
 
         private static JournalService instance;
 
@@ -29,7 +29,11 @@ namespace Irydae.Services
             {
                 Directory.CreateDirectory(path);
             }
-            instance.DataPath = path;
+            if(!Directory.Exists(Path.Combine(path, "Web")))
+            {
+                Directory.CreateDirectory(Path.Combine(path, "Web"));
+            }
+            DataPath = path;
         }
 
         public IEnumerable<string> GetExistingProfils()

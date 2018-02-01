@@ -8,16 +8,13 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="pack://application:,,,/Irydae;component/Ressources/StyleDictionary.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <CollectionViewSource x:Key="ProfilsCollection" Source="{Binding Profils}"/>
         </ResourceDictionary>
     </Window.Resources>
 
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_Profil">
+            <MenuItem Header="_Personnage">
                 <MenuItem.ItemsSource>
                     <CompositeCollection>
                         <CollectionContainer Collection="{Binding Source={StaticResource ProfilsCollection}}"/>
@@ -53,20 +50,22 @@
                         <Button Margin="5, 0" Click="ShowAddRpDialog" IsEnabled="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToBoolConverter}}">Ajouter un rp</Button>
                         <Button Margin="5, 0" Click="ShowAddPartenaireDialog" IsEnabled="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToBoolConverter}}">Ajouter un partenaire</Button>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Orientation="Vertical">
-                        <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
-                        <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
-                        <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedPartenaire}"/>
-                        <Grid Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}">
-                            <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}"/>
-                        </Grid>
-                        <Grid Visibility="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToVisibilityConverter}}">
-                            <views:RpUserControl DataContext="{Binding PersonnageInfo.SelectedRp}"/>
-                        </Grid>
-                        <Grid Visibility="{Binding PersonnageInfo.SelectedPartenaire, Converter={ressources:NullToVisibilityConverter}}">
-                            <views:PartenaireUserControl DataContext="{Binding PersonnageInfo.SelectedPartenaire}"/>
-                        </Grid>
-                    </StackPanel>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                        <StackPanel Grid.Row="1" Orientation="Vertical">
+                            <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.Periodes}" SelectedItem="{Binding PersonnageInfo.SelectedPeriode}" DisplayMemberPath="Lieu"/>
+                            <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
+                            <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedPartenaire}"/>
+                            <Grid Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}">
+                                <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}"/>
+                            </Grid>
+                            <Grid Visibility="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToVisibilityConverter}}">
+                                <views:RpUserControl DataContext="{Binding PersonnageInfo.SelectedRp}"/>
+                            </Grid>
+                            <Grid Visibility="{Binding PersonnageInfo.SelectedPartenaire, Converter={ressources:NullToVisibilityConverter}}">
+                                <views:PartenaireUserControl DataContext="{Binding PersonnageInfo.SelectedPartenaire}"/>
+                            </Grid>
+                        </StackPanel>
+                    </ScrollViewer>
                     <Border Grid.Row="2" BorderBrush="Black" Margin="0 10 0 0" BorderThickness="0 1 0 0">
                         <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
                             <StackPanel.Resources>
@@ -83,22 +82,24 @@
                     </Border>
                 </Grid>
             </Border>
-            <Grid Grid.Column="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Canvas Grid.Column="1" Grid.Row="1" Width="650" Height="650" Name="CanvasMap">
-                    <Image Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0"/>
-                    <Ellipse MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" MouseMove="UIElement_OnMouseMove" Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}" Width="20" Height="20" Fill="Black" Stroke="White" StrokeThickness="1" Canvas.Top="{Binding PersonnageInfo.SelectedPeriode.Position.Y}" Canvas.Left="{Binding PersonnageInfo.SelectedPeriode.Position.X}"/>
-                </Canvas>
-            </Grid>
+            <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Canvas Grid.Column="1" Grid.Row="1" Width="650" Height="650" Name="CanvasMap">
+                        <Image Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0"/>
+                        <Ellipse MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" MouseMove="UIElement_OnMouseMove" Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}" Width="20" Height="20" Fill="Black" Stroke="White" StrokeThickness="1" Canvas.Top="{Binding PersonnageInfo.SelectedPeriode.Position.Y}" Canvas.Left="{Binding PersonnageInfo.SelectedPeriode.Position.X}"/>
+                    </Canvas>
+                </Grid>
+            </ScrollViewer>
         </Grid>
     </DockPanel>
 </Window>

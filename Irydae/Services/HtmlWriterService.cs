@@ -19,7 +19,7 @@ namespace Irydae.Services
             svg.SetAttributeValue("height", "650");
             graphContainer.AppendChild(svg);
             Periode lastPeriode = null;
-            foreach (var periode in periodes)
+            foreach (var periode in periodes.OrderBy(p => p.DateDebut))
             {
                 graphContainer.AppendChild(GenerateEntry(doc, periode));
                 if(lastPeriode != null)
@@ -28,8 +28,11 @@ namespace Irydae.Services
                 }
                 lastPeriode = periode;
             }
-            doc.Save(Path.Combine("Web", "result.html"));
-            return graphContainer.ParentNode.ParentNode.ParentNode.OuterHtml;
+            doc.Save(Path.Combine(JournalService.DataPath, "Web", "result.html"));
+            var cssLink = doc.CreateElement("link");
+            cssLink.SetAttributeValue("rel", "stylesheet");
+            cssLink.SetAttributeValue("href", @"https://cdn.rawgit.com/Theophile-Varnier/Rp/1f25c820/Irydae/carnet/style.css");
+            return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.ParentNode.ParentNode.OuterHtml);
         }
 
         private HtmlNode GenerateLine(HtmlDocument doc, Periode previous, Periode current)

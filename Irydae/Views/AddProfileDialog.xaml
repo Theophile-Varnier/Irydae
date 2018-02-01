@@ -1,7 +1,7 @@
 ﻿<Window x:Class="Irydae.Views.AddProfileDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Ajouter un profil"
+        Title="Ajouter un personnage"
         Height="190"
         MinHeight="10"
         MinWidth="300"

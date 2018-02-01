@@ -28,6 +28,29 @@ namespace Irydae.ViewModels
             }
         }
 
+        public void TryDelete()
+        {
+            if(SelectedPeriode != null)
+            {
+                ModificationStatusService.Instance.Dirty = true;
+            }
+            if (SelectedPartenaire != null)
+            {
+                SelectedRp.Partenaires.Remove(SelectedPartenaire);
+                SelectedPartenaire = null;
+            }
+            else if (SelectedRp != null)
+            {
+                SelectedPeriode.Rps.Remove(SelectedRp);
+                SelectedRp = null;
+            }
+            else if (SelectedPeriode != null)
+            {
+                Periodes.Remove(SelectedPeriode);
+                SelectedPeriode = null;
+            }
+        }
+
         private Rp selectedRp;
 
         public Rp SelectedRp

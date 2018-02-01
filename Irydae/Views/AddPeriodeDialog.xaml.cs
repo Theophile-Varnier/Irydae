@@ -40,7 +40,12 @@ namespace Irydae.Views
             {
                 Lieu = LieuInput.Text,
                 DateDebut = StartDatePicker.SelectedDate ?? new DateTime(933,1,1),
-                DateFin = EndDatePicker.SelectedDate
+                DateFin = EndDatePicker.SelectedDate,
+                Position = new Position
+                {
+                    X = 42,
+                    Y = 42
+                }
             };
             ViewModel.Periodes.Add(periode);
             ViewModel.SelectedPeriode = periode;

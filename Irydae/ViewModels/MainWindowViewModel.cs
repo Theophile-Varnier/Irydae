@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Windows;
-using System.Windows.Input;
-using Irydae.Helpers;
+﻿using Irydae.Helpers;
 using Irydae.Model;
 using Irydae.Services;
 using Irydae.Views;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Input;
 using WPFCustomMessageBox;
-using System;
 
 namespace Irydae.ViewModels
 {
@@ -61,6 +61,7 @@ namespace Irydae.ViewModels
             AddProfileDialog dialog = new AddProfileDialog
             {
                 DataContext = newProfil,
+                Owner = Application.Current.MainWindow
             };
             var resDialog = dialog.ShowDialog();
             if (resDialog.HasValue && resDialog.Value)
@@ -80,8 +81,8 @@ namespace Irydae.ViewModels
             PersonnageInfo = new PersonnageInfoViewModel(service);
             CreateProfilCommand = new RelayCommand(CreateProfil);
             SaveDataCommand = new RelayCommand(SaveDatas);
-            GenerateHtmlCommand = new RelayCommand(GenerateHtml);
-            DisplayResultCommand = new RelayCommand(GenerateHtml);
+            GenerateHtmlCommand = new RelayCommand(GenerateAndPreview);
+            DisplayResultCommand = new RelayCommand(GenerateAndOpen);
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -129,7 +130,7 @@ namespace Irydae.ViewModels
             if (ModificationStatusService.Instance.Dirty)
             {
                 ModificationStatusService.Instance.Dirty = false;
-                MessageBoxResult messageResult = CustomMessageBox.ShowYesNoCancel("Si tu quittes sans avoir sauvegardé ces épuisantes modifications (Ctrl + S), le monde risque de s'effondrer et les anomalies régneront sans partage sur Irydaë. Et aussi va falloir recommencer.\n\nTu veux que je sauvegarde pour toi (ça fera 5€) ?", "Attention malheureux !", "C'est fort aimable.", "5 balles ?! Crève.", "Tout bien réfléchi...");
+                MessageBoxResult messageResult = YesNoCancelDialogViewModel.ShowDialog("Si tu quittes sans avoir sauvegardé ces épuisantes modifications (Ctrl + S), le monde risque de s'effondrer et les anomalies régneront sans partage sur Irydaë. Et aussi va falloir recommencer.\n\nTu veux que je sauvegarde pour toi (ça fera 5€) ?", "Attention malheureux !", "C'est fort aimable.", "5 balles ?! Crève.", "Tout bien réfléchi...");
                 switch (messageResult)
                 {
                     case MessageBoxResult.Yes:
@@ -140,14 +141,14 @@ namespace Irydae.ViewModels
                         {
                             return false;
                         }
-                        MessageBoxResult innerResult = CustomMessageBox.ShowYesNoCancel("Et pour 2€ ?", "Allez s'teup !", "Ok, ok, sauvegarde.", "Non mais vraiment.", "Attends, j'ai oublié un truc.");
+                        MessageBoxResult innerResult = YesNoCancelDialogViewModel.ShowDialog("Et pour 2€ ?", "Allez s'teup !", "Ok, ok, sauvegarde.", "Non mais vraiment.", "Attends, j'ai oublié un truc.");
                         switch (innerResult)
                         {
                             case MessageBoxResult.Yes:
                                 SaveDatas();
                                 return true;
                             case MessageBoxResult.No:
-                                MessageBoxResult innerInnerResult = CustomMessageBox.ShowYesNoCancel("Allez, comme c'est toi je le fais gratuitement.", "Comme ça radine !", "Ah bah quand même.", "En fait je voulais vraiment pas sauvegarder.", "Ca m'a fait penser à un truc.");
+                                MessageBoxResult innerInnerResult = YesNoCancelDialogViewModel.ShowDialog("Allez, comme c'est toi je le fais gratuitement.", "Comme ça radine !", "Ah bah quand même.", "En fait je voulais vraiment pas sauvegarder.", "Ca m'a fait penser à un truc.");
                                 switch (innerInnerResult)
                                 {
                                     case MessageBoxResult.Yes:
@@ -171,17 +172,34 @@ namespace Irydae.ViewModels
             return true;
         }
 
-        public void GenerateHtml()
+        public string GenerateHtml()
         {
             SaveDatas();
             var htmlWriter = new HtmlWriterService();
-            var htmlResult = htmlWriter.GenerateHtml(PersonnageInfo.Periodes);
+            return htmlWriter.GenerateHtml(PersonnageInfo.Periodes);
+        }
+
+        private void GenerateAndOpen()
+        {
+            var html = GenerateHtml();
+            ResultDisplayDialog dialog = new ResultDisplayDialog
+            {
+                DataContext = html,
+                Owner = Application.Current.MainWindow
+            };
+            dialog.ShowDialog();
+        }
+
+        private void GenerateAndPreview()
+        {
+            GenerateHtml();
             OpenBrowser();
         }
 
         private void OpenBrowser()
         {
-            var uri = string.Format(@"file:///{0}{1}", AppDomain.CurrentDomain.BaseDirectory, System.IO.Path.Combine("Web", "result.html"));
+            //var uri = string.Format("file:///{0}{1}", HttpUtility.UrlEncode(AppDomain.CurrentDomain.BaseDirectory), System.IO.Path.Combine("Web", "result.html"));
+            var uri = Path.Combine(JournalService.DataPath, "Web", "result.html");
             System.Diagnostics.Process.Start(uri);
         }
 

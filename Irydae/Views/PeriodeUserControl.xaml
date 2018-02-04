@@ -29,8 +29,8 @@
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                 <TextBox Grid.Column="1" Name="LieuInput" Text="{Binding Lieu}"/>
-                <DatePicker Grid.Column="1" Name="StartDatePicker" SelectedDate="{Binding DateDebut}" DisplayDate="{Binding DateDebut}" DisplayDateStart="{Binding DateDebut}"/>
-                <DatePicker Grid.Column="1" Name="EndDatePicker" SelectedDate="{Binding DateFin}" DisplayDate="{Binding DateFin}" DisplayDateStart="{Binding DateFin}"/>
+                <DatePicker Grid.Column="1" Name="StartDatePicker" SelectedDate="{Binding DateDebut}" DisplayDate="{Binding DateDebut}"/>
+                <DatePicker Grid.Column="1" Name="EndDatePicker" SelectedDate="{Binding DateFin}" DisplayDate="{Binding DateFin}" />
             </StackPanel>
         </Grid>
     </GroupBox>

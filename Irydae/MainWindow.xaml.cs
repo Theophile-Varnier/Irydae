@@ -56,6 +56,10 @@ namespace Irydae
             {
                 ViewModel.SaveDatas();
             }
+            if(e.Key == Key.Delete)
+            {
+                ViewModel.PersonnageInfo.TryDelete();
+            }
         }
 
         private void MainWindow_OnClosing(object sender, CancelEventArgs e)

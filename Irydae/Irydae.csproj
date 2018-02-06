@@ -119,6 +119,9 @@
     <Compile Include="Views\AddRpDialog.xaml.cs">
       <DependentUpon>AddRpDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OptionDialog.xaml.cs">
+      <DependentUpon>OptionDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PartenaireUserControl.xaml.cs">
       <DependentUpon>PartenaireUserControl.xaml</DependentUpon>
     </Compile>
@@ -163,6 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddRpDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OptionDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

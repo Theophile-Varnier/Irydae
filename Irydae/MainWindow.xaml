@@ -31,6 +31,9 @@
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
+            <MenuItem Header="_Outils">
+                <MenuItem Header="_Options" Command="{Binding DisplayOptionDialogCommand}"/>
+            </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>

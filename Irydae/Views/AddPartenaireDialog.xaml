@@ -10,14 +10,8 @@
         WindowStartupLocation="CenterOwner" 
         FocusManager.FocusedElement="{Binding ElementName=NameInput}">
     <Border Padding="10">
-    <Grid>
-        <Grid.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Padding" Value="5"/>
-            </Style>
-        </Grid.Resources>
-        <Grid.RowDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>

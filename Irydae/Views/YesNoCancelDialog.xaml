@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Irydae.Views"
         mc:Ignorable="d"
         ResizeMode="NoResize"
         ShowInTaskbar="False"
@@ -13,26 +12,18 @@
         Height="300" Width="300"
         DataContextChanged="Window_DataContextChanged">
     <Grid>
-        <Grid>
-            <Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="Padding" Value="5"/>
-                </Style>
-            </Grid.Resources>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <Border Padding="10">
-                <TextBlock Text="{Binding ModalContent}"/>
-            </Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border Padding="10">
+            <TextBlock Text="{Binding ModalContent}"/>
+        </Border>
 
-            <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                <Button Click="YesButton_Click" Name="YesButton" IsDefault="True" Content="{Binding YesMessage}"/>
-                <Button Name="NoButton" Click="NoButton_Click" Content="{Binding NoMessage}" />
-                <Button Name="CancelButton" IsCancel="True" Click="CancelButton_Click" Content="{Binding CancelMessage}" />
-            </StackPanel>
-        </Grid>
+        <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+            <Button Click="YesButton_Click" Name="YesButton" IsDefault="True" Content="{Binding YesMessage}"/>
+            <Button Name="NoButton" Click="NoButton_Click" Content="{Binding NoMessage}" />
+            <Button Name="CancelButton" IsCancel="True" Click="CancelButton_Click" Content="{Binding CancelMessage}" />
+        </StackPanel>
     </Grid>
 </Window>

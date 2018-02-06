@@ -21,11 +21,6 @@ namespace Irydae.Views
             InitializeComponent();
         }
 
-        private void Cancel(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
         private void AddPeriode()
         {
             Periode periode = new Periode

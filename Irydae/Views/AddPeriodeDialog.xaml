@@ -12,12 +12,6 @@
         FocusManager.FocusedElement="{Binding ElementName=LieuInput}">
     <Border Padding="10">
         <Grid>
-            <Grid.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="5"/>
-                    <Setter Property="Padding" Value="5"/>
-                </Style>
-            </Grid.Resources>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -37,7 +31,7 @@
                 <DatePicker Name="EndDatePicker" DisplayDate="1/1/933"/>
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-                <Button Click="Cancel" Name="CancelButton" IsCancel="True">Annuler</Button>
+                <Button Name="CancelButton" IsCancel="True">Annuler</Button>
                 <Button Name="AddAnotherButton" Click="AddAndContinue">Ajouter un autre</Button>
                 <Button Name="AddAndAddRp" Click="AddAndOpenRpDialog">Ajouter et créer un Rp</Button>
                 <Button Name="AddButton" IsDefault="True" Click="AddAndClose">OK</Button>

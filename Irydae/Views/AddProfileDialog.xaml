@@ -11,12 +11,6 @@
         WindowStartupLocation="CenterOwner" 
         FocusManager.FocusedElement="{Binding ElementName=NameInput}">
     <Grid>
-        <Grid.Resources>
-            <Style TargetType="Button">
-                <Setter Property="Margin" Value="5"/>
-                <Setter Property="Padding" Value="5"/>
-            </Style>
-        </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>

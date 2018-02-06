@@ -30,6 +30,8 @@ namespace Irydae.ViewModels
 
         public ICommand DisplayResultCommand { get; private set; }
 
+        public ICommand DisplayOptionDialogCommand { get; private set; }
+
         public ProfilViewModel CurrentProfile
         {
             get { return currentProfile; }
@@ -82,6 +84,7 @@ namespace Irydae.ViewModels
             SaveDataCommand = new RelayCommand(SaveDatas);
             GenerateHtmlCommand = new RelayCommand(GenerateAndPreview);
             DisplayResultCommand = new RelayCommand(GenerateAndOpen);
+            DisplayOptionDialogCommand = new RelayCommand(OpenOptionDialog);
             PropertyChanged += OnPropertyChanged;
         }
 
@@ -205,6 +208,25 @@ namespace Irydae.ViewModels
         {
             journalService.UpdateDatas(CurrentProfile.Header, PersonnageInfo.Periodes);
             ModificationStatusService.Instance.Dirty = false;
+        }
+
+        private void OpenOptionDialog()
+        {
+            Options options = new Options();
+            OptionDialog dialog = new OptionDialog
+            {
+                Owner = Application.Current.MainWindow,
+                DataContext = options
+            };
+            bool? dialogResult = dialog.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+
+            }
+            else
+            {
+                
+            }
         }
     }
 }

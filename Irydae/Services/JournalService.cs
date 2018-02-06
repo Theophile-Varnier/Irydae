@@ -11,7 +11,7 @@ namespace Irydae.Services
     {
         private JournalService()
         {
-            
+
         }
 
         public static string DataPath { get; private set; }
@@ -29,9 +29,13 @@ namespace Irydae.Services
             {
                 Directory.CreateDirectory(path);
             }
-            if(!Directory.Exists(Path.Combine(path, "Web")))
+            if (!Directory.Exists(Path.Combine(path, "Web")))
             {
                 Directory.CreateDirectory(Path.Combine(path, "Web"));
+            }
+            if (!Directory.Exists(Path.Combine(path, "options")))
+            {
+                Directory.CreateDirectory(Path.Combine(path, "options"));
             }
             DataPath = path;
         }

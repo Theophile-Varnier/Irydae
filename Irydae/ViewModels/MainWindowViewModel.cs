@@ -1,15 +1,14 @@
-﻿using Irydae.Helpers;
-using Irydae.Model;
-using Irydae.Services;
-using Irydae.Views;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
-using WPFCustomMessageBox;
+using Irydae.Helpers;
+using Irydae.Model;
+using Irydae.Services;
+using Irydae.Views;
 
 namespace Irydae.ViewModels
 {
@@ -198,7 +197,6 @@ namespace Irydae.ViewModels
 
         private void OpenBrowser()
         {
-            //var uri = string.Format("file:///{0}{1}", HttpUtility.UrlEncode(AppDomain.CurrentDomain.BaseDirectory), System.IO.Path.Combine("Web", "result.html"));
             var uri = Path.Combine(JournalService.DataPath, "Web", "result.html");
             System.Diagnostics.Process.Start(uri);
         }

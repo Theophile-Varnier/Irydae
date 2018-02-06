@@ -101,6 +101,7 @@
     <Compile Include="Services\HtmlWriterService.cs" />
     <Compile Include="Services\JournalService.cs" />
     <Compile Include="Services\ModificationStatusService.cs" />
+    <Compile Include="Services\OptionsService.cs" />
     <Compile Include="ViewModels\AbstractPropertyChanged.cs" />
     <Compile Include="ViewModels\CatchedPropertyChanged.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

@@ -25,13 +25,8 @@ namespace Irydae.Services
 
             if (!File.Exists(filePath))
             {
-                var options = new Options
-                {
-                    BorderColor = Color.FromRgb(1,1,1),
-                    CircleColor = Color.FromRgb(1,1,1),
-                    DisplayByYear = false,
-                    LinkColor = Color.FromRgb(0,0,0)
-                };
+                Options options = new Options();
+                SetDefaultValue(options);
                 SaveOptions(options);
             }
 
@@ -40,6 +35,14 @@ namespace Irydae.Services
                 var options = sr.ReadToEnd();
                 return JsonConvert.DeserializeObject<Options>(options);
             }
+        }
+
+        public void SetDefaultValue(Options options)
+        {
+            options.BorderColor = Color.FromRgb(0xFF, 0xFF, 0xFF);
+            options.CircleColor = Color.FromRgb(0xFF, 0xA5, 0);
+            options.DisplayByYear = false;
+            options.LinkColor = Color.FromRgb(0, 0, 0);
         }
 
         public void SaveOptions(Options options)

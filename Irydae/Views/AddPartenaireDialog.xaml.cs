@@ -28,7 +28,6 @@ namespace Irydae.Views
         {
             AddPartenaire();
             NameInput.Text = string.Empty;
-            GroupeInput.Text = string.Empty;
         }
 
         private void AddPartenaire()
@@ -36,7 +35,7 @@ namespace Irydae.Views
             Partenaire partenaire = new Partenaire
             {
                 Nom = NameInput.Text,
-                Groupe = GroupeInput.Text
+                Groupe = (Groupe)GroupeComboBox.SelectedItem
             };
             ViewModel.SelectedRp.Partenaires.Add(partenaire);
             ViewModel.SelectedPartenaire = partenaire;

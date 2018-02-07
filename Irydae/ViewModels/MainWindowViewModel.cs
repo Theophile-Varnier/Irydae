@@ -42,6 +42,8 @@ namespace Irydae.ViewModels
             }
         }
 
+        public OptionsViewModel OptionsViewModel { get; private set; }
+
         private void SelectProfil(ProfilViewModel profil)
         {
             CheckModifications(true);
@@ -75,10 +77,11 @@ namespace Irydae.ViewModels
 
         public ObservableCollection<ProfilViewModel> Profils { get; private set; }
 
-        public MainWindowViewModel(JournalService service)
+        public MainWindowViewModel(JournalService service, OptionsViewModel options)
         {
             Profils = new ObservableCollection<ProfilViewModel>();
             journalService = service;
+            OptionsViewModel = options;
             PersonnageInfo = new PersonnageInfoViewModel(service);
             CreateProfilCommand = new RelayCommand(CreateProfil);
             SaveDataCommand = new RelayCommand(SaveDatas);
@@ -86,6 +89,24 @@ namespace Irydae.ViewModels
             DisplayResultCommand = new RelayCommand(GenerateAndOpen);
             DisplayOptionDialogCommand = new RelayCommand(OpenOptionDialog);
             PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OpenOptionDialog()
+        {
+            OptionDialog dialog = new OptionDialog
+            {
+                Owner = Application.Current.MainWindow,
+                DataContext = OptionsViewModel
+            };
+            bool? dialogResult = dialog.ShowDialog();
+            if (dialogResult.HasValue && dialogResult.Value)
+            {
+                OptionsViewModel.Save();
+            }
+            else
+            {
+                OptionsViewModel.CancelDialog();
+            }
         }
 
         public void Init()
@@ -178,7 +199,7 @@ namespace Irydae.ViewModels
         {
             SaveDatas();
             var htmlWriter = new HtmlWriterService();
-            return htmlWriter.GenerateHtml(PersonnageInfo.Periodes);
+            return htmlWriter.GenerateHtml(PersonnageInfo.Periodes, OptionsViewModel.Options);
         }
 
         private void GenerateAndOpen()
@@ -208,25 +229,6 @@ namespace Irydae.ViewModels
         {
             journalService.UpdateDatas(CurrentProfile.Header, PersonnageInfo.Periodes);
             ModificationStatusService.Instance.Dirty = false;
-        }
-
-        private void OpenOptionDialog()
-        {
-            Options options = new Options();
-            OptionDialog dialog = new OptionDialog
-            {
-                Owner = Application.Current.MainWindow,
-                DataContext = options
-            };
-            bool? dialogResult = dialog.ShowDialog();
-            if (dialogResult.HasValue && dialogResult.Value)
-            {
-
-            }
-            else
-            {
-                
-            }
         }
     }
 }

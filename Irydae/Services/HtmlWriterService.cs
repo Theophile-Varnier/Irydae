@@ -1,16 +1,40 @@
-﻿using HtmlAgilityPack;
-using Irydae.Model;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using HtmlAgilityPack;
+using Irydae.Helpers;
+using Irydae.Model;
 
 namespace Irydae.Services
 {
     public class HtmlWriterService
     {
-        private static int circleWidth = 12;
-        public string GenerateHtml(IList<Periode> periodes)
+        private const int circleWidth = 12;
+
+        public string GenerateHtml(IList<Periode> periodes, Options options)
         {
+            IList<Periode> innerPeriode;
+            if (options.DisplayByYear)
+            {
+                innerPeriode = new List<Periode>();
+                var grouped = periodes.GroupBy(p => p.Lieu);
+                foreach (var group in grouped)
+                {
+                    innerPeriode.Add(new Periode
+                    {
+                        Lieu = group.Key,
+                        DateDebut = group.Min(p => p.DateDebut),
+                        DateFin = group.Min(p => p.DateFin ?? DateTime.MaxValue),
+                        SubPeriodes = new List<Periode>(group),
+                        Position = group.First().Position
+                    });
+                }
+            }
+            else
+            {
+                innerPeriode = periodes;
+            }
             HtmlDocument doc = new HtmlDocument();
             doc.Load(Path.Combine("Web", "index.html"));
             HtmlNode graphContainer = doc.GetElementbyId("graph");
@@ -19,12 +43,15 @@ namespace Irydae.Services
             svg.SetAttributeValue("height", "650");
             graphContainer.AppendChild(svg);
             Periode lastPeriode = null;
+            foreach (var periode in innerPeriode.OrderBy(p => p.DateDebut))
+            {
+                graphContainer.AppendChild(GenerateEntry(doc, periode, options));
+            }
             foreach (var periode in periodes.OrderBy(p => p.DateDebut))
             {
-                graphContainer.AppendChild(GenerateEntry(doc, periode));
-                if(lastPeriode != null)
+                if (lastPeriode != null && periode.Lieu != lastPeriode.Lieu)
                 {
-                    svg.AppendChild(GenerateLine(doc, lastPeriode, periode));
+                    svg.AppendChild(GenerateLine(doc, lastPeriode, periode, options));
                 }
                 lastPeriode = periode;
             }
@@ -35,30 +62,52 @@ namespace Irydae.Services
             return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.ParentNode.ParentNode.OuterHtml);
         }
 
-        private HtmlNode GenerateLine(HtmlDocument doc, Periode previous, Periode current)
+        private HtmlNode GenerateLine(HtmlDocument doc, Periode previous, Periode current, Options options)
         {
             var res = doc.CreateElement("line");
-            res.SetAttributeValue("x1", (previous.Position.X + circleWidth/2).ToString());
+            res.SetAttributeValue("x1", (previous.Position.X + circleWidth / 2).ToString());
             res.SetAttributeValue("x2", (current.Position.X + circleWidth / 2).ToString());
             res.SetAttributeValue("y1", (previous.Position.Y + circleWidth / 2).ToString());
             res.SetAttributeValue("y2", (current.Position.Y + circleWidth / 2).ToString());
-            res.SetAttributeValue("style", "stroke:rgb(0, 0, 0); stroke-width:2");
+            byte r, g, b;
+            if (options.LinkColor.HasValue)
+            {
+                r = options.LinkColor.Value.R;
+                g = options.LinkColor.Value.G;
+                b = options.LinkColor.Value.B;
+            }
+            else
+            {
+                r = 0;
+                g = 0;
+                b = 0;
+            }
+            res.SetAttributeValue("style", string.Format("stroke:rgb({0}, {1}, {2}); stroke-width:2", r, g, b));
             return res;
         }
 
-        private HtmlNode GenerateEntry(HtmlDocument doc, Periode periode)
+        private HtmlNode GenerateEntry(HtmlDocument doc, Periode periode, Options options)
         {
-            var res = CreateDiv(doc, "rp progress", string.Format("left:{0}px;top:{1}px;", periode.Position.X, periode.Position.Y));
+            string inlineStyle = string.Format("left:{0}px;top:{1}px;", periode.Position.X, periode.Position.Y);
+            if (options.BorderColor.HasValue)
+            {
+                inlineStyle = string.Format("{0}border-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.BorderColor.Value.R, options.BorderColor.Value.G, options.BorderColor.Value.B);
+            }
+            if (options.CircleColor.HasValue)
+            {
+                inlineStyle = string.Format("{0}background-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.CircleColor.Value.R, options.CircleColor.Value.G, options.CircleColor.Value.B);
+            }
+            var res = CreateDiv(doc, "rp progress", inlineStyle);
 
             var tooltipLeft = 0;
             var tooltipTop = 20;
 
-            if(periode.Position.X > 400)
+            if (periode.Position.X > 400)
             {
                 tooltipLeft = -200;
             }
 
-            if(periode.Position.Y > 300)
+            if (periode.Position.Y > 300)
             {
                 tooltipTop = -(190 + circleWidth / 2);
             }
@@ -71,23 +120,48 @@ namespace Irydae.Services
             var periodeTitle = doc.CreateElement("span");
             periodeTitle.AddClass("lieu bottom-border");
             periodeTitle.AppendChild(doc.CreateTextNode(periode.Lieu));
-            periodeTitle.AppendChild(doc.CreateElement("br"));
-
-            var periodePeriode = doc.CreateElement("i");
-            periodePeriode.AppendChild(doc.CreateTextNode(string.Format("{0}{1}", periode.DateDebut.ToString("MMM yyyy"), periode.DateFin.HasValue ? "-" + periode.DateFin.Value.ToString("MMM yyyy") : string.Empty)));
 
             var panelBody = CreateDiv(doc, "panel-body-wrapper", string.Empty);
-            foreach(var rp in periode.Rps)
+            if (options.DisplayByYear)
             {
-                GenerateRpNode(doc, panelBody, rp);
+                foreach (var subPeriode in periode.SubPeriodes)
+                {
+                    if (periode.SubPeriodes.Count > 1)
+                    {
+                        panelBody.AppendChild(CreatePeriodePeriode(doc, subPeriode));
+                        panelBody.AppendChild(doc.CreateElement("br"));
+                    }
+                    foreach (var rp in subPeriode.Rps)
+                    {
+                        GenerateRpNode(doc, panelBody, rp);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var rp in periode.Rps)
+                {
+                    GenerateRpNode(doc, panelBody, rp);
+                }
             }
 
             panelTitle.AppendChild(periodeTitle);
-            panelTitle.AppendChild(periodePeriode);
+            if (!options.DisplayByYear || periode.SubPeriodes.Count == 1)
+            {
+                periodeTitle.AppendChild(doc.CreateElement("br"));
+                panelTitle.AppendChild(CreatePeriodePeriode(doc, periode));
+            }
 
             tooltip.AppendChild(panelTitle);
             tooltip.AppendChild(panelBody);
             return res;
+        }
+
+        private HtmlNode CreatePeriodePeriode(HtmlDocument doc, Periode periode)
+        {
+            var periodePeriode = doc.CreateElement("i");
+            periodePeriode.AppendChild(doc.CreateTextNode(string.Format("{0}{1}", periode.DateDebut.ToString("MMM yyyy"), periode.DateFin.HasValue ? "-" + periode.DateFin.Value.ToString("MMM yyyy") : string.Empty)));
+            return periodePeriode;
         }
 
         private HtmlNode CreateDiv(HtmlDocument doc, string className, string style)
@@ -127,7 +201,7 @@ namespace Irydae.Services
             foreach (var participant in rp.Partenaires)
             {
                 var partenaireNode = doc.CreateElement("span");
-                partenaireNode.AddClass(participant.Groupe);
+                partenaireNode.AddClass(participant.Groupe.GetDescription());
                 partenaireNode.AppendChild(doc.CreateTextNode(participant.Nom));
                 res.Add(partenaireNode);
                 res.Add(doc.CreateTextNode(" - "));

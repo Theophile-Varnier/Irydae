@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Web.UI.WebControls;
 using System.Windows;
 using Irydae.Model;
 using Irydae.ViewModels;
@@ -23,6 +25,14 @@ namespace Irydae.Views
 
         private void AddPeriode()
         {
+            int x = 42;
+            int y = 42;
+            var samePlace = ViewModel.Periodes.FirstOrDefault(p => p.Lieu == LieuInput.Text);
+            if (samePlace != null)
+            {
+                x = samePlace.Position.X;
+                y = samePlace.Position.Y;
+            }
             Periode periode = new Periode
             {
                 Lieu = LieuInput.Text,
@@ -30,8 +40,8 @@ namespace Irydae.Views
                 DateFin = EndDatePicker.SelectedDate,
                 Position = new Position
                 {
-                    X = 42,
-                    Y = 42
+                    X = x,
+                    Y = y
                 }
             };
             ViewModel.Periodes.Add(periode);

@@ -24,6 +24,7 @@ namespace Irydae.Views
         private void YesButton_Click(object sender, RoutedEventArgs e)
         {
             Result = MessageBoxResult.Yes;
+            DialogResult = true;
         }
 
         private void NoButton_Click(object sender, RoutedEventArgs e)

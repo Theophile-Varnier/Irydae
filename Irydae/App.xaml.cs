@@ -13,7 +13,8 @@ namespace Irydae
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             JournalService.Initialize();
-            mainViewModel = new MainWindowViewModel(JournalService.Instance);
+            OptionsViewModel optionsViewModel = new OptionsViewModel(OptionsService.Instance);
+            mainViewModel = new MainWindowViewModel(JournalService.Instance, optionsViewModel);
             MainWindow mainWindow = new MainWindow
             {
                 ViewModel = mainViewModel

@@ -22,14 +22,15 @@
                 <Label HorizontalContentAlignment="Right" Content="Couleur des liens entre les points :"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
-                <CheckBox IsChecked="{Binding DisplayByYear}" />
-                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding CircleColor}" />
-                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding BorderColor}" />
-                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding LinkColor}" />
+                <CheckBox IsChecked="{Binding Options.DisplayByYear}" />
+                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.CircleColor}" />
+                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.BorderColor}" />
+                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.LinkColor}" />
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
                 <Button Name="CancelButton" IsCancel="True">Annuler</Button>
-                <Button Name="AddButton" IsDefault="True">OK</Button>
+                <Button Name="ResetButton" Command="{Binding ResetCommand}">Rétablir les valeurs par défaut</Button>
+                <Button Name="AddButton" IsDefault="True" Click="AddButton_OnClick">OK</Button>
             </StackPanel>
         </Grid>
     </Border>

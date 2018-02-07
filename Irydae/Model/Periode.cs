@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using Irydae.ViewModels;
 using Newtonsoft.Json;
@@ -12,6 +13,7 @@ namespace Irydae.Model
         public Periode()
         {
             Rps = new ObservableCollection<Rp>();
+            SubPeriodes = new List<Periode>();
         }
 
         [JsonProperty] 
@@ -45,6 +47,9 @@ namespace Irydae.Model
             }
         }
 
+        [JsonIgnore]
+        public List<Periode> SubPeriodes { get; set; }
+        
         [JsonProperty] 
         private DateTime? fin;
 

@@ -54,6 +54,12 @@
         </Setter>
     </Style>
     
+    <Style TargetType="{x:Type ComboBox}" x:Key="{x:Type ComboBox}">
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="24"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
+    
     <Style x:Key="{x:Type xctk:ColorPicker}" TargetType="{x:Type xctk:ColorPicker}">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
@@ -65,6 +71,7 @@
         <Setter Property="Height" Value="24"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
     
     <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">

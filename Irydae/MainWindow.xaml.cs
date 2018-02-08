@@ -103,51 +103,58 @@ namespace Irydae
             }
         }
 
+        private void SetBounds(double x, double y)
+        {
+            var destX = ImageMap.ActualWidth * ViewModel.CurrentZoom;
+            var destY = ImageMap.ActualHeight * ViewModel.CurrentZoom;
+            var offsetX = Math.Min(0, Math.Max(x, CanvasMap.ActualWidth - destX));
+            var offsetY = Math.Min(0, Math.Max(y, CanvasMap.ActualHeight - destY));
+            var matTrans = ImageMap.RenderTransform as MatrixTransform;
+            var mat = matTrans.Matrix;
+            mat.OffsetX = offsetX;
+            mat.OffsetY = offsetX;
+            matTrans.Matrix = mat;
+        }
+
         private void ImageMap_OnMouseWheel(object sender, MouseWheelEventArgs e)
         {
             var matTrans = ImageMap.RenderTransform as MatrixTransform;
             var pos1 = e.GetPosition(CanvasMap);
-
-            //var scale = e.Delta > 0 ? .2 : -.2;
-            var scale = e.Delta > 0 ? 1.1 : 1/1.1;
+            
+            var scale = e.Delta > 0 ? 1.1 : 1 / 1.1;
 
             var mat = matTrans.Matrix;
             mat.ScaleAt(scale, scale, pos1.X, pos1.Y);
             if (mat.M11 >= 1)
             {
+                ViewModel.CurrentZoom = mat.M11;
                 matTrans.Matrix = mat;
+                SetBounds(mat.OffsetX, mat.OffsetY);
             }
-            /*var st = (ScaleTransform)((TransformGroup)ImageMap.RenderTransform).Children.First(tr => tr is ScaleTransform);
-            double zoom = e.Delta > 0 ? .2 : -.2;
-            ViewModel.CurrentZoom = Math.Max(1, st.ScaleX + zoom);
-            ViewModel.CurrentPanX = 2;
-            ViewModel.CurrentPanY = 2;*/
         }
 
         private void ImageMap_OnMouseDown(object sender, MouseButtonEventArgs e)
         {
-            //ImageMap.CaptureMouse();
-            //var tt = (TranslateTransform)((TransformGroup)ImageMap.RenderTransform)
-            //    .Children.First(tr => tr is TranslateTransform);
-            //start = e.GetPosition(CanvasMap);
-            //origin = new Point(tt.X, tt.Y);
+            ImageMap.CaptureMouse();
+            start = e.GetPosition(CanvasMap);
+            var mat = ImageMap.RenderTransform as MatrixTransform;
+            origin = new Point(mat.Matrix.OffsetX, mat.Matrix.OffsetY);
         }
 
         private void ImageMap_OnMouseMove(object sender, MouseEventArgs e)
         {
-            //if (ImageMap.IsMouseCaptured)
-            //{
-            //    var destX = ImageMap.ActualWidth*ViewModel.CurrentZoom;
-            //    var destY = ImageMap.ActualHeight * ViewModel.CurrentZoom;
-            //    Vector v = start - e.GetPosition(CanvasMap);
-            //    ViewModel.CurrentPanX = Math.Min(0, Math.Max(origin.X - v.X, CanvasMap.ActualWidth - destX));
-            //    ViewModel.CurrentPanY = Math.Min(0, Math.Max(origin.Y - v.Y, CanvasMap.ActualHeight - destY));
-            //}
+            if (ImageMap.IsMouseCaptured)
+            {
+                var destX = ImageMap.ActualWidth * ViewModel.CurrentZoom;
+                var destY = ImageMap.ActualHeight * ViewModel.CurrentZoom;
+                Vector v = start - e.GetPosition(CanvasMap);
+                SetBounds(origin.X - v.X, origin.Y - v.Y);
+            }
         }
 
         private void ImageMap_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            //ImageMap.ReleaseMouseCapture();
+            ImageMap.ReleaseMouseCapture();
         }
     }
 }

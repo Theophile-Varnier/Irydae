@@ -30,7 +30,7 @@ namespace Irydae.ViewModels
 
         public void TryDelete()
         {
-            if(SelectedPeriode != null)
+            if (SelectedPeriode != null)
             {
                 ModificationStatusService.Instance.Dirty = true;
             }

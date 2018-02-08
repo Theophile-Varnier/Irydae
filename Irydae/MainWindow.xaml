@@ -19,7 +19,7 @@
                     <CompositeCollection>
                         <CollectionContainer Collection="{Binding Source={StaticResource ProfilsCollection}}"/>
                         <Separator/>
-                        <MenuItem Header="_Nouveau" Command="{Binding CreateProfilCommand}"/>
+                        <MenuItem Style="{StaticResource DefaultMenuItem}" Header="_Nouveau" Command="{Binding CreateProfilCommand}"/>
                     </CompositeCollection>
                 </MenuItem.ItemsSource>
                 <MenuItem.ItemContainerStyle>
@@ -27,7 +27,13 @@
                         <Setter Property="Header" Value="{Binding Header}"/>
                         <Setter Property="Command" Value="{Binding Command}"/>
                         <Setter Property="CommandParameter" Value="{Binding}"/>
-                        <Setter Property="IsCheckable" Value="False"/>
+                        <Setter Property="IsCheckable" Value="True"/>
+                        <Setter Property="IsChecked" Value="{Binding Selected}"/>
+                        <!--<Setter Property="Icon">
+                            <Setter.Value>
+                                <TextBlock Width="20" Height="20" Text="X" Visibility="{Binding Selected, Converter={ressources:BoolToVisibilityConverter}}"/>
+                            </Setter.Value>
+                        </Setter>-->
                     </Style>
                 </MenuItem.ItemContainerStyle>
             </MenuItem>
@@ -97,8 +103,15 @@
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Canvas Grid.Column="1" Grid.Row="1" Width="650" Height="650" Name="CanvasMap">
-                        <Image Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0"/>
+                    <Canvas ClipToBounds="True" Grid.Column="1" Grid.Row="1" Width="650" Height="650" Name="CanvasMap">
+                        <Image MouseLeftButtonDown="ImageMap_OnMouseDown" MouseLeftButtonUp="ImageMap_OnMouseLeftButtonUp" MouseMove="ImageMap_OnMouseMove" MouseWheel="ImageMap_OnMouseWheel" Name="ImageMap" Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0">
+                            <Image.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleX="{Binding CurrentZoom}" ScaleY="{Binding CurrentZoom}"/>
+                                    <TranslateTransform X="{Binding CurrentPanX}" Y="{Binding CurrentPanY}"/>
+                                </TransformGroup>
+                            </Image.RenderTransform>
+                        </Image>
                         <Ellipse MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" MouseMove="UIElement_OnMouseMove" Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}" Width="20" Height="20" Fill="Black" Stroke="White" StrokeThickness="1" Canvas.Top="{Binding PersonnageInfo.SelectedPeriode.Position.Y}" Canvas.Left="{Binding PersonnageInfo.SelectedPeriode.Position.X}"/>
                     </Canvas>
                 </Grid>

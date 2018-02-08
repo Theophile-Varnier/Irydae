@@ -14,6 +14,42 @@ namespace Irydae.ViewModels
 {
     public class MainWindowViewModel : AbstractPropertyChanged
     {
+        private double currentZoom;
+
+        public double CurrentZoom
+        {
+            get { return currentZoom; }
+            set
+            {
+                currentZoom = value;
+                OnPropertyChanged("CurrentZoom");
+            }
+        }
+
+        private double currentPanX;
+
+        public double CurrentPanX
+        {
+            get { return currentPanX; }
+            set
+            {
+                currentPanX = value;
+                OnPropertyChanged("CurrentPanX");
+            }
+        }
+
+        private double currentPanY;
+
+        public double CurrentPanY
+        {
+            get { return currentPanY; }
+            set
+            {
+                currentPanY = value;
+                OnPropertyChanged("CurrentPanY");
+            }
+        }
+
         private readonly JournalService journalService;
 
         private const string CurrentProfilePropertyName = "CurrentProfile";
@@ -46,15 +82,17 @@ namespace Irydae.ViewModels
 
         private void SelectProfil(ProfilViewModel profil)
         {
-            CheckModifications(true);
-            foreach (ProfilViewModel otherProfile in Profils)
+            if (profil != CurrentProfile && CheckModifications(true))
             {
-                otherProfile.Selected = false;
-            }
-            if (profil != null)
-            {
-                profil.Selected = true;
-                CurrentProfile = profil;
+                foreach (ProfilViewModel otherProfile in Profils)
+                {
+                    otherProfile.Selected = false;
+                }
+                if (profil != null)
+                {
+                    profil.Selected = true;
+                    CurrentProfile = profil;
+                }
             }
         }
 
@@ -89,6 +127,9 @@ namespace Irydae.ViewModels
             DisplayResultCommand = new RelayCommand(GenerateAndOpen);
             DisplayOptionDialogCommand = new RelayCommand(OpenOptionDialog);
             PropertyChanged += OnPropertyChanged;
+            CurrentZoom = 1;
+            CurrentPanX = 0;
+            CurrentPanY = 0;
         }
 
         private void OpenOptionDialog()
@@ -162,7 +203,7 @@ namespace Irydae.ViewModels
                     case MessageBoxResult.No:
                         if (soft)
                         {
-                            return false;
+                            return true;
                         }
                         MessageBoxResult innerResult = YesNoCancelDialogViewModel.ShowDialog("Et pour 2€ ?", "Allez s'teup !", "Ok, ok, sauvegarde.", "Non mais vraiment.", "Attends, j'ai oublié un truc.");
                         switch (innerResult)

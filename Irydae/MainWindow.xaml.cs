@@ -67,6 +67,9 @@ namespace Irydae
             {
                 var matTrans = ImageMap.RenderTransform as MatrixTransform;
                 matTrans.Matrix = Matrix.Identity;
+                ViewModel.CurrentZoom = 1;
+                ViewModel.CurrentPanX = 0;
+                ViewModel.CurrentPanY = 0;
             }
         }
 
@@ -112,7 +115,9 @@ namespace Irydae
             var matTrans = ImageMap.RenderTransform as MatrixTransform;
             var mat = matTrans.Matrix;
             mat.OffsetX = offsetX;
-            mat.OffsetY = offsetX;
+            mat.OffsetY = offsetY;
+            ViewModel.CurrentPanX = offsetX;
+            ViewModel.CurrentPanY = offsetY;
             matTrans.Matrix = mat;
         }
 

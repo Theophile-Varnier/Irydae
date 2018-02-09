@@ -102,14 +102,36 @@
                         <Image MouseLeftButtonDown="ImageMap_OnMouseDown" MouseLeftButtonUp="ImageMap_OnMouseLeftButtonUp" MouseMove="ImageMap_OnMouseMove" MouseWheel="ImageMap_OnMouseWheel" Name="ImageMap" Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0">
                             <Image.RenderTransform>
                                 <MatrixTransform/>
-                                <!--<MatrixTransform>
-                                    <MatrixTransform.Matrix>
-                                        <Matrix M11="{Binding CurrentZoom}" M22="{Binding CurrentZoom}" OffsetX="{Binding CurrentPanX}" OffsetY="{Binding CurrentPanY}"/>
-                                    </MatrixTransform.Matrix>
-                                </MatrixTransform>-->
                             </Image.RenderTransform>
                         </Image>
-                        <Ellipse MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" MouseMove="UIElement_OnMouseMove" Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}" Width="20" Height="20" Fill="Black" Stroke="White" StrokeThickness="1" Canvas.Top="{Binding PersonnageInfo.SelectedPeriode.Position.Y}" Canvas.Left="{Binding PersonnageInfo.SelectedPeriode.Position.X}"/>
+                        <Ellipse MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" 
+                                 MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" 
+                                 MouseMove="UIElement_OnMouseMove" 
+                                 Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}" 
+                                 Width="20" Height="20" Fill="{Binding OptionsViewModel.Options.CircleColor, Converter={ressources:ColorToBrushConverter}}" Stroke="{Binding OptionsViewModel.Options.BorderColor, Converter={ressources:ColorToBrushConverter}}" StrokeThickness="1">
+                            <Ellipse.Style>
+                                <Style TargetType="Ellipse">
+                                    <Setter Property="Canvas.Top">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{ressources:ScaleConverter}">
+                                                <Binding Path="PersonnageInfo.SelectedPeriode.Position.Y"/>
+                                                <Binding Path="CurrentPanY"/>
+                                                <Binding Path="CurrentZoom"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Setter Property="Canvas.Left">
+                                        <Setter.Value>
+                                            <MultiBinding Converter="{ressources:ScaleConverter}">
+                                                <Binding Path="PersonnageInfo.SelectedPeriode.Position.X"/>
+                                                <Binding Path="CurrentPanX"/>
+                                                <Binding Path="CurrentZoom"/>
+                                            </MultiBinding>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </Ellipse.Style>
+                        </Ellipse>
                     </Canvas>
                 </Grid>
             </ScrollViewer>

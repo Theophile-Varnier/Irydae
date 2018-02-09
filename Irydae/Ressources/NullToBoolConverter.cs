@@ -57,7 +57,6 @@ namespace Irydae.Ressources
         {
             throw new NotSupportedException("Convert back from a bool to an object is impossible");
         }
-
         #endregion
 
         /// <summary>

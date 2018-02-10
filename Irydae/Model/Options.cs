@@ -61,5 +61,20 @@ namespace Irydae.Model
                 OnPropertyChanged("LinkColor");
             }
         }
+
+        private int circleWidth;
+
+        public int CircleWidth
+        {
+            get
+            {
+                return circleWidth;
+            }
+            set
+            {
+                circleWidth = value;
+                OnPropertyChanged("CircleWidth");
+            }
+        }
     }
 }

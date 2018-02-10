@@ -9,7 +9,7 @@ namespace Irydae.Services
     {
         private OptionsService()
         {
-            
+
         }
 
         private static OptionsService instance;
@@ -33,7 +33,13 @@ namespace Irydae.Services
             using (StreamReader sr = new StreamReader(filePath))
             {
                 var options = sr.ReadToEnd();
-                return JsonConvert.DeserializeObject<Options>(options);
+                var res = JsonConvert.DeserializeObject<Options>(options);
+                // Pas beau
+                if (res.CircleWidth == 0)
+                {
+                    res.CircleWidth = 10;
+                }
+                return res;
             }
         }
 
@@ -43,6 +49,7 @@ namespace Irydae.Services
             options.CircleColor = Color.FromRgb(0xFF, 0xA5, 0);
             options.DisplayByYear = false;
             options.LinkColor = Color.FromRgb(0, 0, 0);
+            options.CircleWidth = 10;
         }
 
         public void SaveOptions(Options options)

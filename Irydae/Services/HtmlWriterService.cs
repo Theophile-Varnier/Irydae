@@ -10,7 +10,7 @@ namespace Irydae.Services
 {
     public class HtmlWriterService
     {
-        private const int circleWidth = 12;
+        private const int borderWidth = 4;
 
         public string GenerateHtml(IList<Periode> periodes, Options options)
         {
@@ -65,10 +65,10 @@ namespace Irydae.Services
         private HtmlNode GenerateLine(HtmlDocument doc, Periode previous, Periode current, Options options)
         {
             var res = doc.CreateElement("line");
-            res.SetAttributeValue("x1", (previous.Position.X + circleWidth / 2).ToString());
-            res.SetAttributeValue("x2", (current.Position.X + circleWidth / 2).ToString());
-            res.SetAttributeValue("y1", (previous.Position.Y + circleWidth / 2).ToString());
-            res.SetAttributeValue("y2", (current.Position.Y + circleWidth / 2).ToString());
+            res.SetAttributeValue("x1", (previous.Position.X + (options.CircleWidth + borderWidth) / 2).ToString());
+            res.SetAttributeValue("x2", (current.Position.X + (options.CircleWidth + borderWidth) / 2).ToString());
+            res.SetAttributeValue("y1", (previous.Position.Y + (options.CircleWidth + borderWidth) / 2).ToString());
+            res.SetAttributeValue("y2", (current.Position.Y + (options.CircleWidth + borderWidth) / 2).ToString());
             byte r, g, b;
             if (options.LinkColor.HasValue)
             {
@@ -97,6 +97,10 @@ namespace Irydae.Services
             {
                 inlineStyle = string.Format("{0}background-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.CircleColor.Value.R, options.CircleColor.Value.G, options.CircleColor.Value.B);
             }
+            if(options.CircleWidth != 10)
+            {
+                inlineStyle = string.Format("{0}width:{1}px;height:{2}px", inlineStyle, options.CircleWidth, options.CircleWidth);
+            }
             var res = CreateDiv(doc, "rp progress", inlineStyle);
 
             var tooltipLeft = 0;
@@ -109,7 +113,7 @@ namespace Irydae.Services
 
             if (periode.Position.Y > 300)
             {
-                tooltipTop = -(190 + circleWidth / 2);
+                tooltipTop = -(190 + (options.CircleWidth + borderWidth) / 2);
             }
 
             var tooltip = CreateDiv(doc, "tooltip", string.Format("left:{0}px;top:{1}px;", tooltipLeft, tooltipTop));

@@ -17,12 +17,14 @@
             </Grid.ColumnDefinitions>
             <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                 <Label HorizontalContentAlignment="Right" Content="Afficher un seul point pour tous les rps dans le même lieu :"/>
+                <Label HorizontalContentAlignment="Right" Content="Taille des points :"/>
                 <Label HorizontalContentAlignment="Right" Content="Couleur de remplissage du point :"/>
                 <Label HorizontalContentAlignment="Right" Content="Couleur de la bordure du point :"/>
                 <Label HorizontalContentAlignment="Right" Content="Couleur des liens entre les points :"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center">
                 <CheckBox IsChecked="{Binding Options.DisplayByYear}" />
+                <xctk:IntegerUpDown Value="{Binding Options.CircleWidth}" />
                 <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.CircleColor}" />
                 <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.BorderColor}" />
                 <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding Options.LinkColor}" />

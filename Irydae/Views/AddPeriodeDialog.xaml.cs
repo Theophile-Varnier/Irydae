@@ -46,12 +46,15 @@ namespace Irydae.Views
             };
             ViewModel.Periodes.Add(periode);
             ViewModel.SelectedPeriode = periode;
+            LieuInput.Text = string.Empty;
+            StartDatePicker.SelectedDate = null;
+            EndDatePicker.SelectedDate = null;
+            ToggleOkButtons(false);
         }
 
         private void AddAndContinue(object sender, RoutedEventArgs e)
         {
             AddPeriode();
-            LieuInput.Text = string.Empty;
         }
 
         private void AddAndClose(object sender, RoutedEventArgs e)
@@ -67,6 +70,21 @@ namespace Irydae.Views
             innerDialog.Owner = this;
             innerDialog.DataContext = ViewModel;
             innerDialog.ShowDialog();
+        }
+
+        private void ToggleOkButtons(bool toggle)
+        {
+            AddButton.IsEnabled = toggle;
+            AddAnotherButton.IsEnabled = toggle;
+            AddAndAddRp.IsEnabled = toggle;
+        }
+
+        private void LieuInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (!(string.IsNullOrWhiteSpace(LieuInput.Text) && StartDatePicker.SelectedDate != null))
+            {
+                ToggleOkButtons(true);
+            }
         }
     }
 }

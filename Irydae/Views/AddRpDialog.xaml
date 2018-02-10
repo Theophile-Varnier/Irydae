@@ -24,14 +24,14 @@
                 <Label HorizontalContentAlignment="Right" Content="Url * : "/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
-                <TextBox Name="TitreInput"/>
-                <TextBox Name="UrlInput"/>
+                <TextBox TextChanged="TitreInput_TextChanged" Name="TitreInput"/>
+                <TextBox TextChanged="TitreInput_TextChanged" Name="UrlInput"/>
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
                 <Button Click="Cancel" Name="CancelButton" IsCancel="True">Annuler</Button>
-                <Button Name="AddAnotherButton" Click="AddAndContinue">Ajouter un autre</Button>
-                <Button Name="AddPartenaire" Click="AddAndAddPartenaire">Ajouter et ajouter un partenaire</Button>
-                <Button Name="AddButton" IsDefault="True" Click="AddAndClose">OK</Button>
+                <Button Name="AddAnotherButton" IsEnabled="False" Click="AddAndContinue">Ajouter un autre</Button>
+                <Button Name="AddPartenaire" IsEnabled="False" Click="AddAndAddPartenaire">Ajouter et ajouter un partenaire</Button>
+                <Button Name="AddButton" IsEnabled="False" IsDefault="True" Click="AddAndClose">OK</Button>
             </StackPanel>
         </Grid>
     </Border>

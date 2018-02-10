@@ -26,8 +26,13 @@ namespace Irydae.Views
         private void AddAndContinue(object sender, RoutedEventArgs e)
         {
             AddRp();
-            TitreInput.Text = string.Empty;
-            UrlInput.Text = string.Empty;
+        }
+
+        private void ToggleOkButtons(bool toggle)
+        {
+            AddButton.IsEnabled = toggle;
+            AddAnotherButton.IsEnabled = toggle;
+            AddPartenaire.IsEnabled = toggle;
         }
 
         private void AddRp()
@@ -39,6 +44,9 @@ namespace Irydae.Views
             };
             ViewModel.SelectedPeriode.Rps.Add(item);
             ViewModel.SelectedRp = item;
+            TitreInput.Text = string.Empty;
+            UrlInput.Text = string.Empty;
+            ToggleOkButtons(false);
         }
 
         private void AddAndClose(object sender, RoutedEventArgs e)
@@ -54,6 +62,14 @@ namespace Irydae.Views
             innerDialog.Owner = this;
             innerDialog.DataContext = ViewModel;
             innerDialog.ShowDialog();
+        }
+
+        private void TitreInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            if (!(string.IsNullOrWhiteSpace(TitreInput.Text) || string.IsNullOrWhiteSpace(UrlInput.Text)))
+            {
+                ToggleOkButtons(true);
+            }
         }
     }
 }

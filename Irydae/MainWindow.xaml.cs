@@ -101,8 +101,8 @@ namespace Irydae
             if (dragging)
             {
                 Point position = e.GetPosition(CanvasMap);
-                ViewModel.PersonnageInfo.SelectedPeriode.Position.X = (int)position.X - 11;
-                ViewModel.PersonnageInfo.SelectedPeriode.Position.Y = (int)position.Y - 11;
+                ViewModel.PersonnageInfo.SelectedPeriode.Position.X = (int)((position.X - 11 - ViewModel.CurrentPanX) / ViewModel.CurrentZoom);
+                ViewModel.PersonnageInfo.SelectedPeriode.Position.Y = (int)((position.Y - 11 - ViewModel.CurrentPanY) / ViewModel.CurrentZoom);
             }
         }
 

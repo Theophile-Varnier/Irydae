@@ -138,6 +138,7 @@
 
   .panel-title{
     padding: 5px;
+	min-height: 45px;
   }
 
   .daenar{

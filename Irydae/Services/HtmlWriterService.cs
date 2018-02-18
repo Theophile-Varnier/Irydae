@@ -1,15 +1,40 @@
 ﻿using HtmlAgilityPack;
 using Irydae.Helpers;
 using Irydae.Model;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace Irydae.Services
 {
     public class HtmlWriterService
     {
         private const int borderWidth = 4;
+
+        public Dictionary<string, Position> ReadMapDatas()
+        {
+            var res = new Dictionary<string, Position>();
+            HtmlDocument doc = new HtmlDocument();
+            doc.Load(Path.Combine("Web", "mapData.html"), Encoding.UTF8);
+            var datas = doc.DocumentNode.ChildNodes[0].ChildNodes;
+            foreach(var data in datas)
+            {
+                string tmp;
+                if (!string.IsNullOrWhiteSpace(tmp = data.GetAttributeValue("data-coords", string.Empty)))
+                {
+                    res.Add(data.ChildNodes[0].ChildNodes[0].NextSibling.InnerText.Trim(), new Position
+                    {
+                        X = int.Parse(tmp.Split(',')[0]),
+                        Y = int.Parse(tmp.Split(',')[1])
+                    });
+                }
+            }
+            var filePath = Path.Combine("web", "dataMap.json");
+            File.WriteAllText(filePath, JsonConvert.SerializeObject(res, Formatting.Indented));
+            return res;
+        }
 
         public string GenerateHtml(IList<Periode> periodes, Options options)
         {

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Irydae.Helpers;
+using Irydae.Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using HtmlAgilityPack;
-using Irydae.Helpers;
-using Irydae.Model;
 
 namespace Irydae.Services
 {
@@ -25,7 +24,7 @@ namespace Irydae.Services
                     {
                         Lieu = group.Key,
                         DateDebut = group.Min(p => p.DateDebut),
-                        DateFin = group.Min(p => p.DateFin ?? DateTime.MaxValue),
+                        DateFin = group.Min(p => p.DateFin),
                         SubPeriodes = new List<Periode>(group),
                         Position = group.First().Position
                     });
@@ -97,10 +96,18 @@ namespace Irydae.Services
             {
                 inlineStyle = string.Format("{0}background-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.CircleColor.Value.R, options.CircleColor.Value.G, options.CircleColor.Value.B);
             }
-            if(options.CircleWidth != 10)
+            if (options.CircleWidth != 10)
             {
                 inlineStyle = string.Format("{0}width:{1}px;height:{2}px", inlineStyle, options.CircleWidth, options.CircleWidth);
             }
+            if(options.BorderRadius != 50)
+            {
+                inlineStyle = string.Format("{0}border-radius:{1}%;", inlineStyle, options.BorderRadius);
+            }
+            /*if(options.BorderRotation != 0)
+            {
+                inlineStyle = string.Format("{0}transform:rotate({1}deg);", inlineStyle, options.BorderRotation);
+            }*/
             var res = CreateDiv(doc, "rp progress", inlineStyle);
 
             var tooltipLeft = 0;
@@ -191,10 +198,13 @@ namespace Irydae.Services
             titre.AddClass("titreun");
             titre.AppendChild(doc.CreateTextNode(rp.Titre));
             res.AppendChild(titre);
-            var participants = CreateDiv(doc, "infosgen", string.Empty)
-                .AppendChild(doc.CreateElement("i"));
-            participants.AppendChildren(GenerateParticipantsNodes(doc, participants, rp));
             parentDiv.AppendChild(res);
+            var participants = CreateDiv(doc, "infosgen", string.Empty)
+            .AppendChild(doc.CreateElement("i"));
+            if (rp.Partenaires.Any())
+            {
+                participants.AppendChildren(GenerateParticipantsNodes(doc, participants, rp));
+            }
             parentDiv.AppendChild(participants.ParentNode);
         }
 

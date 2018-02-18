@@ -100,6 +100,8 @@
     <Compile Include="Ressources\AmbientValueConverter.cs" />
     <Compile Include="Ressources\BaseConverter.cs" />
     <Compile Include="Ressources\BoolToVisibilityConverter.cs" />
+    <Compile Include="Ressources\PercentWidthCornerRadiusConverter.cs" />
+    <Compile Include="Ressources\PercentWidthConverter.cs" />
     <Compile Include="Ressources\ColorToBrushConverter.cs" />
     <Compile Include="Ressources\NullToBoolConverter.cs" />
     <Compile Include="Ressources\NullToVisibilityConverter.cs" />

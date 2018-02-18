@@ -36,7 +36,7 @@ namespace Irydae.Views
             Periode periode = new Periode
             {
                 Lieu = LieuInput.Text,
-                DateDebut = StartDatePicker.SelectedDate ?? new DateTime(933,1,1),
+                DateDebut = StartDatePicker.SelectedDate ?? new DateTime(933, 1, 1),
                 DateFin = EndDatePicker.SelectedDate,
                 Position = new Position
                 {
@@ -79,12 +79,10 @@ namespace Irydae.Views
             AddAndAddRp.IsEnabled = toggle;
         }
 
-        private void LieuInput_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        private void LieuInput_TextChanged(object sender, EventArgs e)
         {
-            if (!(string.IsNullOrWhiteSpace(LieuInput.Text) && StartDatePicker.SelectedDate != null))
-            {
-                ToggleOkButtons(true);
-            }
+            var toggle = !string.IsNullOrWhiteSpace(LieuInput.Text) && StartDatePicker.SelectedDate != null;
+            ToggleOkButtons(toggle);
         }
     }
 }

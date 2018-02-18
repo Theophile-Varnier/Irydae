@@ -36,6 +36,12 @@
         <Setter Property="Height" Value="24"/>
     </Style>
 
+    <Style x:Key="{x:Type Slider}" TargetType="Slider">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Width" Value="150"/>
+        <Setter Property="Height" Value="24"/>
+    </Style>
+
     <Style x:Key="BaseListBox" TargetType="{x:Type ListBox}">
         <Setter Property="MinHeight" Value="110" />
         <Setter Property="Template">

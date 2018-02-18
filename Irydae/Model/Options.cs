@@ -1,12 +1,12 @@
-﻿using System.Windows.Media;
-using Irydae.ViewModels;
+﻿using Irydae.ViewModels;
+using System.Windows.Media;
 
 namespace Irydae.Model
 {
     public class Options : AbstractPropertyChanged
     {
         private bool displayByYear;
-
+        
         public bool DisplayByYear
         {
             get { return displayByYear; }
@@ -18,7 +18,7 @@ namespace Irydae.Model
         }
 
         private Color? circleColor;
-
+        
         public Color? CircleColor
         {
             get
@@ -74,6 +74,36 @@ namespace Irydae.Model
             {
                 circleWidth = value;
                 OnPropertyChanged("CircleWidth");
+            }
+        }
+
+        private int borderRadius;
+
+        public int BorderRadius
+        {
+            get
+            {
+                return borderRadius;
+            }
+            set
+            {
+                borderRadius = value;
+                OnPropertyChanged("BorderRadius");
+            }
+        }
+
+        private int borderRotation;
+
+        public int BorderRotation
+        {
+            get
+            {
+                return borderRotation;
+            }
+            set
+            {
+                borderRotation = value;
+                OnPropertyChanged("BorderRotation");
             }
         }
     }

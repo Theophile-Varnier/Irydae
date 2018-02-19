@@ -26,8 +26,8 @@ namespace Irydae.Services
                 {
                     res.Add(data.ChildNodes[0].ChildNodes[0].NextSibling.InnerText.Trim(), new Position
                     {
-                        X = int.Parse(tmp.Split(',')[0]),
-                        Y = int.Parse(tmp.Split(',')[1])
+                        X = ((int.Parse(tmp.Split(',')[0]) - Options.Crop) * Options.NewMapWidthHeight) / Options.OldMapWidth,
+                        Y = (int.Parse(tmp.Split(',')[1]) * Options.NewMapWidthHeight) / Options.OldMapHeight
                     });
                 }
             }

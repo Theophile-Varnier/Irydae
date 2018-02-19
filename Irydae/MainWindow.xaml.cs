@@ -78,11 +78,6 @@ namespace Irydae
             e.Cancel = !ViewModel.CheckModifications(false);
         }
 
-        private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.Init();
-        }
-
         private void Canvas_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             UIElement ellipse = (UIElement)sender;
@@ -150,8 +145,6 @@ namespace Irydae
         {
             if (ImageMap.IsMouseCaptured)
             {
-                var destX = ImageMap.ActualWidth * ViewModel.CurrentZoom;
-                var destY = ImageMap.ActualHeight * ViewModel.CurrentZoom;
                 Vector v = start - e.GetPosition(CanvasMap);
                 SetBounds(origin.X - v.X, origin.Y - v.Y);
             }
@@ -160,6 +153,11 @@ namespace Irydae
         private void ImageMap_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             ImageMap.ReleaseMouseCapture();
+        }
+
+        private void MainWindow_OnContentRendered(object sender, EventArgs e)
+        {
+            ViewModel.Init();
         }
     }
 }

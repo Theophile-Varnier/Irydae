@@ -14,7 +14,7 @@ namespace Irydae
         {
             JournalService.Initialize();
             OptionsViewModel optionsViewModel = new OptionsViewModel(OptionsService.Instance);
-            mainViewModel = new MainWindowViewModel(JournalService.Instance, optionsViewModel);
+            mainViewModel = new MainWindowViewModel(JournalService.Instance, OptionsService.Instance, optionsViewModel);
             MainWindow mainWindow = new MainWindow
             {
                 ViewModel = mainViewModel

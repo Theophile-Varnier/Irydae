@@ -5,6 +5,11 @@ namespace Irydae.Model
 {
     public class Options : AbstractPropertyChanged
     {
+        public static int OldMapWidth = 2269;
+        public static int OldMapHeight = 2269;
+        public static int NewMapWidthHeight = 650;
+        public static int Crop = 115;
+
         private bool displayByYear;
         
         public bool DisplayByYear

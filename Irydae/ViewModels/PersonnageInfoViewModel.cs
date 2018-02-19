@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using Irydae.Model;
 using Irydae.Services;
 
@@ -6,14 +8,15 @@ namespace Irydae.ViewModels
 {
     public class PersonnageInfoViewModel : AbstractPropertyChanged
     {
-        private readonly JournalService service;
+        private readonly OptionsService service;
 
         public ObservableCollection<Periode> Periodes { get; set; }
 
-        public PersonnageInfoViewModel(JournalService service)
+        public PersonnageInfoViewModel(OptionsService service)
         {
-            Periodes = new ObservableCollection<Periode>();
             this.service = service;
+            Periodes = new ObservableCollection<Periode>();
+            Positions = new ObservableCollection<KeyValuePair<string, Position>>(service.PredefinedPositions);
         }
 
         private Periode selectedPeriode;
@@ -74,5 +77,53 @@ namespace Irydae.ViewModels
                 OnPropertyChanged("SelectedPartenaire");
             }
         }
+
+        public bool AddPeriode(Periode periode, bool update = true)
+        {
+            VerifierPositionPeriode(periode, update);
+            Periodes.Add(periode);
+            return true;
+        }
+
+        public bool VerifierPositionPeriode(Periode periode, bool update = false)
+        {
+            // Si on a déjà une période dans le même tierquar on se fait pas chier
+            Periode previous = Periodes.FirstOrDefault(p => p.Lieu == periode.Lieu);
+            if (previous != null)
+            {
+                if (update)
+                {
+                    periode.Position.X = previous.Position.X;
+                    periode.Position.Y = previous.Position.Y;
+                }
+            }
+            else
+            {
+                KeyValuePair<string, Position> tryPosition = Positions.FirstOrDefault(kvp => kvp.Key == periode.Lieu);
+                if (tryPosition.Equals(default(KeyValuePair<string, Position>)))
+                {
+                    // Pas trouvé, on ajoute la période et la clé
+                    Positions.Add(new KeyValuePair<string, Position>(periode.Lieu, periode.Position));
+                    return true;
+                }
+
+                if (update)
+                {
+                    periode.Position.X = tryPosition.Value.X;
+                    periode.Position.Y = tryPosition.Value.Y;
+                    return true;
+                }
+
+                // On a trouvé le lieu dans les périodes déjà définies
+                // On vérifie la cohérence avec un lieu existant
+                if (periode.Position.X != tryPosition.Value.X || periode.Position.Y != tryPosition.Value.Y)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public ObservableCollection<KeyValuePair<string, Position>> Positions { get; private set; }
     }
 }

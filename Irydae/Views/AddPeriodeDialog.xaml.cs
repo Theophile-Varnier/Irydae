@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 using System.Windows;
+using System.Windows.Controls;
 using Irydae.Model;
 using Irydae.ViewModels;
 
@@ -25,14 +27,6 @@ namespace Irydae.Views
 
         private void AddPeriode()
         {
-            int x = 42;
-            int y = 42;
-            var samePlace = ViewModel.Periodes.FirstOrDefault(p => p.Lieu == LieuInput.Text);
-            if (samePlace != null)
-            {
-                x = samePlace.Position.X;
-                y = samePlace.Position.Y;
-            }
             Periode periode = new Periode
             {
                 Lieu = LieuInput.Text,
@@ -40,11 +34,11 @@ namespace Irydae.Views
                 DateFin = EndDatePicker.SelectedDate,
                 Position = new Position
                 {
-                    X = x,
-                    Y = y
+                    X = 42,
+                    Y = 42
                 }
             };
-            ViewModel.Periodes.Add(periode);
+            ViewModel.AddPeriode(periode);
             ViewModel.SelectedPeriode = periode;
             LieuInput.Text = string.Empty;
             StartDatePicker.SelectedDate = null;
@@ -79,7 +73,7 @@ namespace Irydae.Views
             AddAndAddRp.IsEnabled = toggle;
         }
 
-        private void LieuInput_TextChanged(object sender, EventArgs e)
+        private void LieuInput_TextChanged(object sender, EventArgs textChangedEventArgs)
         {
             var toggle = !string.IsNullOrWhiteSpace(LieuInput.Text) && StartDatePicker.SelectedDate != null;
             ToggleOkButtons(toggle);

@@ -4,7 +4,9 @@
         xmlns:ressources="clr-namespace:Irydae.Ressources"
         xmlns:views="clr-namespace:Irydae.Views"
         Title="Irydaë" Height="350" Width="525" WindowState="Maximized"
-        KeyDown="MainWindow_OnKeyDown" Closing="MainWindow_OnClosing" Loaded="MainWindow_OnLoaded">
+        KeyDown="MainWindow_OnKeyDown" 
+        Closing="MainWindow_OnClosing"
+        ContentRendered="MainWindow_OnContentRendered">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -99,7 +101,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     <Canvas ClipToBounds="True" Grid.Column="1" Grid.Row="1" Width="650" Height="650" Name="CanvasMap">
-                        <Image MouseLeftButtonDown="ImageMap_OnMouseDown" MouseLeftButtonUp="ImageMap_OnMouseLeftButtonUp" MouseMove="ImageMap_OnMouseMove" MouseWheel="ImageMap_OnMouseWheel" Name="ImageMap" Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumondesujet2.png" Canvas.Top="0" Canvas.Left="0">
+                        <Image MouseLeftButtonDown="ImageMap_OnMouseDown" MouseLeftButtonUp="ImageMap_OnMouseLeftButtonUp" MouseMove="ImageMap_OnMouseMove" MouseWheel="ImageMap_OnMouseWheel" Name="ImageMap" Stretch="Fill" Width="{Binding Path=ActualWidth, ElementName=CanvasMap}" Height="{Binding Path=ActualHeight, ElementName=CanvasMap}" Source="Images/Cartedumonde.jpg" Canvas.Top="0" Canvas.Left="0">
                             <Image.RenderTransform>
                                 <MatrixTransform/>
                             </Image.RenderTransform>

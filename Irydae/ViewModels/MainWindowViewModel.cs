@@ -115,12 +115,12 @@ namespace Irydae.ViewModels
 
         public ObservableCollection<ProfilViewModel> Profils { get; private set; }
 
-        public MainWindowViewModel(JournalService service, OptionsViewModel options)
+        public MainWindowViewModel(JournalService service, OptionsService optionService, OptionsViewModel options)
         {
             Profils = new ObservableCollection<ProfilViewModel>();
             journalService = service;
             OptionsViewModel = options;
-            PersonnageInfo = new PersonnageInfoViewModel(service);
+            PersonnageInfo = new PersonnageInfoViewModel(optionService);
             CreateProfilCommand = new RelayCommand(CreateProfil);
             SaveDataCommand = new RelayCommand(SaveDatas);
             GenerateHtmlCommand = new RelayCommand(GenerateAndPreview);
@@ -179,9 +179,14 @@ namespace Irydae.ViewModels
                         IEnumerable<Periode> periodes = journalService.ParseDatas(CurrentProfile.Header);
                         if (periodes != null)
                         {
+                            bool update = false;
                             foreach (var periode in periodes)
                             {
-                                PersonnageInfo.Periodes.Add(periode);
+                                if (!update && !PersonnageInfo.VerifierPositionPeriode(periode))
+                                {
+                                    update = MessageBox.Show("Des différences de position ont été trouvées entre ce profil et notre super base de données de ouf. Veux-tu mettre à jour tes données en conséquences ?", "Mise à jour, bonjour !", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+                                }
+                                PersonnageInfo.AddPeriode(periode, update);
                             }
                         }
                     }
@@ -256,6 +261,7 @@ namespace Irydae.ViewModels
 
         private void GenerateAndPreview()
         {
+            //new HtmlWriterService().ReadMapDatas();
             GenerateHtml();
             OpenBrowser();
         }

@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Irydae.Model;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Irydae.Views
 {
@@ -23,6 +11,14 @@ namespace Irydae.Views
         public RpUserControl()
         {
             InitializeComponent();
+        }
+
+        private void TypeComboBox_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!(TypeComboBox.SelectedItem is RpType))
+            {
+                TypeComboBox.SelectedItem = null;
+            }
         }
     }
 }

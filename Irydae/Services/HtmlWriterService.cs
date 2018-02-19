@@ -70,6 +70,7 @@ namespace Irydae.Services
             foreach (var periode in innerPeriode.OrderBy(p => p.DateDebut))
             {
                 graphContainer.AppendChild(GenerateEntry(doc, periode, options));
+                graphContainer.AppendChild(GenerateTooltip(doc, periode, options));
             }
             foreach (var periode in periodes.OrderBy(p => p.DateDebut))
             {
@@ -110,37 +111,14 @@ namespace Irydae.Services
             return res;
         }
 
-        private HtmlNode GenerateEntry(HtmlDocument doc, Periode periode, Options options)
+        private HtmlNode GenerateTooltip(HtmlDocument doc, Periode periode, Options options)
         {
-            string inlineStyle = string.Format("left:{0}px;top:{1}px;", periode.Position.X, periode.Position.Y);
-            if (options.BorderColor.HasValue)
-            {
-                inlineStyle = string.Format("{0}border-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.BorderColor.Value.R, options.BorderColor.Value.G, options.BorderColor.Value.B);
-            }
-            if (options.CircleColor.HasValue)
-            {
-                inlineStyle = string.Format("{0}background-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.CircleColor.Value.R, options.CircleColor.Value.G, options.CircleColor.Value.B);
-            }
-            if (options.CircleWidth != 10)
-            {
-                inlineStyle = string.Format("{0}width:{1}px;height:{2}px", inlineStyle, options.CircleWidth, options.CircleWidth);
-            }
-            if(options.BorderRadius != 50)
-            {
-                inlineStyle = string.Format("{0}border-radius:{1}%;", inlineStyle, options.BorderRadius);
-            }
-            /*if(options.BorderRotation != 0)
-            {
-                inlineStyle = string.Format("{0}transform:rotate({1}deg);", inlineStyle, options.BorderRotation);
-            }*/
-            var res = CreateDiv(doc, "rp progress", inlineStyle);
-
             var tooltipLeft = 0;
-            var tooltipTop = 20;
+            var tooltipTop = 10;
 
             if (periode.Position.X > 400)
             {
-                tooltipLeft = -200;
+                tooltipLeft = -195;
             }
 
             if (periode.Position.Y > 300)
@@ -148,8 +126,7 @@ namespace Irydae.Services
                 tooltipTop = -(190 + (options.CircleWidth + borderWidth) / 2);
             }
 
-            var tooltip = CreateDiv(doc, "tooltip", string.Format("left:{0}px;top:{1}px;", tooltipLeft, tooltipTop));
-            res.AppendChild(tooltip);
+            var tooltip = CreateDiv(doc, "tooltip", string.Format("left:{0}px;top:{1}px;", periode.Position.X + tooltipLeft, periode.Position.Y + tooltipTop));
 
             var panelTitle = CreateDiv(doc, "panel-title bottom-border", string.Empty);
 
@@ -190,6 +167,35 @@ namespace Irydae.Services
 
             tooltip.AppendChild(panelTitle);
             tooltip.AppendChild(panelBody);
+            return tooltip;
+        }
+
+        private HtmlNode GenerateEntry(HtmlDocument doc, Periode periode, Options options)
+        {
+            string inlineStyle = string.Format("left:{0}px;top:{1}px;", periode.Position.X, periode.Position.Y);
+            if (options.BorderColor.HasValue)
+            {
+                inlineStyle = string.Format("{0}border-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.BorderColor.Value.R, options.BorderColor.Value.G, options.BorderColor.Value.B);
+            }
+            if (options.CircleColor.HasValue)
+            {
+                inlineStyle = string.Format("{0}background-color:#{1:X2}{2:X2}{3:X2};", inlineStyle, options.CircleColor.Value.R, options.CircleColor.Value.G, options.CircleColor.Value.B);
+            }
+            if (options.CircleWidth != 10)
+            {
+                inlineStyle = string.Format("{0}width:{1}px;height:{2}px", inlineStyle, options.CircleWidth, options.CircleWidth);
+            }
+            if(options.BorderRadius != 50)
+            {
+                inlineStyle = string.Format("{0}border-radius:{1}%;", inlineStyle, options.BorderRadius);
+            }
+            if(options.BorderRotation != 0)
+            {
+                inlineStyle = string.Format("{0}transform:rotate({1}deg);", inlineStyle, options.BorderRotation);
+            }
+            var res = CreateDiv(doc, "rp progress", inlineStyle);
+
+            
             return res;
         }
 
@@ -216,21 +222,28 @@ namespace Irydae.Services
 
         private void GenerateRpNode(HtmlDocument doc, HtmlNode parentDiv, Rp rp)
         {
-            var res = doc.CreateElement("a");
-            res.SetAttributeValue("href", rp.Url);
-            res.AddClass("lieu bottom-border");
+            var res = doc.CreateElement("div");
+            var link = doc.CreateElement("a");
+            link.SetAttributeValue("href", rp.Url);
+            link.AddClass("lieu bottom-border");
+            res.AppendChild(link);
             var titre = doc.CreateElement("span");
             titre.AddClass("titreun");
             titre.AppendChild(doc.CreateTextNode(rp.Titre));
-            res.AppendChild(titre);
+            link.AppendChild(titre);
             parentDiv.AppendChild(res);
-            var participants = CreateDiv(doc, "infosgen", string.Empty)
-            .AppendChild(doc.CreateElement("i"));
+            
             if (rp.Partenaires.Any())
             {
+                var participants = CreateDiv(doc, "infosgen", string.Empty)
+               .AppendChild(doc.CreateElement("i"));
                 participants.AppendChildren(GenerateParticipantsNodes(doc, participants, rp));
+                res.AppendChild(participants.ParentNode);
             }
-            parentDiv.AppendChild(participants.ParentNode);
+            if (rp.Type.HasValue)
+            {
+                res.AppendChild(CreateDiv(doc, "icon " + rp.Type.Value.GetDescription(), ""));
+            }
         }
 
         private HtmlNodeCollection GenerateParticipantsNodes(HtmlDocument doc, HtmlNode parent, Rp rp)

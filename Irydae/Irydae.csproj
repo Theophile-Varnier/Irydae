@@ -114,6 +114,7 @@
     <Compile Include="Ressources\AmbientValueConverter.cs" />
     <Compile Include="Ressources\BaseConverter.cs" />
     <Compile Include="Ressources\BoolToVisibilityConverter.cs" />
+    <Compile Include="Ressources\ComboBoxItemTemplateSelector.cs" />
     <Compile Include="Ressources\DescriptionToImagePathConverter.cs" />
     <Compile Include="Ressources\NullableSelectionConverter.cs" />
     <Compile Include="Ressources\PercentWidthCornerRadiusConverter.cs" />
@@ -249,6 +250,27 @@
     </None>
     <AppDesigner Include="Properties\" />
     <Resource Include="Images\Cartedumonde.jpg" />
+    <Resource Include="Images\balance.png" />
+    <Resource Include="Images\balance2.png" />
+    <Resource Include="Images\besace.png" />
+    <Resource Include="Images\besace2.png" />
+    <Resource Include="Images\bourse.png" />
+    <Resource Include="Images\bourse2.png" />
+    <Resource Include="Images\carte.png" />
+    <Resource Include="Images\carte2.png" />
+    <Resource Include="Images\chapeau.png" />
+    <Resource Include="Images\chapeau2.png" />
+    <Resource Include="Images\gun.png" />
+    <Resource Include="Images\gun2.png" />
+    <Resource Include="Images\livre.png" />
+    <Resource Include="Images\livre2.png" />
+    <Resource Include="Images\quete.png" />
+    <Resource Include="Images\quete2.png" />
+    <Resource Include="Images\roue.png" />
+    <Resource Include="Images\roue2.png" />
+    <Resource Include="Images\social.png" />
+    <Resource Include="Images\social2.png" />
+    <Resource Include="Images\transparent.png" />
     <Content Include="Web\dataMap.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

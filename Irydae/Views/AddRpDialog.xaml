@@ -33,20 +33,36 @@
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
                 <TextBox TextChanged="TitreInput_TextChanged" Name="TitreInput"/>
                 <TextBox TextChanged="TitreInput_TextChanged" Name="UrlInput"/>
-                <ComboBox Name="TypeComboBox" SelectionChanged="TypeComboBox_OnSelectionChanged">
+                <ComboBox Name="TypeComboBox" SelectionChanged="TypeComboBox_OnSelectionChanged" MaxDropDownHeight="200">
                     <ComboBox.ItemsSource>
                         <CompositeCollection>
-                            <ComboBoxItem Foreground="Black">Did you just assume my type ?</ComboBoxItem>
+                            <ComboBoxItem Height="32" Padding="5" VerticalContentAlignment="Center" Foreground="Black">Did you just assume my type ?</ComboBoxItem>
                             <CollectionContainer Collection="{Binding Data.RpTypes, Source={StaticResource ProxyElement}}"/>
                         </CompositeCollection>
                     </ComboBox.ItemsSource>
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Path=., Converter={StaticResource AmbientValueConverter}}"/>
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
+                    <ComboBox.ItemTemplateSelector>
+                        <ressources:ComboBoxItemTemplateSelector>
+                            <ressources:ComboBoxItemTemplateSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image VerticalAlignment="Center" Height="32" Width="32" Source="{Binding Path=., Converter={ressources:DescriptionToImagePathConverter}}"/>
+                                            <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding Path=., Converter={StaticResource AmbientValueConverter}}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ressources:ComboBoxItemTemplateSelector.ItemTemplate>
+                            <ressources:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Height="21" Width="21" Source="{Binding Path=., Converter={ressources:DescriptionToImagePathConverter}}"/>
+                                        <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding Path=., Converter={StaticResource AmbientValueConverter}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ressources:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+
+                        </ressources:ComboBoxItemTemplateSelector>
+                    </ComboBox.ItemTemplateSelector>
                 </ComboBox>
             </StackPanel>
             <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">

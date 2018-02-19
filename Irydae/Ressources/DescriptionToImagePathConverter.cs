@@ -16,7 +16,7 @@ namespace Irydae.Ressources
             {
                 imgName = string.Format("{0}.png", enumValue.GetDescription());
             }
-            return Path.Combine("Images", imgName);
+            return "/Images/" + imgName;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

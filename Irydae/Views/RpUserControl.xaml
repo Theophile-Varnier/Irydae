@@ -2,9 +2,23 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ressources="clr-namespace:Irydae.Ressources"
+             xmlns:helpers="clr-namespace:Irydae.Helpers"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:model="clr-namespace:Irydae.Model"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ObjectDataProvider x:Key="values" MethodName="GetValues"
+                            ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="model:RpType"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+        <helpers:BindingProxy x:Key="ProxyElement" Data="{Binding}" />
+        <ressources:AmbientValueConverter x:Key="AmbientValueConverter" NullLabel="Did you just assume my type ?"/>
+    </UserControl.Resources>
     <GroupBox Margin="5" Padding="5">
         <GroupBox.Header>Rp</GroupBox.Header>
         <Grid>
@@ -25,10 +39,42 @@
             <StackPanel Orientation="Vertical">
                 <Label Content="Titre * : "/>
                 <Label Content="Url * : "/>
+                <Label Content="Type : "/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
                 <TextBox Name="TitreInput" Text="{Binding Titre}"/>
                 <TextBox Name="UrlInput" Text="{Binding Url}"/>
+                <ComboBox Name="TypeComboBox" SelectedItem="{Binding Type}" SelectionChanged="TypeComboBox_OnSelectionChanged" MaxDropDownHeight="200">
+                    <ComboBox.ItemsSource>
+                        <CompositeCollection>
+                            <ComboBoxItem Height="32" Padding="5" VerticalContentAlignment="Center" Foreground="Black">Did you just assume my type ?</ComboBoxItem>
+                            <CollectionContainer Collection="{Binding Source={StaticResource values}}"/>
+                        </CompositeCollection>
+                    </ComboBox.ItemsSource>
+                    <ComboBox.ItemTemplateSelector>
+                        <ressources:ComboBoxItemTemplateSelector>
+                            <ressources:ComboBoxItemTemplateSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <Border Padding="5">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image VerticalAlignment="Center" Height="32" Width="32" Source="{Binding Path=., Converter={ressources:DescriptionToImagePathConverter}}"/>
+                                            <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding Path=., Converter={StaticResource AmbientValueConverter}}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ressources:ComboBoxItemTemplateSelector.ItemTemplate>
+                            <ressources:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Height="21" Width="21" Source="{Binding Path=., Converter={ressources:DescriptionToImagePathConverter}}"/>
+                                        <TextBlock Margin="5 0" VerticalAlignment="Center" Text="{Binding Path=., Converter={StaticResource AmbientValueConverter}}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ressources:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+
+                        </ressources:ComboBoxItemTemplateSelector>
+                    </ComboBox.ItemTemplateSelector>
+                </ComboBox>
             </StackPanel>
         </Grid>
     </GroupBox>

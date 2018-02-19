@@ -25,19 +25,19 @@
     <Border Padding="10">
         <Grid>
             <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Vertical">
-            <Label HorizontalContentAlignment="Right" Content="Nom * : "/>
-            <Label HorizontalContentAlignment="Right" Content="Groupe * : "/>
-        </StackPanel>
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-            <TextBox Name="NameInput"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <Label HorizontalContentAlignment="Right" Content="Nom * : "/>
+                <Label HorizontalContentAlignment="Right" Content="Groupe * : "/>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                <TextBox Name="NameInput"/>
                 <ComboBox ItemsSource="{Binding Source={StaticResource MyEnumValues}}" Name="GroupeComboBox">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -46,12 +46,12 @@
                     </ComboBox.ItemTemplate>
                 </ComboBox>
             </StackPanel>
-        
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
-            <Button Click="Cancel" Name="CancelButton" IsCancel="True">Annuler</Button>
-            <Button Name="AddAnotherButton" Click="AddAndContinue">Ajouter un autre</Button>
-            <Button Name="AddButton" IsDefault="True" Click="AddAndClose">OK</Button>
-        </StackPanel>
-    </Grid>
+
+            <StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+                <Button Click="Cancel" Name="CancelButton" IsCancel="True">Annuler</Button>
+                <Button Name="AddAnotherButton" Click="AddAndContinue">Ajouter un autre</Button>
+                <Button Name="AddButton" IsDefault="True" Click="AddAndClose">OK</Button>
+            </StackPanel>
+        </Grid>
     </Border>
 </Window>

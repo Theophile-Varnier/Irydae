@@ -42,6 +42,23 @@ namespace Irydae.Model
             }
         }
 
+        [JsonProperty] 
+        private RpType? type;
+
+        [JsonIgnore]
+        public RpType? Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+                OnPropertyChanged("Type");
+            }
+        }
+
         [JsonProperty("partenaires")]
         public ObservableCollection<Partenaire> Partenaires { get; set; }
     }

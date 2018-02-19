@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Irydae.Model;
@@ -125,5 +126,12 @@ namespace Irydae.ViewModels
         }
 
         public ObservableCollection<KeyValuePair<string, Position>> Positions { get; private set; }
+
+        private List<RpType?> rpTypes;
+
+        public List<RpType?> RpTypes
+        {
+            get { return rpTypes ?? (rpTypes = new List<RpType?>(Enum.GetValues(typeof (RpType)).Cast<RpType?>())); }
+        } 
     }
 }

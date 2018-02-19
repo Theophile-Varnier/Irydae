@@ -142,11 +142,11 @@ namespace Irydae.ViewModels
             bool? dialogResult = dialog.ShowDialog();
             if (dialogResult.HasValue && dialogResult.Value)
             {
-                OptionsViewModel.Save();
+                OptionsViewModel.Save(CurrentProfile.Header);
             }
             else
             {
-                OptionsViewModel.CancelDialog();
+                OptionsViewModel.CancelDialog(CurrentProfile.Header);
             }
         }
 
@@ -176,6 +176,7 @@ namespace Irydae.ViewModels
                     PersonnageInfo.Periodes.Clear();
                     if (CurrentProfile != null)
                     {
+                        OptionsViewModel.Load(CurrentProfile.Header);
                         IEnumerable<Periode> periodes = journalService.ParseDatas(CurrentProfile.Header);
                         if (periodes != null)
                         {

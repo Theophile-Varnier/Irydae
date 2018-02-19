@@ -23,27 +23,47 @@ namespace Irydae.Services
             get { return instance ?? (instance = new OptionsService()); }
         }
 
-        public Options GetOptions()
+        public Options GetOptions(string profil)
         {
-            var filePath = Path.Combine(JournalService.DataPath, "options", "options.json");
+            var filePath = Path.Combine(JournalService.DataPath, "options", profil + ".json");
 
             if (!File.Exists(filePath))
             {
+                filePath = Path.Combine(JournalService.DataPath, "options", "options.json");
                 Options options = new Options();
-                SetDefaultValue(options);
-                SaveOptions(options);
-            }
-
-            using (StreamReader sr = new StreamReader(filePath))
-            {
-                var options = sr.ReadToEnd();
-                var res = JsonConvert.DeserializeObject<Options>(options);
-                // Pas beau
-                if (res.CircleWidth == 0)
+                if (!File.Exists(filePath))
                 {
-                    res.CircleWidth = 10;
+                    SetDefaultValue(options);
                 }
-                return res;
+                else
+                {
+                    using (StreamReader sr = new StreamReader(filePath))
+                    {
+                        var optionsString = sr.ReadToEnd();
+                        options = JsonConvert.DeserializeObject<Options>(optionsString);
+                        // Pas beau
+                        if (options.CircleWidth == 0)
+                        {
+                            options.CircleWidth = 10;
+                        }
+                    }
+                }
+                SaveOptions(options, profil);
+                return options;
+            }
+            else
+            {
+                using (StreamReader sr = new StreamReader(filePath))
+                {
+                    var options = sr.ReadToEnd();
+                    var res = JsonConvert.DeserializeObject<Options>(options);
+                    // Pas beau
+                    if (res.CircleWidth == 0)
+                    {
+                        res.CircleWidth = 10;
+                    }
+                    return res;
+                }
             }
         }
 
@@ -58,9 +78,9 @@ namespace Irydae.Services
             options.BorderRotation = 0;
         }
 
-        public void SaveOptions(Options options)
+        public void SaveOptions(Options options, string profil)
         {
-            var filePath = Path.Combine(JournalService.DataPath, "options", "options.json");
+            var filePath = Path.Combine(JournalService.DataPath, "options", profil + ".json");
             File.WriteAllText(filePath, JsonConvert.SerializeObject(options, Formatting.Indented));
         }
 

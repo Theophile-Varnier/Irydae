@@ -22,21 +22,25 @@ namespace Irydae.ViewModels
             }
         }
 
+        public void Load(string profil)
+        {
+            Options = service.GetOptions(profil);
+        }
+
         public OptionsViewModel(OptionsService optionsService)
         {
             ResetCommand = new RelayCommand(Reset);
             service = optionsService;
-            Options = service.GetOptions();
         }
 
-        public void Save()
+        public void Save(string profil)
         {
-            service.SaveOptions(Options);
+            service.SaveOptions(Options, profil);
         }
 
-        public void CancelDialog()
+        public void CancelDialog(string current)
         {
-            Options = service.GetOptions();
+            Options = service.GetOptions(current);
         }
 
         public void Reset()

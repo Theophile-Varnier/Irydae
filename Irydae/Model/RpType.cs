@@ -21,7 +21,7 @@ namespace Irydae.Model
         Gribouillage,
 
         [Description("chapeau")]
-        [AmbientValue("Déguisement")]
+        [AmbientValue("Bal costumé")]
         Deguisement,
 
         [Description("gun")]

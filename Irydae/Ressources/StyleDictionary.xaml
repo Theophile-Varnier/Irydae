@@ -16,7 +16,7 @@
     </Style>
 
     <Style x:Key="{x:Type Label}" TargetType="Label">
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="HorizontalContentAlignment" Value="Right"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
@@ -26,7 +26,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
@@ -34,20 +34,20 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="{x:Type DatePicker}" TargetType="DatePicker">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
     </Style>
 
     <Style x:Key="{x:Type Slider}" TargetType="Slider">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
     </Style>
 
     <Style x:Key="BaseListBox" TargetType="{x:Type ListBox}">
@@ -70,21 +70,21 @@
     
     <Style TargetType="{x:Type ComboBox}" x:Key="{x:Type ComboBox}">
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="Margin" Value="5"/>
     </Style>
     
     <Style x:Key="{x:Type xctk:ColorPicker}" TargetType="{x:Type xctk:ColorPicker}">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
     <Style x:Key="{x:Type xctk:IntegerUpDown}" TargetType="{x:Type xctk:IntegerUpDown}">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Width" Value="150"/>
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
 
@@ -93,7 +93,7 @@
     </Style>
     
     <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
-        <Setter Property="Height" Value="24"/>
+        <Setter Property="Height" Value="26"/>
         <Setter Property="Margin" Value="5"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>

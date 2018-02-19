@@ -5,7 +5,10 @@
   .panel-body-wrapper{
     padding: 15px;
     height: 120px;
-    overflow-y: auto;
+  }
+  
+  .panel-body-wrapper > div{
+	  position: relative;
   }
   
   input[type="radio"]:checked ~ div.panel-body {
@@ -86,8 +89,6 @@
       border-radius: 50%;
       border: 2px solid white;
       position: absolute;
-  }
-  .rp.progress{
       background-color: orange;
   }
 
@@ -126,6 +127,10 @@
   .tooltip a{
     color: inherit;
     text-decoration: none !important;
+  }
+  
+  .tooltip:hover{
+	  transform: scaleY(1);
   }
 
   .lieu{
@@ -169,12 +174,18 @@
     color: #00ccff; 
   }
 
-  .rp:hover .tooltip{
+  .rp:hover + .tooltip{
       transform: scaleY(1);
   }
-
-  circle:hover .tooltip{
-    transform: scaleY(1);
+  
+  .icon{
+	  position: absolute;
+	  left: -50px;
+	  top: 0;
+	  width: 50px;
+	  height: 50px;
+	  border-radius: 20px 0 0 20px;
+	  border: 2px solid #ffd700;
   }
 
   .legend{

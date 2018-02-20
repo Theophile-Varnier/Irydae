@@ -5,6 +5,7 @@
   .panel-body-wrapper{
     padding: 15px;
     height: 120px;
+	overflow-y: auto;
   }
   
   .panel-body-wrapper > div{

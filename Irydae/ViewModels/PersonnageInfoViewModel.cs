@@ -88,41 +88,24 @@ namespace Irydae.ViewModels
 
         public bool VerifierPositionPeriode(Periode periode, bool update = false)
         {
-            // Si on a déjà une période dans le même tierquar on se fait pas chier
-            Periode previous = Periodes.FirstOrDefault(p => p.Lieu == periode.Lieu);
-            if (previous != null)
+            KeyValuePair<string, Position> tryPosition = Positions.FirstOrDefault(kvp => kvp.Key == periode.Lieu);
+            if (tryPosition.Equals(default(KeyValuePair<string, Position>)))
             {
-                if (update)
-                {
-                    periode.Position.X = previous.Position.X;
-                    periode.Position.Y = previous.Position.Y;
-                }
+                // Pas trouvé, on ajoute la période et la clé
+                Positions.Add(new KeyValuePair<string, Position>(periode.Lieu, periode.Position));
+                return true;
             }
-            else
+
+            if (update)
             {
-                KeyValuePair<string, Position> tryPosition = Positions.FirstOrDefault(kvp => kvp.Key == periode.Lieu);
-                if (tryPosition.Equals(default(KeyValuePair<string, Position>)))
-                {
-                    // Pas trouvé, on ajoute la période et la clé
-                    Positions.Add(new KeyValuePair<string, Position>(periode.Lieu, periode.Position));
-                    return true;
-                }
-
-                if (update)
-                {
-                    periode.Position.X = tryPosition.Value.X;
-                    periode.Position.Y = tryPosition.Value.Y;
-                    return true;
-                }
-
-                // On a trouvé le lieu dans les périodes déjà définies
-                // On vérifie la cohérence avec un lieu existant
-                if (periode.Position.X != tryPosition.Value.X || periode.Position.Y != tryPosition.Value.Y)
-                {
-                    return false;
-                }
+                periode.Position.X = tryPosition.Value.X;
+                periode.Position.Y = tryPosition.Value.Y;
+                return true;
             }
-            return true;
+
+            // On a trouvé le lieu dans les périodes déjà définies
+            // On vérifie la cohérence avec un lieu existant
+            return periode.Position.X == tryPosition.Value.X && periode.Position.Y == tryPosition.Value.Y;
         }
 
         public ObservableCollection<KeyValuePair<string, Position>> Positions { get; private set; }
@@ -131,7 +114,7 @@ namespace Irydae.ViewModels
 
         public List<RpType?> RpTypes
         {
-            get { return rpTypes ?? (rpTypes = new List<RpType?>(Enum.GetValues(typeof (RpType)).Cast<RpType?>())); }
-        } 
+            get { return rpTypes ?? (rpTypes = new List<RpType?>(Enum.GetValues(typeof(RpType)).Cast<RpType?>())); }
+        }
     }
 }

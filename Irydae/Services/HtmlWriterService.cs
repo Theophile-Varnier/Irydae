@@ -123,7 +123,7 @@ namespace Irydae.Services
 
             if (periode.Position.Y > 300)
             {
-                tooltipTop = -(190 + (options.CircleWidth + borderWidth) / 2);
+                tooltipTop = -(170 + (options.CircleWidth + borderWidth) / 2);
             }
 
             var tooltip = CreateDiv(doc, "tooltip", string.Format("left:{0}px;top:{1}px;", periode.Position.X + tooltipLeft, periode.Position.Y + tooltipTop));
@@ -183,7 +183,7 @@ namespace Irydae.Services
             }
             if (options.CircleWidth != 10)
             {
-                inlineStyle = string.Format("{0}width:{1}px;height:{2}px", inlineStyle, options.CircleWidth, options.CircleWidth);
+                inlineStyle = string.Format("{0}width:{1}px;height:{1}px;", inlineStyle, options.CircleWidth);
             }
             if(options.BorderRadius != 50)
             {

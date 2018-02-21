@@ -4,22 +4,22 @@ namespace Irydae.Model
 {
     public enum Groupe
     {
-        [Description("daenar")]
+        [Description("cd")]
         [AmbientValue("Daënar")]
         Daenar,
-        [Description("mytran")]
+        [Description("cm")]
         [AmbientValue("My'trän")]
         Mytran,
-        [Description("peregrin")]
+        [Description("cp")]
         [AmbientValue("Pérégrin")]
         Peregrin,
-        [Description("anomalie")]
+        [Description("ca")]
         [AmbientValue("Anomalie")]
         Anomalie,
-        [Description("regisseur")]
+        [Description("cr")]
         [AmbientValue("Régisseur")]
         Regisseur,
-        [Description("architecte")]
+        [Description("car")]
         [AmbientValue("Architecte")]
         Architecte,
         [Description("pnj")]

@@ -19,7 +19,7 @@ namespace Irydae.Services
             HtmlDocument doc = new HtmlDocument();
             doc.Load(Path.Combine("Web", "mapData.html"), Encoding.UTF8);
             var datas = doc.DocumentNode.ChildNodes[0].ChildNodes;
-            foreach(var data in datas)
+            foreach (var data in datas)
             {
                 string tmp;
                 if (!string.IsNullOrWhiteSpace(tmp = data.GetAttributeValue("data-coords", string.Empty)))
@@ -83,7 +83,7 @@ namespace Irydae.Services
             doc.Save(Path.Combine(JournalService.DataPath, "Web", "result.html"));
             var cssLink = doc.CreateElement("link");
             cssLink.SetAttributeValue("rel", "stylesheet");
-            cssLink.SetAttributeValue("href", @"https://cdn.rawgit.com/Theophile-Varnier/Rp/1f25c820/Irydae/carnet/style.css");
+            cssLink.SetAttributeValue("href", @"https://cdn.rawgit.com/Irydae/Web/b2276863/style.css");
             return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.ParentNode.ParentNode.OuterHtml);
         }
 
@@ -113,7 +113,7 @@ namespace Irydae.Services
 
         private HtmlNode GenerateTooltip(HtmlDocument doc, Periode periode, Options options)
         {
-            var tooltipLeft = 0;
+            var tooltipLeft = -50;
             var tooltipTop = 10;
 
             if (periode.Position.X > 400)
@@ -123,18 +123,18 @@ namespace Irydae.Services
 
             if (periode.Position.Y > 300)
             {
-                tooltipTop = -(170 + (options.CircleWidth + borderWidth) / 2);
+                tooltipTop = -(180 + (options.CircleWidth + borderWidth) / 2);
             }
 
-            var tooltip = CreateDiv(doc, "tooltip", string.Format("left:{0}px;top:{1}px;", periode.Position.X + tooltipLeft, periode.Position.Y + tooltipTop));
+            var tooltip = CreateDiv(doc, "tt", string.Format("left:{0}px;top:{1}px;", periode.Position.X + tooltipLeft, periode.Position.Y + tooltipTop));
 
-            var panelTitle = CreateDiv(doc, "panel-title bottom-border", string.Empty);
+            var panelTitle = CreateDiv(doc, "p-t b-b", string.Empty);
 
             var periodeTitle = doc.CreateElement("span");
-            periodeTitle.AddClass("lieu bottom-border");
+            periodeTitle.AddClass("lieu b-b");
             periodeTitle.AppendChild(doc.CreateTextNode(periode.Lieu));
 
-            var panelBody = CreateDiv(doc, "panel-body-wrapper", string.Empty);
+            var panelBody = CreateDiv(doc, "p-b-w", string.Empty);
             if (options.DisplayByYear)
             {
                 foreach (var subPeriode in periode.SubPeriodes)
@@ -142,7 +142,7 @@ namespace Irydae.Services
                     if (periode.SubPeriodes.Count > 1)
                     {
                         panelBody.AppendChild(CreatePeriodePeriode(doc, subPeriode));
-                        panelBody.AppendChild(doc.CreateElement("br"));
+                        //panelBody.AppendChild(doc.CreateElement("br"));
                     }
                     foreach (var rp in subPeriode.Rps)
                     {
@@ -167,6 +167,7 @@ namespace Irydae.Services
 
             tooltip.AppendChild(panelTitle);
             tooltip.AppendChild(panelBody);
+            tooltip.AppendChild(CreateDiv(doc, "te", string.Empty));
             return tooltip;
         }
 
@@ -185,17 +186,17 @@ namespace Irydae.Services
             {
                 inlineStyle = string.Format("{0}width:{1}px;height:{1}px;", inlineStyle, options.CircleWidth);
             }
-            if(options.BorderRadius != 50)
+            if (options.BorderRadius != 50)
             {
                 inlineStyle = string.Format("{0}border-radius:{1}%;", inlineStyle, options.BorderRadius);
             }
-            if(options.BorderRotation != 0)
+            if (options.BorderRotation != 0)
             {
                 inlineStyle = string.Format("{0}transform:rotate({1}deg);", inlineStyle, options.BorderRotation);
             }
-            var res = CreateDiv(doc, "rp progress", inlineStyle);
+            var res = CreateDiv(doc, "rp", inlineStyle);
 
-            
+
             return res;
         }
 
@@ -222,23 +223,22 @@ namespace Irydae.Services
 
         private void GenerateRpNode(HtmlDocument doc, HtmlNode parentDiv, Rp rp)
         {
-            var res = doc.CreateElement("div");
+            var res = CreateDiv(doc, "rpw", string.Empty);
             var link = doc.CreateElement("a");
             link.SetAttributeValue("href", rp.Url);
-            link.AddClass("lieu bottom-border");
+            link.AddClass("lieu b-b");
             res.AppendChild(link);
             var titre = doc.CreateElement("span");
             titre.AddClass("titreun");
             titre.AppendChild(doc.CreateTextNode(rp.Titre));
             link.AppendChild(titre);
             parentDiv.AppendChild(res);
-            
+
             if (rp.Partenaires.Any())
             {
-                var participants = CreateDiv(doc, "infosgen", string.Empty)
-               .AppendChild(doc.CreateElement("i"));
+                var participants = doc.CreateElement("i");
                 participants.AppendChildren(GenerateParticipantsNodes(doc, participants, rp));
-                res.AppendChild(participants.ParentNode);
+                res.AppendChild(participants);
             }
             if (rp.Type.HasValue)
             {

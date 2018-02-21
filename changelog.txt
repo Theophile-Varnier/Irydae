@@ -1,0 +1,44 @@
+Okééééééé,
+
+Nouvelle version disponible ici (Comme d'hab, n'oubliez pas de désinstaller l'ancienne x) ), j'ai essayé au maximum de faire plaisir à tout le monde (y compris à moi. Parce que je suis comme ça.) <3
+
+Je tiens pour cette mise à jour à remercier Joël qui m'a permis d'utiliser les données de sa carte interactive (pour rappel, c'est par [url=]là[/url] !) qui est ce qui m'a donné l'idée à l'origine, ne l'oublions pas ! ^_^
+
+Donc voilà, merci Joël, tu es un peu ma muse à moi <3 [size=8]Joël m'amuse huehue...[/size]
+
+Je tiens aussi à remercier ma maman, sans qui je ne serais jamais devenu ce que je suis aujourd'hui, [size=8]et aussi ma copine[/size] [size=6]et mon chat et...[/size]
+
+Quelques modifications assez importantes pour le coup, je vous invite à lire attentivement le changelog qui suit pour ne rien rater et ne pas avoir à me demander plus tard des trucs qui sont marqués dedans [size=8]*tousse* ... *Aurore* ... *tousse*[/size].
+
+[spoiler="Le changelog qui suit "]
+[list][*]L'image utilisée pour la carte a été changée (pour des raisons de proportions foireuses et de flemme de calculer une matrice de transformation.)
+[*]Les options permettent maintenant de personnaliser un peu la forme des points sur la carte. C'est pas grand chose mais avec les couleurs ça devrait faire des cartes un peu moins semblables (comme d'hab, plus d'info dans le spoiler "Tips & Tricks")
+[*]Les options sont maintenant liées à chaque personnage. Si j'ai bien fait mon travail (ce dont je ne doute pas une seule seconde) vous ne devriez pas perdre vos anciennes options (sinon tant pis, c'est une case et deux couleurs à changer bande de feignasses), par contre gardez en tête que les modifications ne s'appliquent plus à tous les personnages désormais.
+[*]Les villes, régions et autres points présents sur la carte interactive sont préconfigurés (là encore, pas mal de détails en plus dans le spoiler "Tips & Tricks")[list][*]Vous allez vous taper un message à la première ouverture de l'application pour savoir si vous voulez utiliser les coordonnées nouvellement configurées pour vos périodes ou bien garder les coordonnées des points que vous avez placé à l'arrache (Ne niez pas, je le sais.)[/list]
+[*]Vous avez maintenant la possibilité d'ajouter une icône à chaque Rp pour le "catégoriser" si vous le voulez. C'est complètement optionnel et le seul effet sera l'affichage de l'image dans le rendu final. C'est cadeau, ça sert à rien mais ça m'amusait et je trouvais le set d'images vraiment classe.[/list]
+[/spoiler]
+
+[spoiler="Tips & Tricks "]
+[list][*]Les options de rendu, propres à chaque personnage que vous définissez, vous permettent de personnaliser l'apparence des points sur la carte :[list][*]Taille du point
+[*]Couleur de fond
+[*]Couleur de la bordure
+[*]Couleur des traits qui relient chacun des points
+[*]"Arrondi" des angles : Cette valeur se contrôle à l'aide d'un slider; à 0 vous êtes carré, au max vous êtes complètement ronds (et je ne parle pas d'alcool.)
+[*]Rotation du point : idem qu'au dessus, se contrôle avec un slider. A noter que vous ne verrez pas la différence si vous affichez des ronds (sauf si vous êtes vous-même vraiment ronds (et là je parle d'alcool))
+[*]La possibilité d'afficher un seul point pour toutes les périodes de la vie de votre personnage qui se passent au même endroit. Si vous décochez cette case il faudra vous arranger pour que les périodes en question soient décalées sur la carte (j'vais pas tout faire pour vous non plus). [b]Attention :[/b] La position utilisée pour le positionnement du point au final est la position de la [b]première[/b] période dans un lieu.[/list]
+[*]Les lieux remarquables (villes, régions, Zone A/B/C...) sont préenregistrés dans l'application (en fait si, je fais vraiment tout pour vous.)[list][*]Pour utiliser un point déjà défini, y a juste à taper son nom dans le champ "lieu" du dialogue "ajouter une période". La liste des lieux qui commencent comme ça s'affiche alors et vous pouvez cliquer sur un des noms pour le choisir <3
+[*]L'autocomplétion est insensible à la casse (cé lé majuscules) mais pas aux accents (c'était relou à gérer <3) donc désolé mais vous allez devoir vous taper les trémas ^_^
+[*]Petit bonus : L'application sauvegarde aussi les lieux [b]non[/b] pré-enregistrés que vous utilisez (par exemple "Les alentours d'Alexandria" ou "Chez mamie") d'une période à l'autre.[/list][/list]
+[/spoiler]
+
+Comme toujours, je fais ça sur mon temps libre et croyez-moi, je fais suffisamment de tests au taf pour ne pas me faire chier à en faire en plus pour le plaisir. Il n'est donc pas impossible que malgré mon génie, des coquilles se soient glissées dans cette version. De même, je pense avoir rempli le cahier des charges avec les différentes demandes qu'on m'avait faites, mais il est possible que j'en ai oubliées.
+
+Dans l'un ou l'autre des cas sus-cités, ou simplement si de nouvelles idées vous viennent, mon pigeon voyageur (dis bonjour Bernard !) est toujours à votre disposition, de même que tous les moyens de communication modernes-ish que j'ai pu mentionner dans mes précédents messages.
+
+Des bisous !
+
+Léo, Nono, Elé, votre humble serviteur.
+
+[b]PS :[/b] Je ne pense pas que ça devrait arriver tout de suite, mais je commence à entrevoir un scénario où pour les plus gros spammeurs d'entre vous, le message produit au final dépasse la taille maximum autorisée par ForumActif. Je suis en train de réfléchir à diverses optimisations pour éviter que cela ne se produise, mais pour l'instant je n'ai rien trouvé de très concluant à ce sujet.
+[b]PPS :[/b] Pour info, cette limite c'est 65.000 caractères. Et en 10 ans de carrière, je n'ai jamais vu personne la dépasser.
+[b]PPPS :[/b] En fait si, mais c'était y a longtemps et à l'époque elle était vaaaaaaaaaaaaachement moins haute.

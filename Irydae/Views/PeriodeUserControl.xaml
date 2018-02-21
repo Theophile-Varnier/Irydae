@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
              xmlns:viewModels="clr-namespace:Irydae.ViewModels"
+             xmlns:helpers="clr-namespace:Irydae.Helpers"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <GroupBox Margin="5" Padding="5">
@@ -30,14 +31,9 @@
                 <Label HorizontalContentAlignment="Right" Content="Date de fin : "/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <!--<TextBox Name="LieuInput" Text="{Binding Lieu}"/>-->
-                <controls:AutoCompleteBox Name="LieuInput" SelectedItem="{Binding Lieu}" ItemsSource="{Binding Source={x:Static viewModels:PersonnageInfoViewModel.PositionsNames}}" ValueMemberPath="Key">
-                    <controls:AutoCompleteBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Key}"/>
-                        </DataTemplate>
-                    </controls:AutoCompleteBox.ItemTemplate>
-                </controls:AutoCompleteBox>
+
+                <helpers:MyAutoCompleteBox x:Name="LieuInput" Text="{Binding Lieu, Mode=TwoWay}" EnterKeyDown="LieuInput_EnterKeyDown" ItemsSource="{Binding Source={x:Static viewModels:PersonnageInfoViewModel.PositionsNames}}"/>
+
                 <DatePicker Name="StartDatePicker" SelectedDate="{Binding DateDebut, UpdateSourceTrigger=PropertyChanged}"/>
                 <DatePicker Name="EndDatePicker" SelectedDate="{Binding DateFin, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>

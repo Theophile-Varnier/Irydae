@@ -89,7 +89,7 @@ namespace Irydae.ViewModels
             return true;
         }
 
-        public bool VerifierPositionPeriode(Periode periode, bool update = false)
+        public static bool VerifierPositionPeriode(Periode periode, bool update = false)
         {
             KeyValuePair<string, Position> tryPosition = Positions.FirstOrDefault(kvp => kvp.Key == periode.Lieu);
             if (tryPosition.Equals(default(KeyValuePair<string, Position>)))

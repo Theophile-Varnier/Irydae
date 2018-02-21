@@ -83,7 +83,8 @@ namespace Irydae.Services
             doc.Save(Path.Combine(JournalService.DataPath, "Web", "result.html"));
             var cssLink = doc.CreateElement("link");
             cssLink.SetAttributeValue("rel", "stylesheet");
-            cssLink.SetAttributeValue("href", @"https://cdn.rawgit.com/Irydae/Web/b2276863/style.css");
+            cssLink.SetAttributeValue("href", @"https://cdn.rawgit.com/Irydae/Web/ca4680b7/style.css");
+            //cssLink.SetAttributeValue("href", @"style.css");
             return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.ParentNode.ParentNode.OuterHtml);
         }
 
@@ -118,7 +119,7 @@ namespace Irydae.Services
 
             if (periode.Position.X > 400)
             {
-                tooltipLeft = -195;
+                tooltipLeft = -245;
             }
 
             if (periode.Position.Y > 300)
@@ -226,7 +227,6 @@ namespace Irydae.Services
             var res = CreateDiv(doc, "rpw", string.Empty);
             var link = doc.CreateElement("a");
             link.SetAttributeValue("href", rp.Url);
-            link.AddClass("lieu b-b");
             res.AppendChild(link);
             var titre = doc.CreateElement("span");
             titre.AddClass("titreun");

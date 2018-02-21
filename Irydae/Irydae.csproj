@@ -106,6 +106,8 @@
     </ApplicationDefinition>
     <Compile Include="Helpers\BindingProxy.cs" />
     <Compile Include="Helpers\EnumExtension.cs" />
+    <Compile Include="Helpers\IconHelper.cs" />
+    <Compile Include="Helpers\MyAutoCompleteBox.cs" />
     <Compile Include="Helpers\OpenDialogCommand.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Model\Groupe.cs" />

@@ -183,9 +183,16 @@ namespace Irydae.ViewModels
                             bool update = false;
                             foreach (var periode in periodes)
                             {
-                                if (!update && !PersonnageInfo.VerifierPositionPeriode(periode))
+                                if (!update &&!OptionsViewModel.Options.HideUpdate && !PersonnageInfoViewModel.VerifierPositionPeriode(periode))
                                 {
-                                    update = MessageBox.Show("Des différences de position ont été trouvées entre ce profil et notre super base de données de ouf. Veux-tu mettre à jour tes données en conséquences ?", "Mise à jour, bonjour !", MessageBoxButton.YesNo) == MessageBoxResult.Yes;
+                                    update = YesNoCancelDialogViewModel.ShowDialog("Des différences de position ont été trouvées entre ce profil et notre super base de données de ouf.\nVeux-tu mettre à jour tes données en conséquences ?", "Mise à jour, bonjour !", "Oui", "Non", null) == MessageBoxResult.Yes;
+                                    if (!update)
+                                    {
+                                        OptionsViewModel.Options.HideUpdate = true;
+                                        OptionsViewModel.Save(CurrentProfile.Header);
+                                        YesNoCancelDialogViewModel.ShowDialog("C'était bien la peine d'ajouter la configuration des lieux.", "Ca fait plaisir.", "Ok TG.", null, null);
+                                        YesNoCancelDialogViewModel.ShowDialog("Heureusement que je me casse pas le cul pour rien.", "Ca fait plaisir.", "Nan mais vraiment tais-toi.", null, null);
+                                    }
                                 }
                                 PersonnageInfo.AddPeriode(periode, update);
                             }

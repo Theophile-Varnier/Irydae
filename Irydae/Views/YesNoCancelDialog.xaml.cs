@@ -1,4 +1,5 @@
-﻿using Irydae.ViewModels;
+﻿using Irydae.Helpers;
+using Irydae.ViewModels;
 using System.Windows;
 
 namespace Irydae.Views
@@ -44,6 +45,11 @@ namespace Irydae.Views
             {
                 Title = ViewModel.Title;
             }
+        }
+
+        private void Window_SourceInitialized(object sender, System.EventArgs e)
+        {
+            IconHelper.RemoveIcon(this);
         }
     }
 }

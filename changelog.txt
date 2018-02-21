@@ -1,8 +1,8 @@
 Okééééééé,
 
-Nouvelle version disponible ici (Comme d'hab, n'oubliez pas de désinstaller l'ancienne x) ), j'ai essayé au maximum de faire plaisir à tout le monde (y compris à moi. Parce que je suis comme ça.) <3
+Nouvelle version disponible [url=https://nofile.io/f/8mGhVjE882y/Irydae.exe]ici[/url] (Comme d'hab, n'oubliez pas de désinstaller l'ancienne x) ), j'ai essayé au maximum de faire plaisir à tout le monde (y compris à moi. Parce que je suis comme ça.) <3
 
-Je tiens pour cette mise à jour à remercier Joël qui m'a permis d'utiliser les données de sa carte interactive (pour rappel, c'est par [url=]là[/url] !) qui est ce qui m'a donné l'idée à l'origine, ne l'oublions pas ! ^_^
+Je tiens pour cette mise à jour à remercier Joël qui m'a permis d'utiliser les données de sa carte [strike]bancaire[/strike] interactive (pour rappel, c'est par [url=http://irydae.forumactif.org/h3-carte]là[/url] !) qui est ce qui m'a donné l'idée à l'origine, ne l'oublions pas ! ^_^
 
 Donc voilà, merci Joël, tu es un peu ma muse à moi <3 [size=8]Joël m'amuse huehue...[/size]
 
@@ -37,8 +37,8 @@ Dans l'un ou l'autre des cas sus-cités, ou simplement si de nouvelles idées vo
 
 Des bisous !
 
-Léo, Nono, Elé, votre humble serviteur.
+Léo, Nono, Elé, votre [strike]humble[/strike] [strike]génial[/strike] dévoué [strike]maître à tous[/strike] serviteur.
 
-[b]PS :[/b] Je ne pense pas que ça devrait arriver tout de suite, mais je commence à entrevoir un scénario où pour les plus gros spammeurs d'entre vous, le message produit au final dépasse la taille maximum autorisée par ForumActif. Je suis en train de réfléchir à diverses optimisations pour éviter que cela ne se produise, mais pour l'instant je n'ai rien trouvé de très concluant à ce sujet.
+[b]PS :[/b] Je ne pense pas que ça devrait arriver tout de suite, mais je commence à entrevoir un scénario où pour les plus gros spammeurs d'entre vous, le message produit au final dépasse la taille maximum autorisée par ForumActif. Je suis en train de réfléchir à diverses optimisations pour éviter que cela ne se produise.
 [b]PPS :[/b] Pour info, cette limite c'est 65.000 caractères. Et en 10 ans de carrière, je n'ai jamais vu personne la dépasser.
 [b]PPPS :[/b] En fait si, mais c'était y a longtemps et à l'époque elle était vaaaaaaaaaaaaachement moins haute.

@@ -111,5 +111,20 @@ namespace Irydae.Model
                 OnPropertyChanged("BorderRotation");
             }
         }
+
+        private bool hideUpdate;
+
+        public bool HideUpdate
+        {
+            get
+            {
+                return hideUpdate;
+            }
+            set
+            {
+                hideUpdate = value;
+                OnPropertyChanged("HideUpdate");
+            }
+        }
     }
 }

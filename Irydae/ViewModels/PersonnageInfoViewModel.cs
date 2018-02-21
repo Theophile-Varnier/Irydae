@@ -17,7 +17,10 @@ namespace Irydae.ViewModels
         {
             this.service = service;
             Periodes = new ObservableCollection<Periode>();
-            Positions = new ObservableCollection<KeyValuePair<string, Position>>(service.PredefinedPositions);
+            if (Positions == null)
+            {
+                Positions = new ObservableCollection<KeyValuePair<string, Position>>(service.PredefinedPositions);
+            }
         }
 
         private Periode selectedPeriode;
@@ -108,7 +111,15 @@ namespace Irydae.ViewModels
             return periode.Position.X == tryPosition.Value.X && periode.Position.Y == tryPosition.Value.Y;
         }
 
-        public ObservableCollection<KeyValuePair<string, Position>> Positions { get; private set; }
+        public static ObservableCollection<KeyValuePair<string, Position>> Positions { get; private set; }
+
+        public static ObservableCollection<string> PositionsNames
+        {
+            get
+            {
+                return new ObservableCollection<string>(Positions.Select(kvp => kvp.Key));
+            }
+        }
 
         private List<RpType?> rpTypes;
 

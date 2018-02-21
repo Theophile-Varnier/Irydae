@@ -62,7 +62,7 @@
                             <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedPeriode.Rps}" DisplayMemberPath="Titre" SelectedItem="{Binding PersonnageInfo.SelectedRp}"/>
                             <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.SelectedRp.Partenaires}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedPartenaire}"/>
                             <Grid Visibility="{Binding PersonnageInfo.SelectedPeriode, Converter={ressources:NullToVisibilityConverter}}">
-                                <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}"/>
+                                <views:PeriodeUserControl DataContext="{Binding PersonnageInfo.SelectedPeriode}" />
                             </Grid>
                             <Grid Visibility="{Binding PersonnageInfo.SelectedRp, Converter={ressources:NullToVisibilityConverter}}">
                                 <views:RpUserControl DataContext="{Binding PersonnageInfo.SelectedRp}"/>

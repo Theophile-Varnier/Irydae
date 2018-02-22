@@ -147,7 +147,7 @@ namespace Irydae.Services
                     }
                     foreach (var rp in subPeriode.Rps)
                     {
-                        GenerateRpNode(doc, panelBody, rp);
+                        GenerateRpNode(doc, panelBody, rp, periode.SubPeriodes.Count == 1 && subPeriode.Rps.Count == 1);
                     }
                 }
             }
@@ -155,7 +155,7 @@ namespace Irydae.Services
             {
                 foreach (var rp in periode.Rps)
                 {
-                    GenerateRpNode(doc, panelBody, rp);
+                    GenerateRpNode(doc, panelBody, rp, periode.Rps.Count == 1);
                 }
             }
 
@@ -222,9 +222,9 @@ namespace Irydae.Services
             return res;
         }
 
-        private void GenerateRpNode(HtmlDocument doc, HtmlNode parentDiv, Rp rp)
+        private void GenerateRpNode(HtmlDocument doc, HtmlNode parentDiv, Rp rp, bool solo = false)
         {
-            var res = CreateDiv(doc, "rpw", string.Empty);
+            var res = CreateDiv(doc, solo ? "rpw solo": "rpw", string.Empty);
             var link = doc.CreateElement("a");
             link.SetAttributeValue("href", rp.Url);
             res.AppendChild(link);

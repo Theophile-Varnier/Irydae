@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "Irydaë - Carnet de bord"
-#define MyAppVersion "1.0"
+#define MyAppVersion "1.1"
 #define MyAppPublisher "Steinfort & Co."
 #define MyAppExeName "Irydae.exe"
 
@@ -18,7 +18,7 @@ AppPublisher={#MyAppPublisher}
 DefaultDirName={pf}\Irydae
 DefaultGroupName=Irydae
 DisableProgramGroupPage=yes
-OutputDir=C:\Users\Théo\Documents\Programmation\C#\Irydae
+OutputDir=.
 OutputBaseFilename=Irydae
 Compression=lzma
 SolidCompression=yes
@@ -30,8 +30,8 @@ Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\Théo\Documents\Programmation\C#\Irydae\Irydae\bin\Release\Irydae.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\Théo\Documents\Programmation\C#\Irydae\Irydae\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "Irydae\bin\Release\Irydae.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "Irydae\bin\Release\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]

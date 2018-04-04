@@ -156,8 +156,14 @@
     <Compile Include="Views\PartenaireUserControl.xaml.cs">
       <DependentUpon>PartenaireUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PeriodesUserControl.xaml.cs">
+      <DependentUpon>PeriodesUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PeriodeUserControl.xaml.cs">
       <DependentUpon>PeriodeUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RelationsUserControl.xaml.cs">
+      <DependentUpon>RelationsUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ResultDisplayDialog.xaml.cs">
       <DependentUpon>ResultDisplayDialog.xaml</DependentUpon>
@@ -208,7 +214,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\PeriodesUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PeriodeUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RelationsUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

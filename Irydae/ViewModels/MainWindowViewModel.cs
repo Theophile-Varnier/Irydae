@@ -173,15 +173,14 @@ namespace Irydae.ViewModels
             switch (propertyChangedEventArgs.PropertyName)
             {
                 case CurrentProfilePropertyName:
-                    PersonnageInfo.Periodes.Clear();
                     if (CurrentProfile != null)
                     {
                         OptionsViewModel.Load(CurrentProfile.Header);
-                        IEnumerable<Periode> periodes = journalService.ParseDatas(CurrentProfile.Header);
-                        if (periodes != null)
+                        Personnage personnage = journalService.ParseDatas(CurrentProfile.Header);
+                        if (personnage != null && personnage.Periodes != null)
                         {
                             bool update = false;
-                            foreach (var periode in periodes)
+                            foreach (var periode in personnage.Periodes)
                             {
                                 if (!update &&!OptionsViewModel.Options.HideUpdate && !PersonnageInfoViewModel.VerifierPositionPeriode(periode))
                                 {
@@ -253,7 +252,7 @@ namespace Irydae.ViewModels
         {
             SaveDatas();
             var htmlWriter = new HtmlWriterService();
-            return htmlWriter.GenerateHtml(PersonnageInfo.Periodes, OptionsViewModel.Options);
+            return htmlWriter.GenerateHtml(PersonnageInfo.Personnage.Periodes, OptionsViewModel.Options);
         }
 
         private void GenerateAndOpen()
@@ -282,7 +281,7 @@ namespace Irydae.ViewModels
 
         public void SaveDatas()
         {
-            journalService.UpdateDatas(CurrentProfile.Header, PersonnageInfo.Periodes);
+            journalService.UpdateDatas(CurrentProfile.Header, PersonnageInfo.Personnage);
             ModificationStatusService.Instance.Dirty = false;
         }
     }

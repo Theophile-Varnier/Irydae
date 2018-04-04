@@ -109,9 +109,11 @@
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Helpers\MyAutoCompleteBox.cs" />
     <Compile Include="Helpers\OpenDialogCommand.cs" />
+    <Compile Include="Helpers\PartenaireEqualityComparer.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Model\Groupe.cs" />
     <Compile Include="Model\Options.cs" />
+    <Compile Include="Model\Personnage.cs" />
     <Compile Include="Model\RpType.cs" />
     <Compile Include="Ressources\AmbientValueConverter.cs" />
     <Compile Include="Ressources\BaseConverter.cs" />

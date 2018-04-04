@@ -23,16 +23,16 @@ namespace Irydae.Model
         }
 
         [JsonProperty]
-        private Groupe groupe;
+        private Groupe? groupe;
 
         [JsonIgnore]
-        public Groupe Groupe
+        public Groupe? Groupe
         {
             get { return groupe; }
             set
             {
                 groupe = value;
-                OnPropertyChanged("GroupeEnum");
+                OnPropertyChanged("Groupe");
             }
         }
 
@@ -40,6 +40,23 @@ namespace Irydae.Model
         public void OnError(StreamingContext context, ErrorContext errorContext)
         {
             errorContext.Handled = true;
+        }
+
+        [JsonProperty]
+        private string description;
+
+        [JsonIgnore]
+        public string Description
+        {
+            get
+            {
+                return description;
+            }
+            set
+            {
+                description = value;
+                OnPropertyChanged("Description");
+            }
         }
     }
 }

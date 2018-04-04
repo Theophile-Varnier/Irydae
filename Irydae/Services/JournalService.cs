@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using Irydae.Helpers;
 using Irydae.Model;
 using Newtonsoft.Json;
 
@@ -42,7 +44,7 @@ namespace Irydae.Services
 
         public IEnumerable<string> GetExistingProfils()
         {
-            return Directory.GetFiles(DataPath).Select(Path.GetFileNameWithoutExtension);
+            return Directory.GetFiles(DataPath).Select(Path.GetFileNameWithoutExtension).Distinct();
         }
 
         public static JournalService Instance
@@ -57,17 +59,33 @@ namespace Irydae.Services
             }
         }
 
-        public IEnumerable<Periode> ParseDatas(string nomProfile)
+        public Personnage ParseDatas(string nomProfile)
         {
-            List<Periode> res = new List<Periode>();
+            Personnage res = new Personnage();
 
             string filePath = Path.Combine(DataPath, nomProfile + ".json");
             if (File.Exists(filePath))
             {
+                string profile;
                 using (StreamReader sr = new StreamReader(filePath))
                 {
-                    string periodes = sr.ReadToEnd();
-                    res = JsonConvert.DeserializeObject<List<Periode>>(periodes);
+                    profile = sr.ReadToEnd();
+                }
+
+                try
+                {
+                    res = JsonConvert.DeserializeObject<Personnage>(profile);
+                    return res;
+                }
+                catch
+                {
+                    List<Periode> periodes = JsonConvert.DeserializeObject<List<Periode>>(profile);
+                    if (periodes != null)
+                    {
+                        res.Periodes = new ObservableCollection<Periode>(periodes);
+                        res.Partenaires = new ObservableCollection<Partenaire>(periodes.SelectMany(p => p.Rps).SelectMany(r => r.Partenaires).Distinct(new PartenaireEqualityComparer()));
+                        UpdateDatas(nomProfile, res);
+                    }
                 }
             }
             else
@@ -78,7 +96,7 @@ namespace Irydae.Services
             return res;
         }
 
-        public void UpdateDatas(string nomPersonnage, IEnumerable<Periode> datas)
+        public void UpdateDatas(string nomPersonnage, Personnage datas)
         {
             string filePath = Path.Combine(DataPath, nomPersonnage + ".json");
             File.WriteAllText(filePath, JsonConvert.SerializeObject(datas, Formatting.Indented));

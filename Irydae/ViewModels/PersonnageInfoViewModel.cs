@@ -11,12 +11,22 @@ namespace Irydae.ViewModels
     {
         private readonly OptionsService service;
 
-        public ObservableCollection<Periode> Periodes { get; set; }
+        private Personnage personnage;
+
+        public Personnage Personnage
+        {
+            get { return personnage; }
+            set
+            {
+                personnage = value;
+                OnPropertyChanged("Personnage");
+            }
+        }
 
         public PersonnageInfoViewModel(OptionsService service)
         {
             this.service = service;
-            Periodes = new ObservableCollection<Periode>();
+            Personnage = new Personnage();
             if (Positions == null)
             {
                 Positions = new ObservableCollection<KeyValuePair<string, Position>>(service.PredefinedPositions);
@@ -53,7 +63,7 @@ namespace Irydae.ViewModels
             }
             else if (SelectedPeriode != null)
             {
-                Periodes.Remove(SelectedPeriode);
+                Personnage.Periodes.Remove(SelectedPeriode);
                 SelectedPeriode = null;
             }
         }
@@ -85,7 +95,7 @@ namespace Irydae.ViewModels
         public bool AddPeriode(Periode periode, bool update = true)
         {
             VerifierPositionPeriode(periode, update);
-            Periodes.Add(periode);
+            Personnage.Periodes.Add(periode);
             return true;
         }
 

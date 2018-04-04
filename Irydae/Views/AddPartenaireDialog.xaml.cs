@@ -32,10 +32,11 @@ namespace Irydae.Views
 
         private void AddPartenaire()
         {
+            Groupe? groupe = GroupeComboBox.SelectedItem as Groupe?;
             Partenaire partenaire = new Partenaire
             {
                 Nom = NameInput.Text,
-                Groupe = (Groupe)GroupeComboBox.SelectedItem
+                Groupe = groupe
             };
             ViewModel.SelectedRp.Partenaires.Add(partenaire);
             ViewModel.SelectedPartenaire = partenaire;

@@ -173,6 +173,7 @@ namespace Irydae.ViewModels
             switch (propertyChangedEventArgs.PropertyName)
             {
                 case CurrentProfilePropertyName:
+                    PersonnageInfo.Personnage.Periodes.Clear();
                     if (CurrentProfile != null)
                     {
                         OptionsViewModel.Load(CurrentProfile.Header);

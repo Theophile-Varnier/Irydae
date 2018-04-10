@@ -9,13 +9,13 @@ namespace Irydae.Model
         public Personnage()
         {
             Periodes = new ObservableCollection<Periode>();
-            Partenaires = new ObservableCollection<Partenaire>();
+            Relations = new ObservableCollection<Partenaire>();
         }
 
         [JsonProperty]
         public ObservableCollection<Periode> Periodes { get; set; }
 
         [JsonProperty]
-        public ObservableCollection<Partenaire> Partenaires { get; set; } 
+        public ObservableCollection<Partenaire> Relations { get; set; } 
     }
 }

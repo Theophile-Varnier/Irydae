@@ -36,8 +36,15 @@
                 <MenuItem Header="_Options" Command="{Binding DisplayOptionDialogCommand}"/>
             </MenuItem>
         </Menu>
-        <Grid>
-            <views:PeriodesUserControl />
+        <Grid Margin="10">
+            <TabControl>
+                <TabItem Header="Rps">
+                    <views:PeriodesUserControl />
+                </TabItem>
+                <TabItem Header="Relations">
+                    <views:RelationsUserControl />
+                </TabItem>
+            </TabControl>
         </Grid>
     </DockPanel>
 </Window>

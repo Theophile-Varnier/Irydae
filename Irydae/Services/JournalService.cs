@@ -83,7 +83,7 @@ namespace Irydae.Services
                     if (periodes != null)
                     {
                         res.Periodes = new ObservableCollection<Periode>(periodes);
-                        res.Partenaires = new ObservableCollection<Partenaire>(periodes.SelectMany(p => p.Rps).SelectMany(r => r.Partenaires).Distinct(new PartenaireEqualityComparer()));
+                        res.Relations = new ObservableCollection<Partenaire>(periodes.SelectMany(p => p.Rps).SelectMany(r => r.Partenaires).Distinct(new PartenaireEqualityComparer()));
                         UpdateDatas(nomProfile, res);
                     }
                 }

@@ -92,6 +92,18 @@ namespace Irydae.ViewModels
             }
         }
 
+        private Partenaire selectedRelation;
+
+        public Partenaire SelectedRelation
+        {
+            get { return selectedRelation; }
+            set
+            {
+                selectedRelation = value;
+                OnPropertyChanged("SelectedRelation");
+            }
+        }
+
         public bool AddPeriode(Periode periode, bool update = true)
         {
             VerifierPositionPeriode(periode, update);

@@ -174,12 +174,16 @@ namespace Irydae.ViewModels
             {
                 case CurrentProfilePropertyName:
                     PersonnageInfo.Personnage.Periodes.Clear();
+                    PersonnageInfo.Personnage.Relations.Clear();
                     if (CurrentProfile != null)
                     {
                         OptionsViewModel.Load(CurrentProfile.Header);
                         Personnage personnage = journalService.ParseDatas(CurrentProfile.Header);
                         if (personnage != null && personnage.Periodes != null)
                         {
+                            foreach (var relation in personnage.Relations) {
+                                PersonnageInfo.Personnage.Relations.Add(relation);
+                            }
                             bool update = false;
                             foreach (var periode in personnage.Periodes)
                             {

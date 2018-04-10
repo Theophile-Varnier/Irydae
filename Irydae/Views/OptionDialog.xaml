@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:ressources="clr-namespace:Irydae.Ressources"
+        xmlns:model="clr-namespace:Irydae.Model"
         Title="Options" 
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterOwner"
@@ -75,7 +76,16 @@
                     </Grid>
                 </TabItem>
                 <TabItem Header="Relations">
-                    <ItemsControl ItemsSource="{Binding Options.TypesRelation}" DisplayMemberPath="Nom"/>
+                    <ItemsControl ItemsSource="{Binding Options.TypesRelation}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="model:TypeRelation">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBox Text="{Binding Nom}"/>
+                                    <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding LinkColor}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        </ItemsControl>
                 </TabItem>
             </TabControl>
             <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">

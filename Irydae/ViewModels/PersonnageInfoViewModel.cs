@@ -111,6 +111,21 @@ namespace Irydae.ViewModels
             return true;
         }
 
+        public void AddPartenaire(string nom, Groupe? groupe)
+        {
+            Partenaire partenaire = new Partenaire
+            {
+                Nom = nom,
+                Groupe = groupe
+            };
+            SelectedRp.Partenaires.Add(partenaire);
+            if (Personnage.Relations.All(r => r.Nom != nom))
+            {
+                Personnage.Relations.Add(partenaire);
+            }
+            SelectedPartenaire = partenaire;
+        }
+
         public static bool VerifierPositionPeriode(Periode periode, bool update = false)
         {
             KeyValuePair<string, Position> tryPosition = Positions.FirstOrDefault(kvp => kvp.Key == periode.Lieu);

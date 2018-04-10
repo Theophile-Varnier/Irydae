@@ -37,7 +37,7 @@
             </MenuItem>
         </Menu>
         <Grid Margin="10">
-            <TabControl>
+            <TabControl SelectionChanged="ChangedTab">
                 <TabItem Header="Rps">
                     <views:PeriodesUserControl />
                 </TabItem>

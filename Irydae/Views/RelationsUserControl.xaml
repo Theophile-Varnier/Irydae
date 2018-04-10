@@ -27,8 +27,33 @@
                         <ListBox Style="{StaticResource BaseListBox}" ItemsSource="{Binding PersonnageInfo.Personnage.Relations}" SelectedItem="{Binding PersonnageInfo.SelectedRelation}" DisplayMemberPath="Nom"/>
                         <Grid Visibility="{Binding PersonnageInfo.SelectedRelation, Converter={ressources:NullToVisibilityConverter}}">
                             <GroupBox Margin="5" Padding="5">
-                                <GroupBox.Header>Description</GroupBox.Header>
-                                <TextBox Height="310" Text="{Binding PersonnageInfo.SelectedRelation.Description}"/>
+                                <GroupBox.Header>Relation</GroupBox.Header>
+                                <Grid>
+                                    <Grid.Resources>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Margin" Value="5"/>
+                                            <Setter Property="Padding" Value="5"/>
+                                        </Style>
+                                    </Grid.Resources>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Orientation="Vertical">
+                                        <Label HorizontalContentAlignment="Right" Content="Nom * : "/>
+                                        <Label HorizontalContentAlignment="Right" Content="Type de relation : "/>
+                                        <Label HorizontalContentAlignment="Right" Content="Commentaires : "/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
+                                        <TextBox Text="{Binding PersonnageInfo.SelectedRelation.Nom}"/>
+                                        <ComboBox ItemsSource="{Binding OptionsViewModel.Options.TypesRelation}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedRelation.Type}"/>
+                                        <TextBox VerticalContentAlignment="Top" TextWrapping="Wrap" Height="150" Text="{Binding PersonnageInfo.SelectedRelation.Description}"/>
+                                    </StackPanel>
+                                </Grid>
                             </GroupBox>
                         </Grid>
                     </StackPanel>

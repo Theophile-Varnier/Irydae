@@ -50,6 +50,18 @@ namespace Irydae.ViewModels
             }
         }
 
+        private DisplayMode displayMode;
+
+        public DisplayMode DisplayMode
+        {
+            get { return displayMode; }
+            set
+            {
+                displayMode = value;
+                OnPropertyChanged("DisplayMode");
+            }
+        }
+
         private readonly JournalService journalService;
 
         private const string CurrentProfilePropertyName = "CurrentProfile";
@@ -181,7 +193,9 @@ namespace Irydae.ViewModels
                         Personnage personnage = journalService.ParseDatas(CurrentProfile.Header);
                         if (personnage != null && personnage.Periodes != null)
                         {
-                            foreach (var relation in personnage.Relations) {
+                            foreach (var relation in personnage.Relations)
+                            {
+                                relation.Type = relation.Type == null ? null : OptionsViewModel.Options.TypesRelation.FirstOrDefault(tr => tr.Nom == relation.Type.Nom);
                                 PersonnageInfo.Personnage.Relations.Add(relation);
                             }
                             bool update = false;

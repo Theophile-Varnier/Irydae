@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows.Media;
@@ -23,6 +24,45 @@ namespace Irydae.Services
             get { return instance ?? (instance = new OptionsService()); }
         }
 
+        private void GestionRetro(Options options)
+        {
+            if (options.CircleWidth == 0)
+            {
+                options.CircleWidth = 10;
+            }
+            if (!options.TypesRelation.Any())
+            {
+                options.TypesRelation = new ObservableCollection<TypeRelation>(GetDefaultTypesRelation());
+            }
+        }
+
+        public IEnumerable<TypeRelation> GetDefaultTypesRelation()
+        {
+            return new List<TypeRelation>
+            {
+                new TypeRelation
+                {
+                    LinkColor = Color.FromRgb(255, 255, 255),
+                    Nom = "Connaissance"
+                },
+                new TypeRelation
+                {
+                    LinkColor = Color.FromRgb(255, 150, 150),
+                    Nom = "Famille"
+                },
+                new TypeRelation
+                {
+                    LinkColor = Color.FromRgb(175, 0, 0),
+                    Nom = "Ennemi"
+                },
+                new TypeRelation
+                {
+                    LinkColor = Color.FromRgb(0, 125, 0),
+                    Nom = "Ami"
+                },
+            };
+        } 
+
         public Options GetOptions(string profil)
         {
             var filePath = Path.Combine(JournalService.DataPath, "options", profil + ".json");
@@ -41,29 +81,19 @@ namespace Irydae.Services
                     {
                         var optionsString = sr.ReadToEnd();
                         options = JsonConvert.DeserializeObject<Options>(optionsString);
-                        // Pas beau
-                        if (options.CircleWidth == 0)
-                        {
-                            options.CircleWidth = 10;
-                        }
+                        GestionRetro(options);
+
                     }
                 }
                 SaveOptions(options, profil);
                 return options;
             }
-            else
+            using (StreamReader sr = new StreamReader(filePath))
             {
-                using (StreamReader sr = new StreamReader(filePath))
-                {
-                    var options = sr.ReadToEnd();
-                    var res = JsonConvert.DeserializeObject<Options>(options);
-                    // Pas beau
-                    if (res.CircleWidth == 0)
-                    {
-                        res.CircleWidth = 10;
-                    }
-                    return res;
-                }
+                var options = sr.ReadToEnd();
+                var res = JsonConvert.DeserializeObject<Options>(options);
+                GestionRetro(res);
+                return res;
             }
         }
 
@@ -76,6 +106,12 @@ namespace Irydae.Services
             options.CircleWidth = 10;
             options.BorderRadius = 0;
             options.BorderRotation = 0;
+            options.TypesRelation.Clear();
+            var typesRelation = GetDefaultTypesRelation();
+            foreach (TypeRelation typeRelation in typesRelation)
+            {
+                options.TypesRelation.Add(typeRelation);
+            }
         }
 
         public void SaveOptions(Options options, string profil)

@@ -58,5 +58,22 @@ namespace Irydae.Model
                 OnPropertyChanged("Description");
             }
         }
+
+        [JsonProperty]
+        private TypeRelation type;
+
+        [JsonIgnore]
+        public TypeRelation Type
+        {
+            get
+            {
+                return type;
+            }
+            set
+            {
+                type = value;
+                OnPropertyChanged("Type");
+            }
+        }
     }
 }

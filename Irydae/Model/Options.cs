@@ -1,4 +1,5 @@
-﻿using Irydae.ViewModels;
+﻿using System.Collections.ObjectModel;
+using Irydae.ViewModels;
 using System.Windows.Media;
 
 namespace Irydae.Model
@@ -9,6 +10,11 @@ namespace Irydae.Model
         public static int OldMapHeight = 2269;
         public static int NewMapWidthHeight = 650;
         public static int Crop = 115;
+
+        public Options()
+        {
+            TypesRelation = new ObservableCollection<TypeRelation>();
+        }
 
         private bool displayByYear;
         
@@ -126,5 +132,7 @@ namespace Irydae.Model
                 OnPropertyChanged("HideUpdate");
             }
         }
+
+        public ObservableCollection<TypeRelation> TypesRelation { get; set; } 
     }
 }

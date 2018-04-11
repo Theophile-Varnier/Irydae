@@ -75,5 +75,33 @@ namespace Irydae.Model
                 OnPropertyChanged("Type");
             }
         }
+
+        [JsonProperty]
+        private int niveauRelation;
+
+        [JsonIgnore]
+        public int NiveauRelation
+        {
+            get { return niveauRelation; }
+            set
+            {
+                niveauRelation = value;
+                OnPropertyChanged("NiveauRelation");
+            }
+        }
+
+        [JsonProperty]
+        private string avatarLink;
+
+        [JsonIgnore]
+        public string AvatarLink
+        {
+            get { return avatarLink; }
+            set
+            {
+                avatarLink = value;
+                OnPropertyChanged("AvatarLink");
+            }
+        }
     }
 }

@@ -201,7 +201,7 @@ namespace Irydae.ViewModels
                             bool update = false;
                             foreach (var periode in personnage.Periodes)
                             {
-                                if (!update &&!OptionsViewModel.Options.HideUpdate && !PersonnageInfoViewModel.VerifierPositionPeriode(periode))
+                                if (!update && !OptionsViewModel.Options.HideUpdate && !PersonnageInfoViewModel.VerifierPositionPeriode(periode))
                                 {
                                     update = YesNoCancelDialogViewModel.ShowDialog("Des différences de position ont été trouvées entre ce profil et notre super base de données de ouf.\nVeux-tu mettre à jour tes données en conséquences ?", "Mise à jour, bonjour !", "Oui", "Non", null) == MessageBoxResult.Yes;
                                     if (!update)
@@ -270,8 +270,17 @@ namespace Irydae.ViewModels
         public string GenerateHtml()
         {
             SaveDatas();
-            var htmlWriter = new HtmlWriterService();
-            return htmlWriter.GenerateHtml(PersonnageInfo.Personnage.Periodes, OptionsViewModel.Options);
+            switch (DisplayMode)
+            {
+                case DisplayMode.Relations:
+                    var relWritter = new TreeWriter();
+                    return relWritter.GenerateHtml(PersonnageInfo.Personnage.Relations, OptionsViewModel.Options);
+                case DisplayMode.Rps:
+                    var htmlWriter = new HtmlWriterService();
+                    return htmlWriter.GenerateHtml(PersonnageInfo.Personnage.Periodes, OptionsViewModel.Options);
+                default:
+                    return string.Empty;
+            }
         }
 
         private void GenerateAndOpen()

@@ -105,6 +105,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\BindingProxy.cs" />
+    <Compile Include="Helpers\CollectionExtension.cs" />
+    <Compile Include="Helpers\DictionaryExtension.cs" />
     <Compile Include="Helpers\EnumExtension.cs" />
     <Compile Include="Helpers\IconHelper.cs" />
     <Compile Include="Helpers\MyAutoCompleteBox.cs" />
@@ -133,12 +135,15 @@
     <Compile Include="Services\JournalService.cs" />
     <Compile Include="Services\ModificationStatusService.cs" />
     <Compile Include="Services\OptionsService.cs" />
+    <Compile Include="Services\TreeWriter.cs" />
     <Compile Include="ViewModels\AbstractPropertyChanged.cs" />
     <Compile Include="ViewModels\CatchedPropertyChanged.cs" />
+    <Compile Include="ViewModels\FamilyTreeViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\OptionsViewModel.cs" />
     <Compile Include="ViewModels\PersonnageInfoViewModel.cs" />
     <Compile Include="ViewModels\ProfilViewModel.cs" />
+    <Compile Include="ViewModels\TreeLevelViewModel.cs" />
     <Compile Include="ViewModels\YesNoCancelDialogViewModel.cs" />
     <Compile Include="Views\AddPartenaireDialog.xaml.cs">
       <DependentUpon>AddPartenaireDialog.xaml</DependentUpon>
@@ -310,6 +315,9 @@
     <Resource Include="points-cardinaux.ico" />
     <Resource Include="Images\clef.ico" />
     <Resource Include="clef.ico" />
+    <Content Include="Web\tree.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

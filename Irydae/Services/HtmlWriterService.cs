@@ -208,7 +208,7 @@ namespace Irydae.Services
             return periodePeriode;
         }
 
-        private HtmlNode CreateDiv(HtmlDocument doc, string className, string style)
+        public static HtmlNode CreateDiv(HtmlDocument doc, string className, string style = null)
         {
             var res = doc.CreateElement("div");
             if (!string.IsNullOrWhiteSpace(className))

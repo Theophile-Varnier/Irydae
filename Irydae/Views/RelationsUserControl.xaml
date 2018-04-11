@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ressources="clr-namespace:Irydae.Ressources"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -45,12 +46,16 @@
                                     </Grid.ColumnDefinitions>
                                     <StackPanel Orientation="Vertical">
                                         <Label HorizontalContentAlignment="Right" Content="Nom * : "/>
-                                        <Label HorizontalContentAlignment="Right" Content="Type de relation : "/>
+                                        <Label HorizontalContentAlignment="Right" Content="Lien de l'avatar : "/>
+                                        <Label HorizontalContentAlignment="Right" Content="Type de relation * : "/>
+                                        <Label HorizontalContentAlignment="Right" Content="Niveau dans l'arbre * : "/>
                                         <Label HorizontalContentAlignment="Right" Content="Commentaires : "/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                                         <TextBox Text="{Binding PersonnageInfo.SelectedRelation.Nom}"/>
+                                        <TextBox Text="{Binding PersonnageInfo.SelectedRelation.AvatarLink}"/>
                                         <ComboBox ItemsSource="{Binding OptionsViewModel.Options.TypesRelation}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedRelation.Type}"/>
+                                        <xctk:IntegerUpDown Value="{Binding PersonnageInfo.SelectedRelation.NiveauRelation}" />
                                         <TextBox VerticalContentAlignment="Top" TextWrapping="Wrap" Height="150" Text="{Binding PersonnageInfo.SelectedRelation.Description}"/>
                                     </StackPanel>
                                 </Grid>

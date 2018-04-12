@@ -133,6 +133,30 @@ namespace Irydae.Model
             }
         }
 
-        public ObservableCollection<TypeRelation> TypesRelation { get; set; } 
+        public ObservableCollection<TypeRelation> TypesRelation { get; set; }
+
+        private string avatarUrl;
+
+        public string AvatarUrl
+        {
+            get { return avatarUrl; }
+            set
+            {
+                avatarUrl = value;
+                OnPropertyChanged("AvatarUrl");
+            }
+        }
+
+        private string characterName;
+
+        public string CharacterName
+        {
+            get { return characterName; }
+            set
+            {
+                characterName = value;
+                OnPropertyChanged("CharacterName");
+            }
+        }
     }
 }

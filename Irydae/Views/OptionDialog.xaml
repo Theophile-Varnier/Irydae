@@ -16,6 +16,27 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <TabControl>
+                <TabItem Header="General">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <Label HorizontalContentAlignment="Right" Content="Lien vers l'avatar :"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="1" VerticalAlignment="Center">
+                            <TextBox Text="{Binding Options.AvatarUrl}"/>
+                        </StackPanel>
+                        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Padding="5" HorizontalAlignment="Stretch">
+                            <Image Width="100" HorizontalAlignment="Center" Height="200" Margin="0" Source="{Binding Options.AvatarUrl}" />
+                        </Border>
+                    </Grid>
+                </TabItem>
                 <TabItem Header="Journal">
                     <Grid>
                         <Grid.RowDefinitions>
@@ -72,7 +93,7 @@
                                 </Border.Style>
                             </Border>
                         </Border>
-                        
+
                     </Grid>
                 </TabItem>
                 <TabItem Header="Relations">
@@ -85,7 +106,7 @@
                                 </StackPanel>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
-                        </ItemsControl>
+                    </ItemsControl>
                 </TabItem>
             </TabControl>
             <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">

@@ -82,9 +82,9 @@ namespace Irydae.Services
                         var optionsString = sr.ReadToEnd();
                         options = JsonConvert.DeserializeObject<Options>(optionsString);
                         GestionRetro(options);
-
                     }
                 }
+                options.CharacterName = profil;
                 SaveOptions(options, profil);
                 return options;
             }
@@ -93,6 +93,7 @@ namespace Irydae.Services
                 var options = sr.ReadToEnd();
                 var res = JsonConvert.DeserializeObject<Options>(options);
                 GestionRetro(res);
+                res.CharacterName = profil;
                 return res;
             }
         }

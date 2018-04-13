@@ -135,7 +135,7 @@ namespace Irydae.Views
             }
             if (e.Key == Key.Delete)
             {
-                ViewModel.PersonnageInfo.TryDelete();
+                ViewModel.PersonnageInfo.TryDelete(ViewModel.DisplayMode);
             }
             if (e.Key == Key.Escape)
             {

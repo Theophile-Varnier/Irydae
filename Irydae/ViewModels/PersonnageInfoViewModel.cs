@@ -45,26 +45,37 @@ namespace Irydae.ViewModels
             }
         }
 
-        public void TryDelete()
+        public void TryDelete(DisplayMode mode)
         {
-            if (SelectedPeriode != null)
+            if (SelectedPeriode != null || SelectedRelation != null)
             {
                 ModificationStatusService.Instance.Dirty = true;
             }
-            if (SelectedPartenaire != null)
+            switch (mode)
             {
-                SelectedRp.Partenaires.Remove(SelectedPartenaire);
-                SelectedPartenaire = null;
-            }
-            else if (SelectedRp != null)
-            {
-                SelectedPeriode.Rps.Remove(SelectedRp);
-                SelectedRp = null;
-            }
-            else if (SelectedPeriode != null)
-            {
-                Personnage.Periodes.Remove(SelectedPeriode);
-                SelectedPeriode = null;
+                case DisplayMode.Rps:
+                    if (SelectedPartenaire != null)
+                    {
+                        SelectedRp.Partenaires.Remove(SelectedPartenaire);
+                        SelectedPartenaire = null;
+                    }
+                    else if (SelectedRp != null)
+                    {
+                        SelectedPeriode.Rps.Remove(SelectedRp);
+                        SelectedRp = null;
+                    }
+                    else if (SelectedPeriode != null)
+                    {
+                        Personnage.Periodes.Remove(SelectedPeriode);
+                        SelectedPeriode = null;
+                    }
+                    break;
+                case DisplayMode.Relations:
+                    if (SelectedRelation != null)
+                    {
+                        Personnage.Relations.Remove(SelectedRelation);
+                    }
+                    break;
             }
         }
 

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:ressources="clr-namespace:Irydae.Ressources"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:model="clr-namespace:Irydae.Model"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
@@ -48,14 +49,12 @@
                                         <Label HorizontalContentAlignment="Right" Content="Nom * : "/>
                                         <Label HorizontalContentAlignment="Right" Content="Lien de l'avatar : "/>
                                         <Label HorizontalContentAlignment="Right" Content="Type de relation * : "/>
-                                        <Label HorizontalContentAlignment="Right" Content="Niveau dans l'arbre * : "/>
                                         <Label HorizontalContentAlignment="Right" Content="Commentaires : "/>
                                     </StackPanel>
                                     <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
                                         <TextBox Text="{Binding PersonnageInfo.SelectedRelation.Nom}"/>
                                         <TextBox Text="{Binding PersonnageInfo.SelectedRelation.AvatarLink}"/>
                                         <ComboBox ItemsSource="{Binding OptionsViewModel.Options.TypesRelation}" DisplayMemberPath="Nom" SelectedItem="{Binding PersonnageInfo.SelectedRelation.Type}"/>
-                                        <xctk:IntegerUpDown Value="{Binding PersonnageInfo.SelectedRelation.NiveauRelation}" />
                                         <TextBox VerticalContentAlignment="Top" TextWrapping="Wrap" Height="150" Text="{Binding PersonnageInfo.SelectedRelation.Description}"/>
                                     </StackPanel>
                                 </Grid>
@@ -91,6 +90,29 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
+                <Canvas Grid.Column="1" Grid.Row="1" ClipToBounds="True" Width="650" Height="650" Name="GlobalCanvas" >
+                    <Image Canvas.Top="265" Canvas.Left="295" Width="60" Height="120" Source="{Binding OptionsViewModel.Options.AvatarUrl}"/>
+                    <ItemsControl ItemsSource="{Binding PersonnageInfo.Personnage.Relations}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas ClipToBounds="True" Width="650" Height="650" Name="CanvasRelations" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="model:Partenaire">
+                                <Image MouseLeftButtonDown="Canvas_OnMouseLeftButtonDown" 
+                                 MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp" 
+                                 MouseMove="UIElement_OnMouseMove" Width="60" Height="120" Source="{Binding AvatarLink}" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style>
+                                <Setter Property="Canvas.Left" Value="{Binding Position.X}" />
+                                <Setter Property="Canvas.Top" Value="{Binding Position.Y}" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                    </ItemsControl>
+                </Canvas>
             </Grid>
         </ScrollViewer>
     </Grid>

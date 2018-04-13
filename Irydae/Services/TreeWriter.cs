@@ -1,30 +1,42 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Web.UI.WebControls.WebParts;
 using HtmlAgilityPack;
-using Irydae.Helpers;
 using Irydae.Model;
-using Irydae.ViewModels;
 
 namespace Irydae.Services
 {
     public class TreeWriter
     {
+        private const int PersoX = 295;
+        private const int PersoY = 265;
+        private const int FrameWidth = 150;
+        private const int FrameHeight = 150;
+
         public string GenerateHtml(ICollection<Partenaire> partenaires, Options options)
         {
             HtmlDocument doc = new HtmlDocument();
             doc.Load(Path.Combine("Web", "tree.html"));
             HtmlNode graphContainer = doc.GetElementbyId("graph");
-            //HtmlNode svg = doc.CreateElement("svg");
-            //svg.SetAttributeValue("width", "650");
-            //svg.SetAttributeValue("height", "650");
-            //graphContainer.AppendChild(svg);
-            var familyTree = GenerateTree(partenaires, options);
-            foreach (var row in familyTree.Niveaux.OrderByDescending(n => n.Level))
+            HtmlNode svg = doc.CreateElement("svg");
+            svg.SetAttributeValue("width", "650");
+            svg.SetAttributeValue("height", "650");
+            graphContainer.AppendChild(svg);
+            foreach (var partenaire in partenaires)
             {
-                graphContainer.AppendChild(GenerateLine(doc, row));
+                graphContainer.AppendChild(GenerateRelationNode(doc, partenaire));
+                svg.AppendChild(GenerateLine(doc, partenaire, options));
             }
+            graphContainer.AppendChild(GenerateRelationNode(doc, new Partenaire
+            {
+                AvatarLink = options.AvatarUrl,
+                Position = new Position
+                {
+                    X = PersoX,
+                    Y = PersoY
+                }
+            }));
             graphContainer.AppendChild(CreateLegende(doc, options));
             doc.Save(Path.Combine(JournalService.DataPath, "Web", "result.html"));
             var cssLink = doc.CreateElement("link");
@@ -34,23 +46,57 @@ namespace Irydae.Services
             return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.OuterHtml);
         }
 
-        private HtmlNode GenerateLine(HtmlDocument doc, TreeLevelViewModel level)
+        private HtmlNode GenerateLine(HtmlDocument doc, Partenaire partenaire, Options options)
         {
-            var line = HtmlWriterService.CreateDiv(doc, "row");
-            foreach (var relation in level.Membres)
+            var res = doc.CreateElement("line");
+            byte r, g, b;
+            if (partenaire.Type != null)
             {
-                line.AppendChild(GenerateRelationNode(doc, relation));
+                var type = options.TypesRelation.FirstOrDefault(tr => tr.Nom == partenaire.Type.Nom);
+                if (type != null && type.LinkColor.HasValue)
+                {
+                    r = type.LinkColor.Value.R;
+                    g = type.LinkColor.Value.G;
+                    b = type.LinkColor.Value.B;
+                }
+                else
+                {
+                    r = 0;
+                    g = 0;
+                    b = 0;
+                }
+                res.SetAttributeValue("style", string.Format("stroke:rgb({0}, {1}, {2}); stroke-width:2", r, g, b));
             }
-            return line;
+
+            int startX = partenaire.Position.X + FrameWidth/2;
+            int startY = partenaire.Position.Y + 20;
+            int endX = PersoX + FrameWidth/2;
+            int endY = PersoY + 20;
+
+            if (partenaire.Position.Y > PersoY + FrameHeight)
+            {
+                endY = PersoY + FrameHeight;
+            }
+            if (partenaire.Position.Y < PersoY - FrameHeight)
+            {
+                startY = partenaire.Position.Y + FrameHeight;
+            }
+
+            res.SetAttributeValue("x1", startX.ToString());
+            res.SetAttributeValue("y1", startY.ToString());
+            res.SetAttributeValue("x2", endX.ToString());
+            res.SetAttributeValue("y2", endY.ToString());
+            return res;
         }
 
         private HtmlNode GenerateRelationNode(HtmlDocument doc, Partenaire partenaire)
         {
-            var res = HtmlWriterService.CreateDiv(doc, "rel");
+            var res = HtmlWriterService.CreateDiv(doc, "rel", string.Format("top:{0}px;left:{1}px", partenaire.Position.Y, partenaire.Position.X));
             //var portrait = HtmlWriterService.CreateDiv(doc, "r-p");
+            var frame = HtmlWriterService.CreateDiv(doc, "r-f");
             var portrait = doc.CreateElement("label");
             portrait.AddClass("r-p");
-            portrait.SetAttributeValue("for", partenaire.Nom);
+            portrait.SetAttributeValue("for", partenaire.Nom ?? string.Empty);
 
             var portraitImage = doc.CreateElement("img");
             portraitImage.SetAttributeValue("src", partenaire.AvatarLink);
@@ -58,40 +104,31 @@ namespace Irydae.Services
 
             var userName = doc.CreateElement("div");
             userName.AddClass("r-n");
-            userName.AppendChild(doc.CreateTextNode(partenaire.Nom));
-            portrait.AppendChild(userName);
+            userName.AppendChild(doc.CreateTextNode(partenaire.Nom ?? string.Empty));
 
             var checkBox = doc.CreateElement("input");
             checkBox.SetAttributeValue("type", "checkbox");
-            checkBox.SetAttributeValue("id", partenaire.Nom);
+            checkBox.SetAttributeValue("id", partenaire.Nom ?? string.Empty);
 
-            res.AppendChild(portrait);
-            res.AppendChild(checkBox);
+            frame.AppendChild(portrait);
+
+            if (partenaire.Position.Y > PersoY)
+            {
+                res.AppendChild(frame); 
+                res.AppendChild(userName);
+            }
+            else
+            {
+                res.AppendChild(userName);
+                res.AppendChild(frame);
+            }
+            frame.AppendChild(checkBox);
             if (!string.IsNullOrWhiteSpace(partenaire.Description))
             {
                 var userDesc = HtmlWriterService.CreateDiv(doc, "r-d");
                 userDesc.AppendChild(doc.CreateTextNode(partenaire.Description));
-                res.AppendChild(userDesc);
+                frame.AppendChild(userDesc);
             }
-            return res;
-        }
-
-        public FamilyTreeViewModel GenerateTree(ICollection<Partenaire> partenaires, Options options)
-        {
-            FamilyTreeViewModel res = new FamilyTreeViewModel();
-
-            res.Niveaux = new ObservableCollection<TreeLevelViewModel>(partenaires.GroupBy(p => p.NiveauRelation).Select(g => new TreeLevelViewModel
-            {
-                Level = g.Key,
-                Membres = new ObservableCollection<Partenaire>(g)
-            }));
-            res.ColumnCount = res.Niveaux.Max(n => n.Membres.Count);
-            TreeLevelViewModel groundZero = res.Niveaux.GetOrAddNew(n => n.Level == 0, () => new TreeLevelViewModel());
-            groundZero.Membres.Insert(groundZero.Membres.Count / 2, new Partenaire
-            {
-                Nom = options.CharacterName,
-                AvatarLink = options.AvatarUrl
-            });
             return res;
         }
 

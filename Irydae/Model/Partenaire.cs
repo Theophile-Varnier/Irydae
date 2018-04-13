@@ -8,6 +8,10 @@ namespace Irydae.Model
     [JsonObject]
     public class Partenaire : CatchedPropertyChanged
     {
+        public Partenaire()
+        {
+            Position = new Position();
+        }
         [JsonProperty] 
         private string nom;
 
@@ -77,20 +81,6 @@ namespace Irydae.Model
         }
 
         [JsonProperty]
-        private int niveauRelation;
-
-        [JsonIgnore]
-        public int NiveauRelation
-        {
-            get { return niveauRelation; }
-            set
-            {
-                niveauRelation = value;
-                OnPropertyChanged("NiveauRelation");
-            }
-        }
-
-        [JsonProperty]
         private string avatarLink;
 
         [JsonIgnore]
@@ -101,6 +91,23 @@ namespace Irydae.Model
             {
                 avatarLink = value;
                 OnPropertyChanged("AvatarLink");
+            }
+        }
+
+        [JsonProperty] 
+        private Position position;
+
+        [JsonIgnore]
+        public Position Position
+        {
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+                OnPropertyChanged("Position");
             }
         }
     }

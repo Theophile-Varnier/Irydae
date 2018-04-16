@@ -93,20 +93,44 @@
                                 </Border.Style>
                             </Border>
                         </Border>
-
                     </Grid>
                 </TabItem>
                 <TabItem Header="Relations">
-                    <ItemsControl ItemsSource="{Binding Options.TypesRelation}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate DataType="model:TypeRelation">
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBox Text="{Binding Nom}"/>
-                                    <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding LinkColor}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <ItemsControl x:Name="ListTypesRelation"  ItemsSource="{Binding Options.TypesRelation}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate DataType="model:TypeRelation">
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBox Text="{Binding Nom}"/>
+                                        <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="{Binding LinkColor}" />
+                                        <Button Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=Window}, Path=DataContext.DeleteTypeRelationCommand}" CommandParameter="{Binding}">X</Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Border Grid.Row="1" BorderThickness="0 1 0 0" BorderBrush="Black">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBox Name="NewTypeRelationName"/>
+                                <xctk:ColorPicker ColorMode="ColorCanvas" SelectedColor="White" Name="NewTypeRelationColor" />
+                                <Button Click="AddTypeRelation">
+                                    <Button.Style>
+                                        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding ElementName=NewTypeRelationName, Path=Text}" Value="">
+                                                    <Setter Property="Button.IsEnabled" Value="false" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    +
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </TabItem>
             </TabControl>
             <StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">

@@ -17,5 +17,14 @@ namespace Irydae.Views
         {
             DialogResult = true;
         }
+
+        private void AddTypeRelation(object sender, RoutedEventArgs e)
+        {
+            OptionsViewModel vm = DataContext as OptionsViewModel;
+            if (vm != null)
+            {
+                vm.AddTypeRelation(NewTypeRelationName.Text, NewTypeRelationColor.SelectedColor);
+            }
+        }
     }
 }

@@ -4,6 +4,7 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:model="clr-namespace:Irydae.Model"
         xmlns:ressources="clr-namespace:Irydae.Ressources"
+        xmlns:controls="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
         Title="Ajouter un partenaire"
         Height="190"
         MinHeight="10"
@@ -37,7 +38,7 @@
                 <Label HorizontalContentAlignment="Right" Content="Groupe * : "/>
             </StackPanel>
             <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="0">
-                <TextBox Name="NameInput"/>
+                <controls:AutoCompleteBox Name="NameInput" ItemsSource="{Binding Personnage.Relations}" ValueMemberPath="Nom"/>
                 <ComboBox ItemsSource="{Binding Source={StaticResource MyEnumValues}}" Name="GroupeComboBox">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>

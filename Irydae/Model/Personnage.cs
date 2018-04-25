@@ -16,6 +16,6 @@ namespace Irydae.Model
         public ObservableCollection<Periode> Periodes { get; set; }
 
         [JsonProperty]
-        public ObservableCollection<Partenaire> Relations { get; set; } 
+        public ObservableCollection<Partenaire> Relations { get; set; }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Web.UI.WebControls.WebParts;
 using HtmlAgilityPack;
 using Irydae.Model;
 
@@ -11,8 +10,8 @@ namespace Irydae.Services
     {
         private const int PersoX = 295;
         private const int PersoY = 265;
-        private const int FrameWidth = 150;
-        private const int FrameHeight = 150;
+        private const int FrameWidth = 110;
+        private const int FrameHeight = 110;
 
         public string GenerateHtml(ICollection<Partenaire> partenaires, Options options)
         {
@@ -94,6 +93,14 @@ namespace Irydae.Services
             var res = HtmlWriterService.CreateDiv(doc, "rel", string.Format("top:{0}px;left:{1}px", partenaire.Position.Y, partenaire.Position.X));
             //var portrait = HtmlWriterService.CreateDiv(doc, "r-p");
             var frame = HtmlWriterService.CreateDiv(doc, "r-f");
+            var checkBox = doc.CreateElement("input");
+            checkBox.SetAttributeValue("type", "checkbox");
+            checkBox.SetAttributeValue("id", partenaire.Nom ?? string.Empty);
+            frame.AppendChild(checkBox);
+            if (partenaire.RpsCommuns.Any())
+            {
+                frame.AppendChild(GenerateListeRpCommuns(doc, partenaire));
+            }
             var portrait = doc.CreateElement("label");
             portrait.AddClass("r-p");
             portrait.SetAttributeValue("for", partenaire.Nom ?? string.Empty);
@@ -105,10 +112,6 @@ namespace Irydae.Services
             var userName = doc.CreateElement("div");
             userName.AddClass("r-n");
             userName.AppendChild(doc.CreateTextNode(partenaire.Nom ?? string.Empty));
-
-            var checkBox = doc.CreateElement("input");
-            checkBox.SetAttributeValue("type", "checkbox");
-            checkBox.SetAttributeValue("id", partenaire.Nom ?? string.Empty);
 
             frame.AppendChild(portrait);
 
@@ -122,13 +125,26 @@ namespace Irydae.Services
                 res.AppendChild(userName);
                 res.AppendChild(frame);
             }
-            frame.AppendChild(checkBox);
             if (!string.IsNullOrWhiteSpace(partenaire.Description))
             {
                 var userDesc = HtmlWriterService.CreateDiv(doc, "r-d");
                 userDesc.AppendChild(doc.CreateTextNode(partenaire.Description));
                 frame.AppendChild(userDesc);
             }
+            return res;
+        }
+
+        private HtmlNode GenerateListeRpCommuns(HtmlDocument doc, Partenaire partenaire)
+        {
+            var res = HtmlWriterService.CreateDiv(doc, "r-d r-r");
+            foreach (var rp in partenaire.RpsCommuns)
+            {
+                var link = doc.CreateElement("a");
+                link.SetAttributeValue("href", rp.Url);
+                link.AppendChild(doc.CreateTextNode(rp.Titre));
+                res.AppendChild(link);
+            }
+
             return res;
         }
 

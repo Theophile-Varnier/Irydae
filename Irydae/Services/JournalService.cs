@@ -75,7 +75,6 @@ namespace Irydae.Services
                 try
                 {
                     res = JsonConvert.DeserializeObject<Personnage>(profile);
-                    return res;
                 }
                 catch
                 {
@@ -83,16 +82,22 @@ namespace Irydae.Services
                     if (periodes != null)
                     {
                         res.Periodes = new ObservableCollection<Periode>(periodes);
-                        res.Relations = new ObservableCollection<Partenaire>(periodes.SelectMany(p => p.Rps).SelectMany(r => r.Partenaires).Distinct(new PartenaireEqualityComparer()));
-                        UpdateDatas(nomProfile, res);
+
                     }
                 }
             }
-            else
+            foreach (var periode in res.Periodes)
             {
-                using (File.Create(filePath))
-                { }
+                foreach (var rp in periode.Rps)
+                {
+                    foreach (var partenaire in rp.Partenaires)
+                    {
+                        var relation = res.Relations.GetOrAddNew(p => p.Nom == partenaire.Nom, () => partenaire);
+                        relation.AjouterRpCommun(rp);
+                    }
+                }
             }
+            UpdateDatas(nomProfile, res);
             return res;
         }
 

@@ -1,4 +1,7 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Runtime.Serialization;
 using Irydae.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -11,6 +14,8 @@ namespace Irydae.Model
         public Partenaire()
         {
             Position = new Position();
+            RpsCommuns = new ObservableCollection<Rp>();
+            LiensRpsCommuns = new List<string>();
         }
         [JsonProperty] 
         private string nom;
@@ -94,7 +99,7 @@ namespace Irydae.Model
             }
         }
 
-        [JsonProperty] 
+        [JsonProperty]
         private Position position;
 
         [JsonIgnore]
@@ -110,5 +115,23 @@ namespace Irydae.Model
                 OnPropertyChanged("Position");
             }
         }
+
+        public void AjouterRpCommun(Rp rp)
+        {
+            if (RpsCommuns.All(r => r.Url != rp.Url))
+            {
+                RpsCommuns.Add(rp);
+            }
+            if (!LiensRpsCommuns.Contains(rp.Url))
+            {
+                LiensRpsCommuns.Add(rp.Url);
+            }
+        }
+
+        [JsonIgnore]
+        public ObservableCollection<Rp> RpsCommuns { get; set; }
+
+        [JsonProperty]
+        public List<string> LiensRpsCommuns { get; set; }
     }
 }

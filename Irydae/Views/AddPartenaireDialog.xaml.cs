@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Irydae.Helpers;
 using Irydae.Model;
 using Irydae.ViewModels;
 
@@ -39,6 +40,8 @@ namespace Irydae.Views
                 Groupe = groupe
             };
             ViewModel.SelectedRp.Partenaires.Add(partenaire);
+            var relation = ViewModel.Personnage.Relations.GetOrAddNew(r => r.Nom == partenaire.Nom, () => partenaire);
+            relation.AjouterRpCommun(ViewModel.SelectedRp);
             ViewModel.SelectedPartenaire = partenaire;
         }
 

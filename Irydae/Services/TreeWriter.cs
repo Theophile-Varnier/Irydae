@@ -40,7 +40,7 @@ namespace Irydae.Services
             doc.Save(Path.Combine(JournalService.DataPath, "Web", "result.html"));
             var cssLink = doc.CreateElement("link");
             cssLink.SetAttributeValue("rel", "stylesheet");
-            cssLink.SetAttributeValue("href", @"https://rawgit.com/Irydae/Web/master/tree.css");
+            cssLink.SetAttributeValue("href", @"https://cdn.jsdelivr.net/gh/Irydae/Web@master/tree.css");
             //cssLink.SetAttributeValue("href", @"style.css");
             return string.Concat(cssLink.OuterHtml, graphContainer.ParentNode.ParentNode.OuterHtml);
         }
